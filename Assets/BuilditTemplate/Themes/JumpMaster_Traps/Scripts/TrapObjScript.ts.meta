@@ -1,0 +1,38 @@
+fileFormatVersion: 2
+guid: aa7f0c6acfb0f45088a5b5f04b1544c1
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Character_Controller_1 = require(\"ZEPETO.Character.Controller\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst TrapManager_1 = require(\"./TrapManager\");\r\nclass
+    TrapObjScript extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    Awake()
+    {\r\n        TrapManager_1.default.instance; // Autogenerate if missing\r\n   
+    }\r\n    OnTriggerEnter(collider) {\r\n        // If zepetoCharacter is null
+    or the collider collided with an object other than zepetoCharacter, return.\r\n       
+    let zepetoCharacter = TrapManager_1.default.instance.zepetoCharacter;\r\n       
+    if (zepetoCharacter === null || (zepetoCharacter && collider.gameObject !== zepetoCharacter.gameObject))
+    {\r\n            return;\r\n        }\r\n        TrapManager_1.default.instance?.TeleportCharacter();\r\n   
+    }\r\n}\r\nexports.default = TrapObjScript;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVHJhcE9ialNjcmlwdC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIlRyYXBPYmpTY3JpcHQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSw2Q0FBdUM7QUFDdkMsNkVBQTZFO0FBQzdFLGlEQUFzRDtBQUN0RCwrQ0FBd0M7QUFFeEMsTUFBcUIsYUFBYyxTQUFRLHFDQUFxQjtJQUU1RCxLQUFLO1FBQ0QscUJBQVcsQ0FBQyxRQUFRLENBQUMsQ0FBRywwQkFBMEI7SUFDdEQsQ0FBQztJQUVELGNBQWMsQ0FBQyxRQUFrQjtRQUM3Qix5R0FBeUc7UUFDekcsSUFBSSxlQUFlLEdBQUcscUJBQVcsQ0FBQyxRQUFRLENBQUMsZUFBZSxDQUFDO1FBQzNELElBQUksZUFBZSxLQUFLLElBQUksSUFBSSxDQUFDLGVBQWUsSUFBSSxRQUFRLENBQUMsVUFBVSxLQUFLLGVBQWUsQ0FBQyxVQUFVLENBQUMsRUFBRTtZQUNyRyxPQUFPO1NBQ1Y7UUFDRCxxQkFBVyxDQUFDLFFBQVEsRUFBRSxpQkFBaUIsRUFBRSxDQUFDO0lBQzlDLENBQUM7Q0FFSjtBQWZELGdDQWVDIn0=","assetPath":"Assets/BuilditTemplate/Themes/JumpMaster_Traps/Scripts/TrapObjScript.ts","manifest":{"properties":[],"name":"TrapObjScript","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 5e50f177e2c1cf8d93aa0be6d7a8b231
+  onlyWriteTrigger: 0

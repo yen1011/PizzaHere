@@ -1,0 +1,146 @@
+fileFormatVersion: 2
+guid: a22c51e191ac3b442b7c4d75533156fe
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst
+    UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nconst ZEPETO_Character_Controller_1
+    = require(\\\"ZEPETO.Character.Controller\\\");\\r\\nconst StockManager_1 = require(\\\"./StockManager\\\");\\r\\nconst
+    RefillButtonUI_1 = require(\\\"./RefillButtonUI\\\");\\r\\n/**\\r\\n * \uD53C\uC790
+    \uAC00\uAC8C \uC2A4\uD06C\uB9BD\uD2B8\\r\\n * - \uD50C\uB808\uC774\uC5B4\uAC00
+    \uAC00\uAE4C\uC774 \uC624\uBA74 \uC7AC\uACE0 \uBCF4\uCDA9 \uAC00\uB2A5\\r\\n
+    * - \uAC70\uB9AC \uAE30\uBC18 \uAC10\uC9C0 (\uBB3C\uB9AC \uCDA9\uB3CC \uC720\uC9C0)\\r\\n
+    * - \uBC84\uD2BC \uD074\uB9AD\uC73C\uB85C \uC7AC\uACE0 \uBCF4\uCDA9\\r\\n */\\r\\nclass
+    PizzaShop extends ZEPETO_Script_1.ZepetoScriptBehaviour {\\r\\n    constructor()
+    {\\r\\n        super(...arguments);\\r\\n        /* ===== \uAC10\uC9C0 \uC124\uC815
+    ===== */\\r\\n        // \uC7AC\uACE0 \uBCF4\uCDA9 \uAC00\uB2A5 \uAC70\uB9AC
+    (\uBBF8\uD130)\\r\\n        this.refillRange = 3.0;\\r\\n        // \uAC10\uC9C0
+    \uBC29\uC2DD \uC120\uD0DD\\r\\n        this.useDistanceDetection = true; // true:
+    \uAC70\uB9AC \uAE30\uBC18, false: Trigger \uAE30\uBC18\\r\\n        /* =====
+    \uC7AC\uACE0 \uBCF4\uCDA9 \uC124\uC815 ===== */\\r\\n        // \uC7AC\uBCF4\uCDA9
+    \uCFE8\uB2E4\uC6B4 (\uCD08) - \uC5F0\uC18D \uBCF4\uCDA9 \uBC29\uC9C0\\r\\n       
+    this.restockCooldown = 2.0;\\r\\n        // \uC790\uB3D9 \uBCF4\uCDA9 \uC5EC\uBD80
+    (true\uBA74 \uBC94\uC704 \uB0B4 \uC9C4\uC785 \uC2DC \uC790\uB3D9 \uBCF4\uCDA9)\\r\\n       
+    this.autoRestock = false;\\r\\n        this.lastRestockTime = -999; // \uB9C8\uC9C0\uB9C9
+    \uBCF4\uCDA9 \uC2DC\uAC04\\r\\n        this.isPlayerInRange = false;\\r\\n   
+    }\\r\\n    /* ===== Unity Lifecycle ===== */\\r\\n    Start() {\\r\\n       
+    // StockManager \uCC3E\uAE30\\r\\n        this.stockManager = StockManager_1.default.instance;\\r\\n       
+    if (!this.stockManager) {\\r\\n            console.error('[PizzaShop] StockManager\uB97C
+    \uCC3E\uC744 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4!');\\r\\n            return;\\r\\n       
+    }\\r\\n        // RefillButtonUI \uC790\uB3D9 \uCC3E\uAE30 (\uC2F1\uAE00\uD1A4)\\r\\n       
+    this.refillButtonUI = RefillButtonUI_1.default.instance;\\r\\n        if (this.refillButtonUI)
+    {\\r\\n            console.log('[PizzaShop] RefillButtonUI \uC790\uB3D9 \uCC3E\uAE30
+    \uC644\uB8CC');\\r\\n        }\\r\\n        console.log('[PizzaShop] \uCD08\uAE30\uD654
+    \uC644\uB8CC');\\r\\n    }\\r\\n    Update() {\\r\\n        // \uAC70\uB9AC \uAE30\uBC18
+    \uAC10\uC9C0 \uC0AC\uC6A9 \uC2DC\\r\\n        if (this.useDistanceDetection)
+    {\\r\\n            this.CheckPlayerDistance();\\r\\n        }\\r\\n    }\\r\\n   
+    /* ===== \uAC70\uB9AC \uAE30\uBC18 \uAC10\uC9C0 ===== */\\r\\n    /**\\r\\n    
+    * \uD50C\uB808\uC774\uC5B4\uC640\uC758 \uAC70\uB9AC\uB97C \uCCB4\uD06C\uD558\uC5EC
+    \uBC94\uC704 \uB0B4 \uC9C4\uC785/\uC774\uD0C8 \uAC10\uC9C0\\r\\n     * Trigger
+    \uC5C6\uC774 \uC791\uB3D9\uD558\uBBC0\uB85C \uBB3C\uB9AC \uCDA9\uB3CC \uC720\uC9C0
+    \uAC00\uB2A5\\r\\n     */\\r\\n    CheckPlayerDistance() {\\r\\n        // LocalPlayer
+    \uCC3E\uAE30\\r\\n        if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance
+    || !ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer) {\\r\\n           
+    return;\\r\\n        }\\r\\n        const localPlayer = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character;\\r\\n       
+    if (!localPlayer)\\r\\n            return;\\r\\n        // \uAC70\uB9AC \uACC4\uC0B0\\r\\n       
+    const distance = UnityEngine_1.Vector3.Distance(this.transform.position, localPlayer.transform.position);\\r\\n       
+    const wasInRange = this.isPlayerInRange;\\r\\n        // \uBC94\uC704 \uB0B4\uC5D0
+    \uC788\uB294\uC9C0 \uCCB4\uD06C\\r\\n        this.isPlayerInRange = distance
+    <= this.refillRange;\\r\\n        // \uBC29\uAE08 \uBC94\uC704\uC5D0 \uC9C4\uC785\uD55C
+    \uACBD\uC6B0\\r\\n        if (this.isPlayerInRange && !wasInRange) {\\r\\n           
+    this.OnPlayerEnterShop();\\r\\n        }\\r\\n        // \uBC29\uAE08 \uBC94\uC704\uB97C
+    \uBC97\uC5B4\uB09C \uACBD\uC6B0\\r\\n        else if (!this.isPlayerInRange &&
+    wasInRange) {\\r\\n            this.OnPlayerExitShop();\\r\\n        }\\r\\n       
+    // \uBC94\uC704 \uB0B4\uC5D0 \uC788\uC73C\uBA74 \uBC84\uD2BC \uD45C\uC2DC\\r\\n       
+    if (this.isPlayerInRange) {\\r\\n            if (this.refillButtonUI && !this.refillButtonUI.IsVisible())
+    {\\r\\n                this.refillButtonUI.ShowRefillButton(() => this.TryRestock());\\r\\n           
+    }\\r\\n        }\\r\\n        // \uBC94\uC704 \uBC16\uC774\uBA74 \uBC84\uD2BC
+    \uC228\uAE40\\r\\n        else if (this.refillButtonUI && this.refillButtonUI.IsVisible())
+    {\\r\\n            this.refillButtonUI.HideButton();\\r\\n        }\\r\\n   
+    }\\r\\n    /* ===== Trigger \uC774\uBCA4\uD2B8 (useDistanceDetection = false
+    \uC77C \uB54C\uB9CC \uC0AC\uC6A9) ===== */\\r\\n    /**\\r\\n     * \uD50C\uB808\uC774\uC5B4\uAC00
+    \uD53C\uC790 \uAC00\uAC8C Trigger\uC5D0 \uC9C4\uC785\\r\\n     * \uC8FC\uC758:
+    useDistanceDetection\uC774 false\uC77C \uB54C\uB9CC \uC791\uB3D9\\r\\n     */\\r\\n   
+    OnTriggerEnter(coll) {\\r\\n        if (this.useDistanceDetection)\\r\\n           
+    return; // \uAC70\uB9AC \uAC10\uC9C0 \uBAA8\uB4DC\uC5D0\uC11C\uB294 \uBB34\uC2DC\\r\\n       
+    // LocalPlayer \uCCB4\uD06C\\r\\n        if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer)\\r\\n           
+    return;\\r\\n        const character = coll.GetComponent($typeof(ZEPETO_Character_Controller_1.ZepetoCharacter));\\r\\n       
+    if (!character)\\r\\n            return;\\r\\n        // LocalPlayer\uC778\uC9C0
+    \uD655\uC778\\r\\n        if (character !== ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character)
+    {\\r\\n            return;\\r\\n        }\\r\\n        this.isPlayerInRange =
+    true;\\r\\n        this.OnPlayerEnterShop();\\r\\n    }\\r\\n    /**\\r\\n    
+    * \uD50C\uB808\uC774\uC5B4\uAC00 \uD53C\uC790 \uAC00\uAC8C Trigger\uB97C \uBC97\uC5B4\uB0A8\\r\\n    
+    * \uC8FC\uC758: useDistanceDetection\uC774 false\uC77C \uB54C\uB9CC \uC791\uB3D9\\r\\n    
+    */\\r\\n    OnTriggerExit(coll) {\\r\\n        if (this.useDistanceDetection)\\r\\n           
+    return; // \uAC70\uB9AC \uAC10\uC9C0 \uBAA8\uB4DC\uC5D0\uC11C\uB294 \uBB34\uC2DC\\r\\n       
+    if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer)\\r\\n           
+    return;\\r\\n        const character = coll.GetComponent($typeof(ZEPETO_Character_Controller_1.ZepetoCharacter));\\r\\n       
+    if (!character)\\r\\n            return;\\r\\n        if (character !== ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character)
+    {\\r\\n            return;\\r\\n        }\\r\\n        this.isPlayerInRange =
+    false;\\r\\n        this.OnPlayerExitShop();\\r\\n    }\\r\\n    /**\\r\\n    
+    * \uD50C\uB808\uC774\uC5B4\uAC00 \uD53C\uC790 \uAC00\uAC8C \uBC94\uC704\uC5D0
+    \uC9C4\uC785\\r\\n     */\\r\\n    OnPlayerEnterShop() {\\r\\n        console.log('[PizzaShop]
+    \uD50C\uB808\uC774\uC5B4\uAC00 \uD53C\uC790 \uAC00\uAC8C\uC5D0 \uB4E4\uC5B4\uC654\uC2B5\uB2C8\uB2E4.');\\r\\n       
+    // \uC790\uB3D9 \uBCF4\uCDA9 \uC635\uC158\uC774 \uCF1C\uC838\uC788\uC73C\uBA74
+    \uBC14\uB85C \uBCF4\uCDA9\\r\\n        if (this.autoRestock) {\\r\\n           
+    this.TryRestock();\\r\\n        }\\r\\n        // TODO: UI \uC548\uB0B4 \uD45C\uC2DC
+    (\uC608: \\\"\uC7AC\uACE0\uB97C \uBCF4\uCDA9\uD588\uC2B5\uB2C8\uB2E4!\\\")\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uD50C\uB808\uC774\uC5B4\uAC00 \uD53C\uC790 \uAC00\uAC8C
+    \uBC94\uC704\uB97C \uBC97\uC5B4\uB0A8\\r\\n     */\\r\\n    OnPlayerExitShop()
+    {\\r\\n        console.log('[PizzaShop] \uD50C\uB808\uC774\uC5B4\uAC00 \uD53C\uC790
+    \uAC00\uAC8C\uC5D0\uC11C \uB098\uAC14\uC2B5\uB2C8\uB2E4.');\\r\\n    }\\r\\n   
+    /* ===== \uC7AC\uACE0 \uBCF4\uCDA9 ===== */\\r\\n    /**\\r\\n     * \uC7AC\uACE0
+    \uBCF4\uCDA9 \uC2DC\uB3C4 (\uCFE8\uB2E4\uC6B4 \uCCB4\uD06C \uD3EC\uD568)\\r\\n    
+    */\\r\\n    TryRestock() {\\r\\n        // \uCFE8\uB2E4\uC6B4 \uCCB4\uD06C\\r\\n       
+    const currentTime = UnityEngine_1.Time.time;\\r\\n        if (currentTime - this.lastRestockTime
+    < this.restockCooldown) {\\r\\n            console.log('[PizzaShop] \uC7AC\uACE0
+    \uBCF4\uCDA9 \uCFE8\uB2E4\uC6B4 \uC911...');\\r\\n            return;\\r\\n       
+    }\\r\\n        // \uC7AC\uACE0 \uBCF4\uCDA9 \uC2E4\uD589\\r\\n        this.Restock();\\r\\n       
+    // \uCFE8\uB2E4\uC6B4 \uAC31\uC2E0\\r\\n        this.lastRestockTime = currentTime;\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uC7AC\uACE0 \uBCF4\uCDA9 \uC2E4\uD589\\r\\n     */\\r\\n   
+    Restock() {\\r\\n        if (!this.stockManager)\\r\\n            return;\\r\\n       
+    console.log('[PizzaShop] \uC7AC\uACE0 \uBCF4\uCDA9!');\\r\\n        // StockManager\uC758
+    RestockAll() \uD638\uCD9C\\r\\n        this.stockManager.RestockAll();\\r\\n       
+    // TODO: \uBCF4\uCDA9 \uD6A8\uACFC\uC74C \uC7AC\uC0DD\\r\\n        // TODO: \uBCF4\uCDA9
+    \uC774\uD399\uD2B8 \uD45C\uC2DC\\r\\n        // TODO: UI \uD53C\uB4DC\uBC31 (\\\"\uC7AC\uACE0\uAC00
+    \uBCF4\uCDA9\uB418\uC5C8\uC2B5\uB2C8\uB2E4!\\\")\\r\\n    }\\r\\n    /* =====
+    Public \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n     * \uC678\uBD80\uC5D0\uC11C
+    \uAC15\uC81C\uB85C \uC7AC\uACE0 \uBCF4\uCDA9 (\uCFE8\uB2E4\uC6B4 \uBB34\uC2DC)\\r\\n    
+    */\\r\\n    ForceRestock() {\\r\\n        this.Restock();\\r\\n        this.lastRestockTime
+    = UnityEngine_1.Time.time;\\r\\n    }\\r\\n    /**\\r\\n     * \uD50C\uB808\uC774\uC5B4\uAC00
+    \uBC94\uC704 \uB0B4\uC5D0 \uC788\uB294\uC9C0 \uD655\uC778\\r\\n     */\\r\\n   
+    IsPlayerInRange() {\\r\\n        return this.isPlayerInRange;\\r\\n    }\\r\\n   
+    /* ===== Unity Gizmos (\uC5D0\uB514\uD130\uC5D0\uC11C \uC7AC\uACE0 \uBCF4\uCDA9
+    \uBC94\uC704 \uC2DC\uAC01\uD654) ===== */\\r\\n    /**\\r\\n     * \uC5D0\uB514\uD130\uC5D0\uC11C
+    \uC7AC\uACE0 \uBCF4\uCDA9 \uBC94\uC704\uB97C \uC2DC\uAC01\uC801\uC73C\uB85C \uD45C\uC2DC\\r\\n    
+    * \uD56D\uC0C1 \uCD08\uB85D\uC0C9 (\uC7AC\uACE0 \uBCF4\uCDA9 \uAC00\uB2A5)\\r\\n    
+    */\\r\\n    OnDrawGizmosSelected() {\\r\\n        // \uAC70\uB9AC \uAE30\uBC18
+    \uAC10\uC9C0\uB97C \uC0AC\uC6A9\uD560 \uB54C\uB9CC \uD45C\uC2DC\\r\\n       
+    if (!this.useDistanceDetection)\\r\\n            return;\\r\\n        // \uCD08\uB85D\uC0C9\uC73C\uB85C
+    \uC7AC\uACE0 \uBCF4\uCDA9 \uBC94\uC704 \uD45C\uC2DC\\r\\n        UnityEngine_1.Gizmos.color
+    = UnityEngine_1.Color.green;\\r\\n        // \uC7AC\uACE0 \uBCF4\uCDA9 \uBC94\uC704\uB97C
+    \uAD6C\uCCB4\uB85C \uD45C\uC2DC\\r\\n        UnityEngine_1.Gizmos.DrawWireSphere(this.transform.position,
+    this.refillRange);\\r\\n    }\\r\\n}\\r\\nexports.default = PizzaShop;\\r\\n//#
+    sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUGl6emFTaG9wLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiUGl6emFTaG9wLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsaURBQXNEO0FBQ3RELDZDQUFxRjtBQUNyRiw2RUFBNkU7QUFDN0UsaURBQTBDO0FBQzFDLHFEQUE4QztBQUU5Qzs7Ozs7R0FLRztBQUNILE1BQXFCLFNBQVUsU0FBUSxxQ0FBcUI7SUFBNUQ7O1FBRUksdUJBQXVCO1FBQ3ZCLG1CQUFtQjtRQUNaLGdCQUFXLEdBQVcsR0FBRyxDQUFDO1FBRWpDLFdBQVc7UUFDSix5QkFBb0IsR0FBWSxJQUFJLENBQUMsQ0FBQyxpQ0FBaUM7UUFFOUUsMEJBQTBCO1FBQzFCLHlCQUF5QjtRQUNsQixvQkFBZSxHQUFXLEdBQUcsQ0FBQztRQUVyQyxtQ0FBbUM7UUFDNUIsZ0JBQVcsR0FBWSxLQUFLLENBQUM7UUFLNUIsb0JBQWUsR0FBVyxDQUFDLEdBQUcsQ0FBQyxDQUFDLFlBQVk7UUFDNUMsb0JBQWUsR0FBWSxLQUFLLENBQUM7SUE2TTdDLENBQUM7SUEzTUcsaUNBQWlDO0lBQ3pCLEtBQUs7UUFDVCxrQkFBa0I7UUFDbEIsSUFBSSxDQUFDLFlBQVksR0FBRyxzQkFBWSxDQUFDLFFBQVEsQ0FBQztRQUUxQyxJQUFJLENBQUMsSUFBSSxDQUFDLFlBQVksRUFBRTtZQUNwQixPQUFPLENBQUMsS0FBSyxDQUFDLHNDQUFzQyxDQUFDLENBQUM7WUFDdEQsT0FBTztTQUNWO1FBRUQsNkJBQTZCO1FBQzdCLElBQUksQ0FBQyxjQUFjLEdBQUcsd0JBQWMsQ0FBQyxRQUFRLENBQUM7UUFDOUMsSUFBSSxJQUFJLENBQUMsY0FBYyxFQUFFO1lBQ3JCLE9BQU8sQ0FBQyxHQUFHLENBQUMscUNBQXFDLENBQUMsQ0FBQztTQUN0RDtRQUVELE9BQU8sQ0FBQyxHQUFHLENBQUMsb0JBQW9CLENBQUMsQ0FBQztJQUN0QyxDQUFDO0lBRU8sTUFBTTtRQUNWLGdCQUFnQjtRQUNoQixJQUFJLElBQUks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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/PizzaShop.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"mscorlib\",\"name\":\"refillRange\",\"type\":\"System.Single\",\"isArray\":false,\"initValue\":[\"3\"],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"mscorlib\",\"name\":\"useDistanceDetection\",\"type\":\"System.Boolean\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"mscorlib\",\"name\":\"restockCooldown\",\"type\":\"System.Single\",\"isArray\":false,\"initValue\":[\"2\"],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"mscorlib\",\"name\":\"autoRestock\",\"type\":\"System.Boolean\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"PizzaShop\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: f24d0e514dbdfc2fcc45b7e681262d5f
+  onlyWriteTrigger: 0

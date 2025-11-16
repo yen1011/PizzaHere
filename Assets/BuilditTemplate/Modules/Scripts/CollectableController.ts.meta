@@ -1,0 +1,62 @@
+fileFormatVersion: 2
+guid: fe5ff949ec52453293ab31757efd49d5
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\r\nconst Chest_1 = require(\"./Chest\");\r\nconst
+    CollectableManager_1 = require(\"./CollectableManager\");\r\nconst ObjectGroup_1
+    = require(\"./ObjectGroup\");\r\nconst UnityEngine_UI_1 = require(\"UnityEngine.UI\");\r\nconst
+    InteractionIcon_1 = require(\"./../Interaction/ZepetoScript/InteractionIcon\");\r\nclass
+    CollectableController extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n   
+    constructor() {\r\n        super(...arguments);\r\n        this._chestFound =
+    false;\r\n    }\r\n    Start() {\r\n        this._interactionButton = this.GetComponentInChildren($typeof(InteractionIcon_1.default));\r\n       
+    this._chest = this.chest.GetComponent($typeof(Chest_1.default));\r\n        this._interactionButton.OnClickEvent.AddListener(()
+    => {\r\n            this.Collect();\r\n        });\r\n    }\r\n    Collect()
+    {\r\n        if (this._isCollected)\r\n            return;\r\n        if (this._chestFound
+    == false) {\r\n            CollectableManager_1.default.instance.ChestFound();\r\n           
+    this._chestFound = true;\r\n        }\r\n        if (this.timeout > 0) {\r\n           
+    this.StartTimer();\r\n            return;\r\n        }\r\n        if (CollectableManager_1.default.instance.Collect(this)
+    == false)\r\n            return;\r\n        this._interactionButton.HideIcon();\r\n       
+    this._interactionButton.enabled = false;\r\n    }\r\n    StartTimer() {\r\n       
+    if (this.isWaiting)\r\n            return;\r\n        this.isWaiting = true;\r\n       
+    this._interactionButton.HideIcon();\r\n        this._interactionButton.enabled
+    = false;\r\n        this._coTimer = this.StartCoroutine(this.Step());\r\n   
+    }\r\n    *Step() {\r\n        while (this.isWaiting) {\r\n            this.countdown.text
+    = `${this.timeout}`;\r\n            yield new UnityEngine_1.WaitForSeconds(1);\r\n           
+    // Update UI\r\n            this.timeout -= 1;\r\n            if (this.timeout
+    < 1)\r\n                this.EndTimer();\r\n        }\r\n    }\r\n    EndTimer()
+    {\r\n        this.isWaiting = false;\r\n        this.countdown.gameObject.SetActive(false);\r\n       
+    this._interactionButton.ShowIcon();\r\n        this._interactionButton.enabled
+    = true;\r\n        let button = this._interactionButton.gameObject.GetComponentInChildren($typeof(UnityEngine_UI_1.Button));\r\n       
+    let colors = button.colors.get_Clone();\r\n        colors.normalColor = this.activatedIconColor;\r\n       
+    button.colors = colors;\r\n    }\r\n    OnCollected(success) {\r\n        this._isCollected
+    = success;\r\n        this.StartCoroutine(this.OnEventSuccess());\r\n       
+    this.chest.GetComponent($typeof(Chest_1.default))?.gold.gameObject.SetActive(success);\r\n   
+    }\r\n    *OnEventSuccess() {\r\n        yield new UnityEngine_1.WaitForEndOfFrame();\r\n       
+    this._chest.Open(true);\r\n        this.sparkle.SetActive(false);\r\n    }\r\n}\r\nexports.default
+    = CollectableController;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ29sbGVjdGFibGVDb250cm9sbGVyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiQ29sbGVjdGFibGVDb250cm9sbGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsaURBQXFEO0FBRXJELDZDQVFxQjtBQUdyQixtQ0FBNEI7QUFFNUIsNkRBQXNEO0FBQ3RELCtDQUF3QztBQUN4QyxtREFBNEM7QUFDNUMsbUZBQTRFO0FBRzVFLE1BQXFCLHFCQUFzQixTQUFRLHFDQUFxQjtJQUF4RTs7UUF5QlksZ0JBQVcsR0FBWSxLQUFLLENBQUM7SUFpR3pDLENBQUM7SUFuRlcsS0FBSztRQUNULElBQUksQ0FBQyxrQkFBa0IsR0FBRyxJQUFJLENBQUMsc0JBQXNCLFNBQUMseUJBQWUsRUFBRyxDQUFDO1FBQ3pFLElBQUksQ0FBQyxNQUFNLEdBQUcsSUFBSSxDQUFDLEtBQUssQ0FBQyxZQUFZLFNBQUMsZUFBSyxFQUFHLENBQUM7UUFFL0MsSUFBSSxDQUFDLGtCQUFrQixDQUFDLFlBQVksQ0FBQyxXQUFXLENBQUMsR0FBRyxFQUFFO1lBQ2xELElBQUksQ0FBQyxPQUFPLEVBQUUsQ0FBQztRQUNuQixDQUFDLENBQUMsQ0FBQztJQUNQLENBQUM7SUFFTyxPQUFPO1FBRVgsSUFBSSxJQUFJLENBQUMsWUFBWTtZQUNqQixPQUFPO1FBRVgsSUFBSSxJQUFJLENBQUMsV0FBVyxJQUFJLEtBQUssRUFBRTtZQUMzQiw0QkFBa0IsQ0FBQyxRQUFRLENBQUMsVUFBVSxFQUFFLENBQUM7WUFDekMsSUFBSSxDQUFDLFdBQVcsR0FBRyxJQUFJLENBQUM7U0FDM0I7UUFFRCxJQUFJLElBQUksQ0FBQyxPQUFPLEdBQUcsQ0FBQyxFQUFFO1lBQ2xCLElBQUksQ0FBQyxVQUFVLEVBQUUsQ0FBQztZQUNsQixPQUFPO1NBQ1Y7UUFFRCxJQUFJLDRCQUFrQixDQUFDLFFBQVEsQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLElBQUksS0FBSztZQUNsRCxPQUFPO1FBRVgsSUFBSSxDQUFDLGtCQUFrQixDQUFDLFFBQVEsRUFBRSxDQUFDO1FBQ25DLElBQUksQ0FBQyxrQkFBa0IsQ0FBQyxPQUFPLEdBQUcsS0FBSyxDQUFDO0lBQzVDLENBQUM7SUFJTyxVQUFVO1FBQ2QsSUFBSSxJQUFJLENBQUMsU0FBUztZQUNkLE9BQU87UUFHWCxJQUFJLENBQUMsU0FBUyxHQUFHLElBQUksQ0FBQztRQUV0QixJQUFJLENBQUMsa0JBQWtCLENBQUMsUUFBUSxFQUFFLENBQUM7UUFDbkMsSUFBSSxDQUFDLGtCQUFrQixDQUFDLE9BQU8sR0FBRyxLQUFLLENBQUM7UUFFeEMsSUFBSSxDQUFDLFFBQVEsR0FBRyxJQUFJLENBQUMsY0FBYyxDQUFDLElBQUksQ0FBQyxJQUFJLEVBQUUsQ0FBQyxDQUFDO0lBQ3JELENBQUM7SUFFTyxDQUFDLElBQUk7UUFDVCxPQUFPLElBQUksQ0FBQyxTQUFTLEVBQUU7WUFDbkIsSUFBSSxDQUFDLFNBQVMsQ0FBQyxJQUFJLEdBQUcsR0FBRyxJQUFJLENBQUMsT0FBTyxFQUFFLENBQUM7WUFDeEMsTUFBTSxJQUFJLDRCQUFjLENBQUMsQ0FBQyxDQUFDLENBQUM7WUFDNUIsWUFBWTtZQUNaLElBQUksQ0FBQyxPQUFPLElBQUUsQ0FBQyxDQUFDO1lBRWhCLElBQUksSUFBSSxDQUFDLE9BQU8sR0FBRyxDQUFDO2dCQUNoQixJQUFJLENBQUMsUUFBUSxFQUFFLENBQUM7U0FDdkI7SUFDTCxDQUFDO0lBRU8sUUFBUTtRQUNaLElBQUksQ0FBQyxTQUFTLEdBQUcsS0FBSyxDQUFDO1FBQ3ZCLElBQUksQ0FBQyxTQUFTLENBQUMsVUFBVSxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUMsQ0FBQztRQUMzQyxJQUFJLENBQUMsa0JBQWtCLENBQUMsUUFBUSxFQUFFLENBQUM7UUFDbkMsSUFBSSxDQUFDLGtCQUFrQixDQUFDLE9BQU8sR0FBRyxJQUFJLENBQUM7UUFFdkMsSUFBSSxNQUFNLEdBQVcsSUFBSSxDQUFDLGtCQUFrQixDQUFDLFVBQVUsQ0FBQyxzQkFBc0IsU0FBQyx1QkFBTSxFQUFHLENBQUM7UUFDekYsSUFBSSxNQUFNLEdBQUcsTUFBTSxDQUFDLE1BQU0sQ0FBQyxTQUFTLEVBQUUsQ0FBQztRQUN2QyxNQUFNLENBQUMsV0FBVyxHQUFHLElBQUksQ0FBQyxrQkFBa0IsQ0FBQztRQUM3QyxNQUFNLENBQUMsTUFBTSxHQUFHLE1BQU0sQ0FBQztJQUMzQixDQUFDO0lBR00sV0FBVyxDQUFDLE9BQWdCO1FBQy9CLElBQUksQ0FBQyxZQUFZLEdBQUcsT0FBTyxDQUFDO1FBQzVCLElBQUksQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLGNBQWMsRUFBRSxDQUFDLENBQUM7UUFDM0MsSUFBSSxDQUFDLEtBQUssQ0FBQyxZQUFZLFNBQUMsZUFBSyxFQUFHLEVBQUUsSUFBSSxDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsT0FBTyxDQUFDLENBQUM7SUFDekUsQ0FBQztJQUVPLENBQUUsY0FBYztRQUNwQixNQUFNLElBQUksK0JBQWlCLEVBQUUsQ0FBQztRQUU5QixJQUFJLENBQUMsTUFBTSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsQ0FBQztRQUN2QixJQUFJLENBQUMsT0FBTyxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUMsQ0FBQztJQUNsQyxDQUFDO0NBQ0o7QUExSEQsd0NBMEhDIn0=","assetPath":"Assets/BuilditTemplate/Modules/Scripts/CollectableController.ts","manifest":{"properties":[{"assembly":"mscorlib","name":"timeout","type":"System.Single","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Header","args":["\"[Configuration]\""]},{"name":"Tooltip","args":["\"Duration
+    in seconds before the chest can be opened\""]}]},{"assembly":"UnityEngine.CoreModule","name":"activatedIconColor","type":"UnityEngine.Color","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"Icon
+    color when the chest is selectable\""]}]},{"assembly":"UnityEngine.CoreModule","name":"sparkle","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Header","args":["\"[References]\""]}]},{"assembly":"UnityEngine.CoreModule","name":"chest","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"Unity.TextMeshPro","name":"countdown","type":"TMPro.TextMeshPro","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"mscorlib","name":"isWaiting","type":"System.Boolean","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"HideInInspector","args":[]}]}],"name":"CollectableController","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: a7ebadf74806f9ef5c61aa6ed5de853f
+  onlyWriteTrigger: 0

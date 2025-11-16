@@ -1,0 +1,62 @@
+fileFormatVersion: 2
+guid: 7d6ba244f82e64d808f893dad65f0909
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst ZEPETO_Character_Controller_1
+    = require(\"ZEPETO.Character.Controller\");\r\nconst InteractionIcon_1 = require(\"../Interaction/ZepetoScript/InteractionIcon\");\r\nconst
+    UnityEngine_UI_1 = require(\"UnityEngine.UI\");\r\nclass TimerController extends
+    ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor() {\r\n        super(...arguments);\r\n       
+    this._isStart = false;\r\n        this._elapsedTime = 0;\r\n    }\r\n    Start()
+    {\r\n        this.SetInteractionIcons();\r\n        this._interactionIcon_start.OnClickEvent.AddListener(()
+    => {\r\n            this.StartTimer();\r\n        });\r\n        this._interactionIcon_end.OnClickEvent.AddListener(()
+    => {\r\n            this.EndTimer();\r\n        });\r\n    }\r\n    SetInteractionIcons()
+    {\r\n        const interactionIcons = this.GetComponentsInChildren($typeof(InteractionIcon_1.default));\r\n       
+    interactionIcons.forEach(e => {\r\n            if (e.name == \"InteractionPoint_Start\")
+    {\r\n                this._interactionIcon_start = e;\r\n            }\r\n           
+    else if (e.name == \"InteractionPoint_End\") {\r\n                this._interactionIcon_end
+    = e;\r\n            }\r\n        });\r\n    }\r\n    StartTimer() {\r\n       
+    this._interactionIcon_start.HideIcon();\r\n        this._isStart = true;\r\n       
+    this.CheckUICanvas();\r\n        this._success.SetActive(false);\r\n        this._coTimer
+    = this.StartCoroutine(this.CoTimer());\r\n    }\r\n    EndTimer() {\r\n       
+    if (!this._isStart) {\r\n            return;\r\n        }\r\n        this._interactionIcon_end.HideIcon();\r\n       
+    this._isStart = false;\r\n        this.StopCoroutine(this._coTimer);\r\n       
+    this.StartCoroutine(this.CoSuccess());\r\n    }\r\n    *CoSuccess() {\r\n       
+    this._success.SetActive(true);\r\n        yield new UnityEngine_1.WaitForSeconds(1);\r\n       
+    this._success.SetActive(false);\r\n        this._currentTimerUI.SetActive(false);\r\n   
+    }\r\n    *CoTimer() {\r\n        while (true) {\r\n            this._elapsedTime
+    += UnityEngine_1.Time.deltaTime;\r\n            this.FormatTime(this._elapsedTime);\r\n           
+    yield null;\r\n        }\r\n    }\r\n    CheckUICanvas() {\r\n        if (UnityEngine_1.Object.op_Equality(this._currentTimerUI,
+    null)) {\r\n            this._currentTimerUI = UnityEngine_1.GameObject.Instantiate(this.timerUI);\r\n           
+    this._timerText = this._currentTimerUI.GetComponentInChildren($typeof(UnityEngine_UI_1.Text));\r\n           
+    this._success = this._currentTimerUI.GetComponentInChildren($typeof(UnityEngine_UI_1.RawImage)).gameObject;\r\n       
+    }\r\n        this._currentTimerUI.SetActive(true);\r\n    }\r\n    FormatTime(time)
+    {\r\n        const minutes = UnityEngine_1.Mathf.FloorToInt(time / 60);\r\n       
+    const seconds = UnityEngine_1.Mathf.FloorToInt(time % 60);\r\n        const minuteString
+    = minutes < 10 ? \"0\" + minutes.toString() : minutes.toString();\r\n       
+    const secondString = seconds < 10 ? \"0\" + seconds.toString() : seconds.toString();\r\n       
+    this._timerText.text = minuteString + \" : \" + secondString;\r\n    }\r\n}\r\nexports.default
+    = TimerController;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVGltZXJDb250cm9sbGVyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiVGltZXJDb250cm9sbGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsNkNBQTZHO0FBQzdHLGlEQUFxRDtBQUNyRCw2RUFBNkU7QUFDN0UsaUZBQTBFO0FBQzFFLG1EQUFnRDtBQUVoRCxNQUFxQixlQUFnQixTQUFRLHFDQUFxQjtJQUFsRTs7UUFNWSxhQUFRLEdBQVMsS0FBSyxDQUFDO1FBSXZCLGlCQUFZLEdBQVcsQ0FBQyxDQUFDO0lBZ0ZyQyxDQUFDO0lBN0VXLEtBQUs7UUFFVCxJQUFJLENBQUMsbUJBQW1CLEVBQUUsQ0FBQztRQUUzQixJQUFJLENBQUMsc0JBQXNCLENBQUMsWUFBWSxDQUFDLFdBQVcsQ0FBQyxHQUFHLEVBQUU7WUFDdEQsSUFBSSxDQUFDLFVBQVUsRUFBRSxDQUFDO1FBQ3RCLENBQUMsQ0FBQyxDQUFDO1FBRUgsSUFBSSxDQUFDLG9CQUFvQixDQUFDLFlBQVksQ0FBQyxXQUFXLENBQUMsR0FBRyxFQUFFO1lBQ3BELElBQUksQ0FBQyxRQUFRLEVBQUUsQ0FBQztRQUNwQixDQUFDLENBQUMsQ0FBQztJQUNQLENBQUM7SUFFTyxtQkFBbUI7UUFDdkIsTUFBTSxnQkFBZ0IsR0FBRyxJQUFJLENBQUMsdUJBQXVCLFNBQUMseUJBQWUsRUFBRyxDQUFDO1FBQ3pFLGdCQUFnQixDQUFDLE9BQU8sQ0FBQyxDQUFDLENBQUMsRUFBRTtZQUN6QixJQUFJLENBQUMsQ0FBQyxJQUFJLElBQUksd0JBQXdCLEVBQUU7Z0JBQ3BDLElBQUksQ0FBQyxzQkFBc0IsR0FBRyxDQUFDLENBQUM7YUFDbkM7aUJBQU0sSUFBSSxDQUFDLENBQUMsSUFBSSxJQUFJLHNCQUFzQixFQUFFO2dCQUN6QyxJQUFJLENBQUMsb0JBQW9CLEdBQUcsQ0FBQyxDQUFDO2FBQ2pDO1FBQ0wsQ0FBQyxDQUFDLENBQUM7SUFDUCxDQUFDO0lBRU8sVUFBVTtRQUNkLElBQUksQ0FBQyxz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","assetPath":"Assets/BuilditTemplate/Modules/Scripts/TimerController.ts","manifest":{"properties":[{"assembly":"UnityEngine.CoreModule","name":"timerUI","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"TimerController","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: e01c645b614c7c39b6f729a5d43f3637
+  onlyWriteTrigger: 0

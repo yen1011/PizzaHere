@@ -1,0 +1,68 @@
+fileFormatVersion: 2
+guid: eb0437963c75c491c98af4244878afde
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\r\nconst UnityEngine_UI_1 = require(\"UnityEngine.UI\");\r\nconst
+    ZEPETO_Character_Controller_1 = require(\"ZEPETO.Character.Controller\");\r\nconst
+    AdvertisementManager_1 = require(\"./AdvertisementManager\");\r\nconst PlayerTrigger_1
+    = require(\"../Scripts/PlayerTrigger\");\r\nconst ZepetoEvent_1 = require(\"../Scripts/Utility/ZepetoEvent\");\r\nclass
+    AdvertisementController extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n   
+    constructor() {\r\n        super(...arguments);\r\n        this._isIconActive
+    = false;\r\n        this._isDoneFirstTrig = false;\r\n        this._adViewEvent
+    = new ZepetoEvent_1.ZepetoEvent();\r\n    }\r\n    get OnViewAdEvent() { return
+    this._adViewEvent; }\r\n    Start() {\r\n        let trigger = this.GetComponentInChildren($typeof(PlayerTrigger_1.default));\r\n       
+    if (trigger)\r\n            trigger.delegate = this;\r\n        if (this.destination)
+    {\r\n            this.OnViewAdEvent.add_handler(() => {\r\n                ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.Teleport(this.destination.position,
+    this.destination.rotation);\r\n            });\r\n        }\r\n    }\r\n    OnPlayerEnter()
+    {\r\n        this.ShowIcon();\r\n    }\r\n    OnPlayerExit() {\r\n        this.HideIcon();\r\n   
+    }\r\n    // Obsolete code\r\n    OnTriggerEnter(coll) {\r\n        if (coll !=
+    ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer?.zepetoPlayer?.character.GetComponent($typeof(UnityEngine_1.Collider)))
+    {\r\n            return;\r\n        }\r\n        this.ShowIcon();\r\n    }\r\n   
+    OnTriggerExit(coll) {\r\n        if (coll != ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer?.zepetoPlayer?.character.GetComponent($typeof(UnityEngine_1.Collider)))
+    {\r\n            return;\r\n        }\r\n        this.HideIcon();\r\n    }\r\n   
+    ShowIcon() {\r\n        if (AdvertisementController.interactionEnabled == false)\r\n           
+    return;\r\n        if (!this._isDoneFirstTrig) {\r\n            this.CreateIcon();\r\n           
+    this._isDoneFirstTrig = true;\r\n        }\r\n        else\r\n            this._canvas.gameObject.SetActive(true);\r\n       
+    this._isIconActive = true;\r\n    }\r\n    HideIcon() {\r\n        this._canvas?.gameObject.SetActive(false);\r\n       
+    this._isIconActive = false;\r\n    }\r\n    CreateIcon() {\r\n        if (this._canvas
+    === undefined) {\r\n            const canvas = UnityEngine_1.GameObject.Instantiate(this.prefIconCanvas,
+    this.iconPosition);\r\n            this._canvas = canvas.GetComponent($typeof(UnityEngine_1.Canvas));\r\n           
+    this._button = canvas.GetComponentInChildren($typeof(UnityEngine_UI_1.Button));\r\n           
+    this._canvas.transform.position = this.iconPosition.position;\r\n        }\r\n       
+    this._cachedWorldCamera ?? (this._cachedWorldCamera = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.ZepetoCamera.camera);\r\n       
+    this._canvas.worldCamera = this._cachedWorldCamera;\r\n        this._button.onClick.AddListener(()
+    => {\r\n            if (AdvertisementController.interactionEnabled == false)\r\n               
+    return;\r\n            // Debug\r\n            // this.OnViewAdEvent?.Invoke();\r\n           
+    // Release\r\n            AdvertisementManager_1.default.Instance.ShowAd(() =>
+    {\r\n                this.OnViewAdEvent?.Invoke();\r\n            });\r\n       
+    });\r\n        AdvertisementController.allInstances.push(this);\r\n    }\r\n   
+    UpdateIconRotation() {\r\n        this._canvas.transform.LookAt(this._cachedWorldCamera.transform);\r\n   
+    }\r\n    Update() {\r\n        if (this._isDoneFirstTrig && this._canvas?.gameObject.activeSelf)\r\n           
+    this.UpdateIconRotation();\r\n    }\r\n    Destroy() {\r\n        const index
+    = AdvertisementController.allInstances.indexOf(this);\r\n        AdvertisementController.allInstances.splice(index,
+    1);\r\n    }\r\n}\r\nexports.default = AdvertisementController;\r\nAdvertisementController.allInstances
+    = [];\r\nAdvertisementController.interactionEnabled = true;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQWR2ZXJ0aXNlbWVudENvbnRyb2xsZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJBZHZlcnRpc2VtZW50Q29udHJvbGxlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGlEQUFzRDtBQUN0RCw2Q0FBc0Y7QUFDdEYsbURBQXdDO0FBRXhDLDZFQUE0RDtBQUM1RCxpRUFBMEQ7QUFDMUQsNERBQXlFO0FBQ3pFLGdFQUEyRTtBQUUzRSxNQUFxQix1QkFBd0IsU0FBUSxxQ0FBcUI7SUFBMUU7O1FBVVksa0JBQWEsR0FBWSxLQUFLLENBQUM7UUFDL0IscUJBQWdCLEdBQVksS0FBSyxDQUFDO1FBSWxDLGlCQUFZLEdBQWdCLElBQUkseUJBQVcsRUFBRSxDQUFDO0lBeUcxRCxDQUFDO0lBeEdHLElBQVcsYUFBYSxLQUFrQixPQUFPLElBQUksQ0FBQyxZQUFZLENBQUEsQ0FBQyxDQUFDO0lBR3BFLEtBQUs7UUFFRCxJQUFJLE9BQU8sR0FBRyxJQUFJLENBQUMsc0JBQXNCLFNBQUMsdUJBQWEsRUFBRyxDQUFDO1FBQzNELElBQUksT0FBTztZQUNQLE9BQU8sQ0FBQyxRQUFRLEdBQUcsSUFBSSxDQUFDO1FBRTVCLElBQUksSUFBSSxDQUFDLFdBQVcsRUFBRTtZQUNsQixJQUFJLENBQUMsYUFBYSxDQUFDLFdBQVcsQ0FBQyxHQUFHLEVBQUU7Z0JBQ2hDLDJDQUFhLENBQUMsUUFBUSxDQUFDLFdBQVcsQ0FBQyxZQUFZLENBQUMsU0FBUyxDQUFDLFFBQVEsQ0FBQyxJQUFJLENBQUMsV0FBVyxDQUFDLFFBQVEsRUFBRSxJQUFJLENBQUMsV0FBVyxDQUFDLFFBQVEsQ0FBQyxDQUFDO1lBQzdILENBQUMsQ0FBQyxDQUFDO1NBQ047SUFDTCxDQUFDO0lBRUQsYUFBYTtRQUNULElBQUksQ0FBQyxRQUFRLEVBQUUsQ0FBQztJQUNwQixDQUFDO0lBRUQsWUFBWTtRQUNSLElBQUksQ0FBQyxRQUFRLEVBQUUsQ0FBQztJQUNwQixDQUFDO0lBRUQsZ0JBQWdC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","assetPath":"Assets/BuilditTemplate/Modules/Advertisement/AdvertisementController.ts","manifest":{"properties":[{"assembly":"UnityEngine.CoreModule","name":"destination","type":"UnityEngine.Transform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"prefIconCanvas","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]},{"assembly":"UnityEngine.CoreModule","name":"iconPosition","type":"UnityEngine.Transform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]},{"assembly":"UnityEngine.CoreModule","name":"OnClickEvent","type":"UnityEngine.Events.UnityEvent","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"HideInInspector","args":[]}]}],"name":"AdvertisementController","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: b9877a237f1e56a855cfb38ecbe2636a
+  onlyWriteTrigger: 0

@@ -1,0 +1,226 @@
+fileFormatVersion: 2
+guid: e0e2926fd0c9f4839a516fa01fbbe872
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst
+    UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nconst ZEPETO_Character_Controller_1
+    = require(\\\"ZEPETO.Character.Controller\\\");\\r\\nconst StockManager_1 = require(\\\"./StockManager\\\");\\r\\nconst
+    DeliveryManager_1 = require(\\\"./DeliveryManager\\\");\\r\\nconst Order_1 =
+    require(\\\"./Order\\\");\\r\\nconst OrderUI_1 = require(\\\"./OrderUI\\\");\\r\\nconst
+    DeliveryButtonUI_1 = require(\\\"./DeliveryButtonUI\\\");\\r\\n/**\\r\\n * \uBC30\uB2EC
+    \uC9D1 \uC2A4\uD06C\uB9BD\uD2B8\\r\\n * - \uD50C\uB808\uC774\uC5B4\uAC00 \uAC00\uAE4C\uC774
+    \uC624\uBA74 \uBC30\uB2EC \uAC00\uB2A5\\r\\n * - \uC8FC\uBB38 \uC790\uB3D9 \uC0DD\uC131
+    \uBC0F \uAD00\uB9AC\\r\\n * - \uAC70\uB9AC \uAE30\uBC18 \uAC10\uC9C0 (Trigger
+    \uBD88\uD544\uC694 - \uBB3C\uB9AC \uCDA9\uB3CC \uC720\uC9C0)\\r\\n * - PizzaShop
+    \uD328\uD134\uC744 \uB530\uB984\\r\\n */\\r\\nclass DeliveryHouse extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\\r\\n    constructor() {\\r\\n        super(...arguments);\\r\\n        /*
+    ===== \uAC10\uC9C0 \uC124\uC815 ===== */\\r\\n        // \uBC30\uB2EC \uAC00\uB2A5
+    \uAC70\uB9AC (\uBBF8\uD130)\\r\\n        this.deliveryRange = 3.0;\\r\\n       
+    // \uAC10\uC9C0 \uBC29\uC2DD \uC120\uD0DD\\r\\n        this.useDistanceDetection
+    = true; // true: \uAC70\uB9AC \uAE30\uBC18, false: Trigger \uAE30\uBC18\\r\\n       
+    /* ===== \uC8FC\uBB38 \uC124\uC815 ===== */\\r\\n        // \uC8FC\uBB38 \uC0DD\uC131
+    \uAC04\uACA9 (\uCD08)\\r\\n        this.minOrderInterval = 10.0;\\r\\n       
+    this.maxOrderInterval = 30.0;\\r\\n        // \uC790\uB3D9 \uBC30\uB2EC \uC5EC\uBD80
+    (true\uBA74 \uBC94\uC704 \uB0B4 \uC9C4\uC785 \uC2DC \uC790\uB3D9 \uBC30\uB2EC)\\r\\n       
+    this.autoDeliverOnEnter = false;\\r\\n        // \uBC30\uB2EC \uCFE8\uB2E4\uC6B4
+    (\uCD08) - \uC5F0\uC18D \uBC30\uB2EC \uBC29\uC9C0\\r\\n        this.deliveryCooldown
+    = 1.0;\\r\\n        this.hasActiveOrder = false;\\r\\n        this.currentOrder
+    = null;\\r\\n        this.isPlayerInRange = false;\\r\\n        this.lastDeliveryTime
+    = -999; // \uB9C8\uC9C0\uB9C9 \uBC30\uB2EC \uC2DC\uAC04\\r\\n        this.nextOrderTime
+    = 0; // \uB2E4\uC74C \uC8FC\uBB38 \uC0DD\uC131 \uC2DC\uAC04\\r\\n    }\\r\\n   
+    /* ===== Unity Lifecycle ===== */\\r\\n    Start() {\\r\\n        // Manager
+    \uCC3E\uAE30\\r\\n        this.stockManager = StockManager_1.default.instance;\\r\\n       
+    this.deliveryManager = DeliveryManager_1.default.instance;\\r\\n        if (!this.stockManager)
+    {\\r\\n            console.error('[DeliveryHouse] StockManager\uB97C \uCC3E\uC744
+    \uC218 \uC5C6\uC2B5\uB2C8\uB2E4!');\\r\\n            return;\\r\\n        }\\r\\n       
+    if (!this.deliveryManager) {\\r\\n            console.error('[DeliveryHouse]
+    DeliveryManager\uB97C \uCC3E\uC744 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4!');\\r\\n           
+    return;\\r\\n        }\\r\\n        // DeliveryManager\uC5D0 \uC790\uB3D9 \uB4F1\uB85D\\r\\n       
+    // (autoFindHouses\uAC00 false\uC778 \uACBD\uC6B0\uB97C \uC704\uD574)\\r\\n       
+    this.deliveryManager.RegisterHouse(this);\\r\\n        // OrderUI \uC790\uB3D9
+    \uCC3E\uAE30 (\uC790\uC2DD \uC624\uBE0C\uC81D\uD2B8\uC5D0\uC11C)\\r\\n       
+    this.orderUI = this.GetComponentInChildren($typeof(OrderUI_1.default));\\r\\n       
+    if (this.orderUI) {\\r\\n            console.log(`[DeliveryHouse] ${this.gameObject.name}
+    - OrderUI \uC790\uB3D9 \uCC3E\uAE30 \uC644\uB8CC`);\\r\\n        }\\r\\n       
+    else {\\r\\n            console.warn(`[DeliveryHouse] ${this.gameObject.name}
+    - OrderUI\uB97C \uCC3E\uC744 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4! \uC790\uC2DD \uC624\uBE0C\uC81D\uD2B8\uC5D0
+    OrderUI\uAC00 \uC788\uB294\uC9C0 \uD655\uC778\uD558\uC138\uC694.`);\\r\\n       
+    }\\r\\n        // DeliveryButtonUI \uC790\uB3D9 \uCC3E\uAE30 (\uC2F1\uAE00\uD1A4)\\r\\n       
+    this.deliveryButtonUI = DeliveryButtonUI_1.default.instance;\\r\\n        if
+    (this.deliveryButtonUI) {\\r\\n            console.log('[DeliveryHouse] DeliveryButtonUI
+    \uC790\uB3D9 \uCC3E\uAE30 \uC644\uB8CC');\\r\\n        }\\r\\n        // \uC8FC\uBB38
+    UI \uCD08\uAE30 \uC0C1\uD0DC (\uC228\uAE40)\\r\\n        this.HideOrderUI();\\r\\n       
+    // \uCCAB \uC8FC\uBB38 \uC2A4\uCF00\uC904\uB9C1\\r\\n        this.ScheduleNextOrder();\\r\\n       
+    console.log(`[DeliveryHouse] ${this.gameObject.name} \uCD08\uAE30\uD654 \uC644\uB8CC`);\\r\\n   
+    }\\r\\n    OnDestroy() {\\r\\n        // DeliveryManager\uC5D0\uC11C \uB4F1\uB85D
+    \uD574\uC81C\\r\\n        if (this.deliveryManager) {\\r\\n            this.deliveryManager.UnregisterHouse(this);\\r\\n       
+    }\\r\\n    }\\r\\n    Update() {\\r\\n        // \uC8FC\uBB38 \uC0DD\uC131 \uC2DC\uAC04
+    \uCCB4\uD06C\\r\\n        if (!this.hasActiveOrder && UnityEngine_1.Time.time
+    >= this.nextOrderTime) {\\r\\n            this.GenerateOrder();\\r\\n       
+    }\\r\\n        // \uAC70\uB9AC \uAE30\uBC18 \uAC10\uC9C0 \uC0AC\uC6A9 \uC2DC\\r\\n       
+    if (this.useDistanceDetection) {\\r\\n            this.CheckPlayerDistance();\\r\\n       
+    }\\r\\n    }\\r\\n    /* ===== \uAC70\uB9AC \uAE30\uBC18 \uAC10\uC9C0 ===== */\\r\\n   
+    /**\\r\\n     * \uD50C\uB808\uC774\uC5B4\uC640\uC758 \uAC70\uB9AC\uB97C \uCCB4\uD06C\uD558\uC5EC
+    \uBC94\uC704 \uB0B4 \uC9C4\uC785/\uC774\uD0C8 \uAC10\uC9C0\\r\\n     * Trigger
+    \uC5C6\uC774 \uC791\uB3D9\uD558\uBBC0\uB85C \uBB3C\uB9AC \uCDA9\uB3CC \uC720\uC9C0
+    \uAC00\uB2A5\\r\\n     */\\r\\n    CheckPlayerDistance() {\\r\\n        // LocalPlayer
+    \uCC3E\uAE30\\r\\n        if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance
+    || !ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer) {\\r\\n           
+    return;\\r\\n        }\\r\\n        const localPlayer = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character;\\r\\n       
+    if (!localPlayer)\\r\\n            return;\\r\\n        // \uAC70\uB9AC \uACC4\uC0B0\\r\\n       
+    const distance = UnityEngine_1.Vector3.Distance(this.transform.position, localPlayer.transform.position);\\r\\n       
+    const wasInRange = this.isPlayerInRange;\\r\\n        // \uBC94\uC704 \uB0B4\uC5D0
+    \uC788\uB294\uC9C0 \uCCB4\uD06C\\r\\n        this.isPlayerInRange = distance
+    <= this.deliveryRange;\\r\\n        // \uBC29\uAE08 \uBC94\uC704\uC5D0 \uC9C4\uC785\uD55C
+    \uACBD\uC6B0\\r\\n        if (this.isPlayerInRange && !wasInRange) {\\r\\n           
+    this.OnPlayerEnterHouse();\\r\\n        }\\r\\n        // \uBC29\uAE08 \uBC94\uC704\uB97C
+    \uBC97\uC5B4\uB09C \uACBD\uC6B0\\r\\n        else if (!this.isPlayerInRange &&
+    wasInRange) {\\r\\n            this.OnPlayerExitHouse();\\r\\n        }\\r\\n       
+    // \uBC84\uD2BC \uD45C\uC2DC\uB294 VehicleController\uC5D0\uC11C \uCC98\uB9AC\\r\\n       
+    // (\uCC28\uB7C9 \uD0D1\uC2B9 \uC2DC\uC5D0\uB9CC \uBC84\uD2BC\uC774 \uD45C\uC2DC\uB418\uB3C4\uB85D
+    \uBCC0\uACBD\uB428)\\r\\n    }\\r\\n    /* ===== Trigger \uC774\uBCA4\uD2B8 (useDistanceDetection
+    = false \uC77C \uB54C\uB9CC \uC0AC\uC6A9) ===== */\\r\\n    /**\\r\\n     * \uD50C\uB808\uC774\uC5B4\uAC00
+    \uBC30\uB2EC \uC9D1 Trigger\uC5D0 \uC9C4\uC785\\r\\n     * \uC8FC\uC758: useDistanceDetection\uC774
+    false\uC77C \uB54C\uB9CC \uC791\uB3D9\\r\\n     */\\r\\n    OnTriggerEnter(coll)
+    {\\r\\n        if (this.useDistanceDetection)\\r\\n            return; // \uAC70\uB9AC
+    \uAC10\uC9C0 \uBAA8\uB4DC\uC5D0\uC11C\uB294 \uBB34\uC2DC\\r\\n        // LocalPlayer
+    \uCCB4\uD06C\\r\\n        if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer)\\r\\n           
+    return;\\r\\n        const character = coll.GetComponent($typeof(ZEPETO_Character_Controller_1.ZepetoCharacter));\\r\\n       
+    if (!character)\\r\\n            return;\\r\\n        // LocalPlayer\uC778\uC9C0
+    \uD655\uC778\\r\\n        if (character !== ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character)
+    {\\r\\n            return;\\r\\n        }\\r\\n        this.isPlayerInRange =
+    true;\\r\\n        this.OnPlayerEnterHouse();\\r\\n    }\\r\\n    /**\\r\\n    
+    * \uD50C\uB808\uC774\uC5B4\uAC00 \uBC30\uB2EC \uC9D1 Trigger\uB97C \uBC97\uC5B4\uB0A8\\r\\n    
+    * \uC8FC\uC758: useDistanceDetection\uC774 false\uC77C \uB54C\uB9CC \uC791\uB3D9\\r\\n    
+    */\\r\\n    OnTriggerExit(coll) {\\r\\n        if (this.useDistanceDetection)\\r\\n           
+    return; // \uAC70\uB9AC \uAC10\uC9C0 \uBAA8\uB4DC\uC5D0\uC11C\uB294 \uBB34\uC2DC\\r\\n       
+    if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer)\\r\\n           
+    return;\\r\\n        const character = coll.GetComponent($typeof(ZEPETO_Character_Controller_1.ZepetoCharacter));\\r\\n       
+    if (!character)\\r\\n            return;\\r\\n        if (character !== ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character)
+    {\\r\\n            return;\\r\\n        }\\r\\n        this.isPlayerInRange =
+    false;\\r\\n        this.OnPlayerExitHouse();\\r\\n    }\\r\\n    /**\\r\\n    
+    * \uD50C\uB808\uC774\uC5B4\uAC00 \uBC30\uB2EC \uC9D1 \uBC94\uC704\uC5D0 \uC9C4\uC785\\r\\n    
+    */\\r\\n    OnPlayerEnterHouse() {\\r\\n        console.log(`[DeliveryHouse]
+    \uD50C\uB808\uC774\uC5B4\uAC00 ${this.gameObject.name}\uC5D0 \uB4E4\uC5B4\uC654\uC2B5\uB2C8\uB2E4.`);\\r\\n       
+    // \uC790\uB3D9 \uBC30\uB2EC \uC635\uC158\uC774 \uCF1C\uC838\uC788\uACE0 \uC8FC\uBB38\uC774
+    \uC788\uC73C\uBA74 \uBC14\uB85C \uBC30\uB2EC\\r\\n        if (this.autoDeliverOnEnter
+    && this.hasActiveOrder) {\\r\\n            this.TryDeliver();\\r\\n        }\\r\\n       
+    // \uC790\uB3D9 \uBC30\uB2EC\uC774 \uC544\uB2CC \uACBD\uC6B0 \uBC84\uD2BC \uD45C\uC2DC
+    (CheckPlayerDistance\uC5D0\uC11C \uCC98\uB9AC\uB428)\\r\\n    }\\r\\n    /**\\r\\n    
+    * \uD50C\uB808\uC774\uC5B4\uAC00 \uBC30\uB2EC \uC9D1 \uBC94\uC704\uB97C \uBC97\uC5B4\uB0A8\\r\\n    
+    */\\r\\n    OnPlayerExitHouse() {\\r\\n        console.log(`[DeliveryHouse] \uD50C\uB808\uC774\uC5B4\uAC00
+    ${this.gameObject.name}\uC5D0\uC11C \uB098\uAC14\uC2B5\uB2C8\uB2E4.`);\\r\\n       
+    // \uBC84\uD2BC \uC228\uAE40 (CheckPlayerDistance\uC5D0\uC11C \uCC98\uB9AC\uB428)\\r\\n   
+    }\\r\\n    /* ===== \uC8FC\uBB38 \uAD00\uB9AC ===== */\\r\\n    /**\\r\\n    
+    * \uB79C\uB364 \uC8FC\uBB38 \uC0DD\uC131\\r\\n     */\\r\\n    GenerateOrder()
+    {\\r\\n        this.currentOrder = Order_1.default.GenerateRandomOrder();\\r\\n       
+    this.hasActiveOrder = true;\\r\\n        console.log(`[DeliveryHouse] ${this.gameObject.name}
+    \uC0C8 \uC8FC\uBB38 \uC0DD\uC131: ${this.currentOrder.GetOrderString()}`);\\r\\n       
+    // UI \uC5C5\uB370\uC774\uD2B8\\r\\n        this.UpdateOrderUI();\\r\\n       
+    this.ShowOrderUI();\\r\\n        // TODO: \uC8FC\uBB38 \uC0DD\uC131 \uD6A8\uACFC\uC74C/\uC774\uD399\uD2B8\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uB2E4\uC74C \uC8FC\uBB38 \uC0DD\uC131 \uC2DC\uAC04
+    \uC2A4\uCF00\uC904\uB9C1\\r\\n     */\\r\\n    ScheduleNextOrder() {\\r\\n       
+    const interval = this.minOrderInterval + Math.random() * (this.maxOrderInterval
+    - this.minOrderInterval);\\r\\n        this.nextOrderTime = UnityEngine_1.Time.time
+    + interval;\\r\\n        console.log(`[DeliveryHouse] ${this.gameObject.name}
+    \uB2E4\uC74C \uC8FC\uBB38 \uC0DD\uC131\uAE4C\uC9C0 ${interval.toFixed(1)}\uCD08`);\\r\\n   
+    }\\r\\n    /* ===== \uBC30\uB2EC \uCC98\uB9AC ===== */\\r\\n    /**\\r\\n    
+    * \uBC30\uB2EC \uC2DC\uB3C4 (\uCFE8\uB2E4\uC6B4 \uCCB4\uD06C \uD3EC\uD568)\\r\\n    
+    */\\r\\n    TryDeliver() {\\r\\n        // \uC8FC\uBB38\uC774 \uC5C6\uC73C\uBA74
+    \uB9AC\uD134\\r\\n        if (!this.hasActiveOrder) {\\r\\n            console.log('[DeliveryHouse]
+    \uD604\uC7AC \uC8FC\uBB38\uC774 \uC5C6\uC2B5\uB2C8\uB2E4.');\\r\\n           
+    return;\\r\\n        }\\r\\n        // \uCFE8\uB2E4\uC6B4 \uCCB4\uD06C\\r\\n       
+    const currentTime = UnityEngine_1.Time.time;\\r\\n        if (currentTime - this.lastDeliveryTime
+    < this.deliveryCooldown) {\\r\\n            console.log('[DeliveryHouse] \uBC30\uB2EC
+    \uCFE8\uB2E4\uC6B4 \uC911...');\\r\\n            return;\\r\\n        }\\r\\n       
+    // \uC7AC\uACE0 \uD655\uC778 \uBC0F \uCC28\uAC10\\r\\n        const success =
+    this.stockManager.RemoveStock(this.currentOrder.pizzaAmount, this.currentOrder.spaghettiAmount,
+    this.currentOrder.colaAmount);\\r\\n        if (success) {\\r\\n            //
+    \uBC30\uB2EC \uC131\uACF5!\\r\\n            this.CompleteDelivery();\\r\\n           
+    this.lastDeliveryTime = currentTime;\\r\\n        }\\r\\n        else {\\r\\n           
+    console.log('[DeliveryHouse] \uC7AC\uACE0\uAC00 \uBD80\uC871\uD558\uC5EC \uBC30\uB2EC\uD560
+    \uC218 \uC5C6\uC2B5\uB2C8\uB2E4!');\\r\\n            // StockManager\uC5D0\uC11C
+    OnStockShortage \uC774\uBCA4\uD2B8\uAC00 \uC774\uBBF8 \uBC1C\uC0DD\uD568\\r\\n       
+    }\\r\\n    }\\r\\n    /**\\r\\n     * \uBC30\uB2EC \uC644\uB8CC \uCC98\uB9AC\\r\\n    
+    */\\r\\n    CompleteDelivery() {\\r\\n        console.log(`[DeliveryHouse] ${this.gameObject.name}
+    \uBC30\uB2EC \uC644\uB8CC!`);\\r\\n        // \uC218\uC775 \uACC4\uC0B0 (\uAC01
+    \uBB3C\uD488\uB2F9 1000\uC6D0)\\r\\n        const PRICE_PER_ITEM = 1000;\\r\\n       
+    let earnings = 0;\\r\\n        if (this.currentOrder) {\\r\\n            const
+    pizzaEarnings = this.currentOrder.pizzaAmount * PRICE_PER_ITEM;\\r\\n           
+    const spaghettiEarnings = this.currentOrder.spaghettiAmount * PRICE_PER_ITEM;\\r\\n           
+    const colaEarnings = this.currentOrder.colaAmount * PRICE_PER_ITEM;\\r\\n           
+    earnings = pizzaEarnings + spaghettiEarnings + colaEarnings;\\r\\n           
+    console.log(`[DeliveryHouse] \uC218\uC775 \uACC4\uC0B0 - \uD53C\uC790: ${pizzaEarnings}\uC6D0,
+    \uC2A4\uD30C\uAC8C\uD2F0: ${spaghettiEarnings}\uC6D0, \uCF5C\uB77C: ${colaEarnings}\uC6D0,
+    \uCD1D: ${earnings}\uC6D0`);\\r\\n        }\\r\\n        // DeliveryManager\uC5D0
+    \uBC30\uB2EC \uC644\uB8CC \uC54C\uB9BC (\uC218\uC775 \uC804\uB2EC)\\r\\n       
+    this.deliveryManager.CompleteDelivery(earnings);\\r\\n        // \uC8FC\uBB38
+    \uCD08\uAE30\uD654\\r\\n        this.hasActiveOrder = false;\\r\\n        this.currentOrder
+    = null;\\r\\n        // UI \uC228\uAE30\uAE30\\r\\n        this.HideOrderUI();\\r\\n       
+    // \uBC30\uB2EC \uBC84\uD2BC \uC228\uAE30\uAE30\\r\\n        if (this.deliveryButtonUI)
+    {\\r\\n            this.deliveryButtonUI.HideButton();\\r\\n        }\\r\\n       
+    // TODO: \uBC30\uB2EC \uC644\uB8CC \uD6A8\uACFC\uC74C/\uC774\uD399\uD2B8\\r\\n       
+    // \uB2E4\uC74C \uC8FC\uBB38 \uC2A4\uCF00\uC904\uB9C1\\r\\n        this.ScheduleNextOrder();\\r\\n   
+    }\\r\\n    /* ===== Public \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n    
+    * \uC678\uBD80\uC5D0\uC11C \uAC15\uC81C\uB85C \uC8FC\uBB38 \uC0DD\uC131 (\uD14C\uC2A4\uD2B8\uC6A9)\\r\\n    
+    */\\r\\n    ForceGenerateOrder() {\\r\\n        if (!this.hasActiveOrder) {\\r\\n           
+    this.GenerateOrder();\\r\\n        }\\r\\n        else {\\r\\n            console.log(`[DeliveryHouse]
+    ${this.gameObject.name}\uC5D0 \uC774\uBBF8 \uC8FC\uBB38\uC774 \uC788\uC2B5\uB2C8\uB2E4.`);\\r\\n       
+    }\\r\\n    }\\r\\n    /**\\r\\n     * \uD604\uC7AC \uC8FC\uBB38 \uCDE8\uC18C\\r\\n    
+    */\\r\\n    CancelOrder() {\\r\\n        if (this.hasActiveOrder) {\\r\\n           
+    this.hasActiveOrder = false;\\r\\n            this.currentOrder = null;\\r\\n           
+    console.log(`[DeliveryHouse] ${this.gameObject.name} \uC8FC\uBB38 \uCDE8\uC18C`);\\r\\n           
+    // UI \uC228\uAE30\uAE30\\r\\n            this.HideOrderUI();\\r\\n           
+    // \uBC30\uB2EC \uBC84\uD2BC \uC228\uAE30\uAE30\\r\\n            if (this.deliveryButtonUI)
+    {\\r\\n                this.deliveryButtonUI.HideButton();\\r\\n            }\\r\\n           
+    this.ScheduleNextOrder();\\r\\n        }\\r\\n    }\\r\\n    /* ===== UI \uAD00\uB9AC
+    \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n     * \uC8FC\uBB38 UI \uC5C5\uB370\uC774\uD2B8
+    (OrderUI \uCEF4\uD3EC\uB10C\uD2B8 \uC0AC\uC6A9)\\r\\n     */\\r\\n    UpdateOrderUI()
+    {\\r\\n        if (!this.orderUI || !this.currentOrder)\\r\\n            return;\\r\\n       
+    this.orderUI.SetOrder(this.currentOrder);\\r\\n    }\\r\\n    /**\\r\\n     *
+    \uC8FC\uBB38 UI \uD45C\uC2DC\\r\\n     */\\r\\n    ShowOrderUI() {\\r\\n       
+    if (this.orderUI) {\\r\\n            this.orderUI.ShowUI();\\r\\n        }\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uC8FC\uBB38 UI \uC228\uAE30\uAE30\\r\\n     */\\r\\n   
+    HideOrderUI() {\\r\\n        if (this.orderUI) {\\r\\n            this.orderUI.HideUI();\\r\\n       
+    }\\r\\n    }\\r\\n    /**\\r\\n     * \uD50C\uB808\uC774\uC5B4\uAC00 \uBC94\uC704
+    \uB0B4\uC5D0 \uC788\uB294\uC9C0 \uD655\uC778\\r\\n     */\\r\\n    IsPlayerInRange()
+    {\\r\\n        return this.isPlayerInRange;\\r\\n    }\\r\\n    /**\\r\\n    
+    * \uD604\uC7AC \uC8FC\uBB38 \uC815\uBCF4 \uBC18\uD658\\r\\n     */\\r\\n    GetCurrentOrder()
+    {\\r\\n        return this.currentOrder;\\r\\n    }\\r\\n    /**\\r\\n     *
+    \uD65C\uC131 \uC8FC\uBB38\uC774 \uC788\uB294\uC9C0 \uD655\uC778\\r\\n     */\\r\\n   
+    HasActiveOrder() {\\r\\n        return this.hasActiveOrder;\\r\\n    }\\r\\n   
+    /* ===== Unity Gizmos (\uC5D0\uB514\uD130\uC5D0\uC11C \uBC30\uB2EC \uBC94\uC704
+    \uC2DC\uAC01\uD654) ===== */\\r\\n    /**\\r\\n     * \uC5D0\uB514\uD130\uC5D0\uC11C
+    \uBC30\uB2EC \uBC94\uC704\uB97C \uC2DC\uAC01\uC801\uC73C\uB85C \uD45C\uC2DC\\r\\n    
+    * \uC8FC\uBB38\uC774 \uC788\uC73C\uBA74 \uB178\uB780\uC0C9, \uC5C6\uC73C\uBA74
+    \uD68C\uC0C9\\r\\n     */\\r\\n    OnDrawGizmosSelected() {\\r\\n        // \uAC70\uB9AC
+    \uAE30\uBC18 \uAC10\uC9C0\uB97C \uC0AC\uC6A9\uD560 \uB54C\uB9CC \uD45C\uC2DC\\r\\n       
+    if (!this.useDistanceDetection)\\r\\n            return;\\r\\n        // \uC8FC\uBB38
+    \uC0C1\uD0DC\uC5D0 \uB530\uB77C \uC0C9\uC0C1 \uBCC0\uACBD\\r\\n        UnityEngine_1.Gizmos.color
+    = this.hasActiveOrder ? UnityEngine_1.Color.yellow : UnityEngine_1.Color.gray;\\r\\n       
+    // \uBC30\uB2EC \uBC94\uC704\uB97C \uAD6C\uCCB4\uB85C \uD45C\uC2DC\\r\\n       
+    UnityEngine_1.Gizmos.DrawWireSphere(this.transform.position, this.deliveryRange);\\r\\n   
+    }\\r\\n}\\r\\nexports.default = DeliveryHouse;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRGVsaXZlcnlIb3VzZS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIkRlbGl2ZXJ5SG91c2UudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxpREFBc0Q7QUFDdEQsNkNBQXFGO0FBQ3JGLDZFQUE2RTtBQUM3RSxpREFBMEM7QUFDMUMsdURBQWdEO0FBQ2hELG1DQUE0QjtBQUM1Qix1Q0FBZ0M7QUFDaEMseURBQWtEO0FBRWxEOzs7Ozs7R0FNRztBQUNILE1BQXFCLGFBQWMsU0FBUSxxQ0FBcUI7SUFBaEU7O1FBRUksdUJBQXVCO1FBQ3ZCLGdCQUFnQjtRQUNULGtCQUFhLEdBQVcsR0FBRyxDQUFDO1FBRW5DLFdBQVc7UUFDSix5QkFBb0IsR0FBWSxJQUFJLENBQUMsQ0FBQyxpQ0FBaUM7UUFFOUUsdUJBQXVCO1FBQ3ZCLGVBQWU7UUFDUixxQkFBZ0IsR0FBVyxJQUFJLENBQUM7UUFDaEMscUJBQWdCLEdBQVcsSUFBSSxDQUFDO1FBRXZDLG1DQUFtQztRQUM1Qix1QkFBa0IsR0FBWSxLQUFLLENBQUM7UUFFM0Msd0JBQXdCO1FBQ2pCLHFCQUFnQixHQUFXLEdBQUcsQ0FBQztRQWE5QixtQkFBYyxHQUFZLEtBQUssQ0FBQztRQUNoQyxpQkFBWSxHQUFVLElBQUksQ0FBQztRQUUzQixvQkFBZSxHQUFZLEtBQUssQ0FBQztRQUNqQyxxQkFBZ0IsR0FBVyxDQUFDLEdBQUcsQ0FBQyxDQUFDLFlBQVk7UUFDN0Msa0JBQWEsR0FBVyxDQUFDLENBQUMsQ0FBQyxjQUFjO0lBZ1hyRCxDQUFDO0lBOVdHLGlDQUFpQztJQUN6QixLQUFLO1FBQ1QsYUFBYTtRQUNiLElBQUksQ0FBQyxZQUFZLEdBQUcsc0JBQVksQ0FBQyxRQUFRLENBQUM7UUFDMUMsSUFBSSxDQUFDLGVBQWUsR0FBRyx5QkFBZSxDQUFDLFFBQVEsQ0FBQztRQUVoRCxJQUFJLENBQUMsSUFBSSxDQUFDLFlBQVksRUFBRTtZQUNwQixPQUFPLENBQUMsS0FBSyxDQUFDLDBDQUEwQyxDQUFD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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/DeliveryHouse.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"mscorlib\",\"name\":\"deliveryRange\",\"type\":\"System.Single\",\"isArray\":false,\"initValue\":[\"3\"],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"mscorlib\",\"name\":\"useDistanceDetection\",\"type\":\"System.Boolean\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"mscorlib\",\"name\":\"minOrderInterval\",\"type\":\"System.Single\",\"isArray\":false,\"initValue\":[\"10\"],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"mscorlib\",\"name\":\"maxOrderInterval\",\"type\":\"System.Single\",\"isArray\":false,\"initValue\":[\"30\"],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"mscorlib\",\"name\":\"autoDeliverOnEnter\",\"type\":\"System.Boolean\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"mscorlib\",\"name\":\"deliveryCooldown\",\"type\":\"System.Single\",\"isArray\":false,\"initValue\":[\"1\"],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"DeliveryHouse\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: 0e66ad243e92d99e63454a025be182d8
+  onlyWriteTrigger: 0

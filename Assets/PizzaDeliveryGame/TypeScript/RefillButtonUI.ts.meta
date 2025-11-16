@@ -1,0 +1,90 @@
+fileFormatVersion: 2
+guid: 25eebc6f4bb684f2a87bfc0a635699a6
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst
+    UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\n/**\\r\\n * \uBAA8\uBC14\uC77C\uC6A9
+    \uC7AC\uACE0 \uBCF4\uCDA9 \uBC84\uD2BC UI\\r\\n * - \uD50C\uB808\uC774\uC5B4\uAC00
+    \uD53C\uC790\uC0F5 \uBC94\uC704 \uB0B4\uC5D0 \uC788\uC744 \uB54C\uB9CC \uD45C\uC2DC\\r\\n
+    * - \uBC84\uD2BC \uD074\uB9AD \uC2DC \uC7AC\uACE0 \uBCF4\uCDA9 \uC2E4\uD589\\r\\n
+    * - \uC2F1\uAE00\uD1A4 \uD328\uD134 (\uD654\uBA74\uC5D0 \uD558\uB098\uB9CC)\\r\\n
+    */\\r\\nclass RefillButtonUI extends ZEPETO_Script_1.ZepetoScriptBehaviour {\\r\\n   
+    constructor() {\\r\\n        super(...arguments);\\r\\n        /* ===== Private
+    \uBCC0\uC218 ===== */\\r\\n        this.currentRefillAction = null;\\r\\n   
+    }\\r\\n    /* ===== Unity Lifecycle ===== */\\r\\n    Awake() {\\r\\n       
+    // \uC2F1\uAE00\uD1A4 \uC124\uC815\\r\\n        if (RefillButtonUI.m_instance
+    !== null && RefillButtonUI.m_instance !== this) {\\r\\n            UnityEngine_1.GameObject.Destroy(this.gameObject);\\r\\n       
+    }\\r\\n        else {\\r\\n            RefillButtonUI.m_instance = this;\\r\\n       
+    }\\r\\n    }\\r\\n    Start() {\\r\\n        // \uCD08\uAE30 \uC0C1\uD0DC: \uBC84\uD2BC
+    \uC228\uAE40\\r\\n        this.HideButton();\\r\\n        // \uBC84\uD2BC \uD074\uB9AD
+    \uC774\uBCA4\uD2B8 \uB4F1\uB85D\\r\\n        if (this.refillButton) {\\r\\n           
+    this.refillButton.onClick.AddListener(() => this.OnButtonClicked());\\r\\n       
+    }\\r\\n        console.log('[RefillButtonUI] \uCD08\uAE30\uD654 \uC644\uB8CC');\\r\\n   
+    }\\r\\n    OnDestroy() {\\r\\n        // \uC774\uBCA4\uD2B8 \uD574\uC81C\\r\\n       
+    if (this.refillButton) {\\r\\n            this.refillButton.onClick.RemoveAllListeners();\\r\\n       
+    }\\r\\n        // \uC2F1\uAE00\uD1A4 \uC778\uC2A4\uD134\uC2A4 \uC815\uB9AC\\r\\n       
+    if (RefillButtonUI.m_instance === this) {\\r\\n            RefillButtonUI.m_instance
+    = null;\\r\\n        }\\r\\n    }\\r\\n    /* ===== \uBC84\uD2BC \uAD00\uB9AC
+    \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n     * \uC7AC\uACE0 \uBCF4\uCDA9
+    \uBC84\uD2BC \uD45C\uC2DC \uBC0F \uCF5C\uBC31 \uB4F1\uB85D\\r\\n     * @param
+    refillAction \uBC84\uD2BC \uD074\uB9AD \uC2DC \uC2E4\uD589\uD560 \uC7AC\uACE0
+    \uBCF4\uCDA9 \uD568\uC218\\r\\n     */\\r\\n    ShowRefillButton(refillAction)
+    {\\r\\n        // \uC7AC\uACE0 \uBCF4\uCDA9 \uC561\uC158 \uC800\uC7A5\\r\\n       
+    this.currentRefillAction = refillAction;\\r\\n        // \uBC84\uD2BC \uD45C\uC2DC\\r\\n       
+    if (this.buttonObject) {\\r\\n            this.buttonObject.SetActive(true);\\r\\n       
+    }\\r\\n        else if (this.refillButton) {\\r\\n            this.refillButton.gameObject.SetActive(true);\\r\\n       
+    }\\r\\n        console.log('[RefillButtonUI] \uC7AC\uACE0 \uBCF4\uCDA9 \uBC84\uD2BC
+    \uD45C\uC2DC');\\r\\n    }\\r\\n    /**\\r\\n     * \uC7AC\uACE0 \uBCF4\uCDA9
+    \uBC84\uD2BC \uC228\uAE40\\r\\n     */\\r\\n    HideButton() {\\r\\n        //
+    \uC7AC\uACE0 \uBCF4\uCDA9 \uC561\uC158 \uCD08\uAE30\uD654\\r\\n        this.currentRefillAction
+    = null;\\r\\n        // \uBC84\uD2BC \uC228\uAE40\\r\\n        if (this.buttonObject)
+    {\\r\\n            this.buttonObject.SetActive(false);\\r\\n        }\\r\\n       
+    else if (this.refillButton) {\\r\\n            this.refillButton.gameObject.SetActive(false);\\r\\n       
+    }\\r\\n        console.log('[RefillButtonUI] \uC7AC\uACE0 \uBCF4\uCDA9 \uBC84\uD2BC
+    \uC228\uAE40');\\r\\n    }\\r\\n    /**\\r\\n     * \uBC84\uD2BC\uC774 \uD45C\uC2DC
+    \uC911\uC778\uC9C0 \uD655\uC778\\r\\n     */\\r\\n    IsVisible() {\\r\\n       
+    if (this.buttonObject) {\\r\\n            return this.buttonObject.activeSelf;\\r\\n       
+    }\\r\\n        else if (this.refillButton) {\\r\\n            return this.refillButton.gameObject.activeSelf;\\r\\n       
+    }\\r\\n        return false;\\r\\n    }\\r\\n    /* ===== \uBC84\uD2BC \uC774\uBCA4\uD2B8
+    ===== */\\r\\n    /**\\r\\n     * \uC7AC\uACE0 \uBCF4\uCDA9 \uBC84\uD2BC \uD074\uB9AD
+    \uC2DC \uD638\uCD9C\\r\\n     */\\r\\n    OnButtonClicked() {\\r\\n        console.log('[RefillButtonUI]
+    \uC7AC\uACE0 \uBCF4\uCDA9 \uBC84\uD2BC \uD074\uB9AD!');\\r\\n        // \uB4F1\uB85D\uB41C
+    \uC7AC\uACE0 \uBCF4\uCDA9 \uC561\uC158 \uC2E4\uD589\\r\\n        if (this.currentRefillAction)
+    {\\r\\n            this.currentRefillAction();\\r\\n        }\\r\\n        else
+    {\\r\\n            console.warn('[RefillButtonUI] \uC7AC\uACE0 \uBCF4\uCDA9 \uC561\uC158\uC774
+    \uB4F1\uB85D\uB418\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uB2E4!');\\r\\n        }\\r\\n   
+    }\\r\\n    /* ===== Public \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n    
+    * \uBC84\uD2BC \uD65C\uC131\uD654/\uBE44\uD65C\uC131\uD654\\r\\n     */\\r\\n   
+    SetButtonInteractable(interactable) {\\r\\n        if (this.refillButton) {\\r\\n           
+    this.refillButton.interactable = interactable;\\r\\n        }\\r\\n    }\\r\\n   
+    /**\\r\\n     * \uBC84\uD2BC \uD14D\uC2A4\uD2B8 \uBCC0\uACBD (TextMeshPro \uC0AC\uC6A9
+    \uC2DC)\\r\\n     */\\r\\n    SetButtonText(text) {\\r\\n        if (this.buttonText)
+    {\\r\\n            this.buttonText.text = text;\\r\\n        }\\r\\n    }\\r\\n   
+    static get instance() {\\r\\n        if (this.m_instance === null) {\\r\\n           
+    this.m_instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(RefillButtonUI));\\r\\n       
+    }\\r\\n        return this.m_instance;\\r\\n    }\\r\\n}\\r\\nexports.default
+    = RefillButtonUI;\\r\\n/* ===== Singleton ===== */\\r\\nRefillButtonUI.m_instance
+    = null;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUmVmaWxsQnV0dG9uVUkuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJSZWZpbGxCdXR0b25VSS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGlEQUFzRDtBQUN0RCw2Q0FBeUM7QUFJekM7Ozs7O0dBS0c7QUFDSCxNQUFxQixjQUFlLFNBQVEscUNBQXFCO0lBQWpFOztRQVlJLDRCQUE0QjtRQUNwQix3QkFBbUIsR0FBZSxJQUFJLENBQUM7SUFrSW5ELENBQUM7SUFoSUcsaUNBQWlDO0lBQ3pCLEtBQUs7UUFDVCxTQUFTO1FBQ1QsSUFBSSxjQUFjLENBQUMsVUFBVSxLQUFLLElBQUksSUFBSSxjQUFjLENBQUMsVUFBVSxLQUFLLElBQUksRUFBRTtZQUMxRSx3QkFBVSxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsVUFBVSxDQUFDLENBQUM7U0FDdkM7YUFBTTtZQUNILGNBQWMsQ0FBQyxVQUFVLEdBQUcsSUFBSSxDQUFDO1NBQ3BDO0lBQ0wsQ0FBQztJQUVPLEtBQUs7UUFDVCxlQUFlO1FBQ2YsSUFBSSxDQUFDLFVBQVUsRUFBRSxDQUFDO1FBRWxCLGVBQWU7UUFDZixJQUFJLElBQUksQ0FBQyxZQUFZLEVBQUU7WUFDbkIsSUFBSSxDQUFDLFlBQVksQ0FBQyxPQUFPLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRSxDQUFDLElBQUksQ0FBQyxlQUFlLEVBQUUsQ0FBQyxDQUFDO1NBQ3ZFO1FBRUQsT0FBTyxDQUFDLEdBQUcsQ0FBQyx5QkFBeUIsQ0FBQyxDQUFDO0lBQzNDLENBQUM7SUFFTyxTQUFTO1FBQ2IsU0FBUztRQUNULElBQUksSUFBSSxDQUFDLFlBQVksRUFBRTtZQUNuQixJQUFJLENBQUMsWUFBWSxDQUFDLE9BQU8sQ0FBQyxrQkFBa0IsRUFBRSxDQUFDO1NBQ2xEO1FBRUQsY0FBYztRQUNkLElBQUksY0FBYyxDQUFDLFVBQVUsS0FBSyxJQUFJLEVBQUU7WUFDcEMsY0FBYyxDQUFDLFVBQVUsR0FBRyxJQUFJLENBQUM7U0FDcEM7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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/RefillButtonUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.UI\",\"name\":\"refillButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"buttonObject\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"buttonText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]}],\"name\":\"RefillButtonUI\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: 0eb7c9373e5d836d8073440d83edbf1a
+  onlyWriteTrigger: 0

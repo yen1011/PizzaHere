@@ -1,0 +1,123 @@
+fileFormatVersion: 2
+guid: c758883d8193bad4fbda393aa9622859
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst
+    UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nconst StockManager_1 = require(\\\"./StockManager\\\");\\r\\n/**\\r\\n
+    * \uC7AC\uACE0 UI \uD45C\uC2DC \uC2A4\uD06C\uB9BD\uD2B8\\r\\n * - StockManager\uC758
+    \uC7AC\uACE0 \uBCC0\uACBD\uC744 \uAC10\uC9C0\uD558\uC5EC UI \uC5C5\uB370\uC774\uD2B8\\r\\n
+    * - \uD53C\uC790, \uC2A4\uD30C\uAC8C\uD2F0, \uCF5C\uB77C \uAC1C\uBCC4 \uD14D\uC2A4\uD2B8\uC5D0
+    \uC22B\uC790\uB9CC \uD45C\uC2DC\\r\\n * - \uC7AC\uACE0 \uBD80\uC871 \uC2DC \uBE68\uAC04\uC0C9
+    \uAE5C\uBE61\uC784 \uD6A8\uACFC\\r\\n */\\r\\nclass StockUI extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\\r\\n    constructor() {\\r\\n        super(...arguments);\\r\\n        /*
+    ===== \uC7AC\uACE0 \uBD80\uC871 \uACBD\uACE0 \uC124\uC815 ===== */\\r\\n       
+    this.blinkDuration = 1.0;\\r\\n        this.blinkCount = 3;\\r\\n        // \uAE5C\uBE61\uC784
+    \uCF54\uB8E8\uD2F4 \uCC38\uC870\\r\\n        this.blinkCoroutine = null;\\r\\n   
+    }\\r\\n    /* ===== Unity Lifecycle ===== */\\r\\n    Start() {\\r\\n       
+    // Color \uCD08\uAE30\uD654\\r\\n        this.shortageColor = UnityEngine_1.Color.red;\\r\\n       
+    // StockManager \uCC3E\uAE30\\r\\n        this.stockManager = StockManager_1.default.instance;\\r\\n       
+    if (!this.stockManager) {\\r\\n            console.error('[StockUI] StockManager\uB97C
+    \uCC3E\uC744 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4!');\\r\\n            return;\\r\\n       
+    }\\r\\n        // \uC6D0\uB798 \uD14D\uC2A4\uD2B8 \uC0C9\uC0C1 \uC800\uC7A5\\r\\n       
+    if (this.pizzaText) {\\r\\n            this.pizzaOriginalColor = this.pizzaText.color;\\r\\n       
+    }\\r\\n        if (this.spaghettiText) {\\r\\n            this.spaghettiOriginalColor
+    = this.spaghettiText.color;\\r\\n        }\\r\\n        if (this.colaText) {\\r\\n           
+    this.colaOriginalColor = this.colaText.color;\\r\\n        }\\r\\n        //
+    StockManager \uC774\uBCA4\uD2B8 \uAD6C\uB3C5\\r\\n        this.stockManager.OnStockChanged.AddListener(()
+    => this.UpdateStockDisplay());\\r\\n        this.stockManager.OnStockShortage.AddListener(()
+    => this.ShowStockShortageWarning());\\r\\n        // \uCD08\uAE30 UI \uC5C5\uB370\uC774\uD2B8\\r\\n       
+    this.UpdateStockDisplay();\\r\\n        console.log('[StockUI] \uCD08\uAE30\uD654
+    \uC644\uB8CC');\\r\\n    }\\r\\n    OnDestroy() {\\r\\n        // \uC774\uBCA4\uD2B8
+    \uAD6C\uB3C5 \uD574\uC81C\\r\\n        if (this.stockManager) {\\r\\n           
+    this.stockManager.OnStockChanged.RemoveListener(() => this.UpdateStockDisplay());\\r\\n           
+    this.stockManager.OnStockShortage.RemoveListener(() => this.ShowStockShortageWarning());\\r\\n       
+    }\\r\\n    }\\r\\n    /* ===== UI \uC5C5\uB370\uC774\uD2B8 \uBA54\uC11C\uB4DC
+    ===== */\\r\\n    /**\\r\\n     * \uC7AC\uACE0 UI \uC5C5\uB370\uC774\uD2B8 -
+    \uAC01 \uD14D\uC2A4\uD2B8\uC5D0 \uC22B\uC790\uB9CC \uD45C\uC2DC\\r\\n     */\\r\\n   
+    UpdateStockDisplay() {\\r\\n        if (!this.stockManager)\\r\\n           
+    return;\\r\\n        // \uD53C\uC790 \uD14D\uC2A4\uD2B8 \uC5C5\uB370\uC774\uD2B8\\r\\n       
+    if (this.pizzaText) {\\r\\n            this.pizzaText.text = this.stockManager.pizzaCount.toString();\\r\\n       
+    }\\r\\n        // \uC2A4\uD30C\uAC8C\uD2F0 \uD14D\uC2A4\uD2B8 \uC5C5\uB370\uC774\uD2B8\\r\\n       
+    if (this.spaghettiText) {\\r\\n            this.spaghettiText.text = this.stockManager.spaghettiCount.toString();\\r\\n       
+    }\\r\\n        // \uCF5C\uB77C \uD14D\uC2A4\uD2B8 \uC5C5\uB370\uC774\uD2B8\\r\\n       
+    if (this.colaText) {\\r\\n            this.colaText.text = this.stockManager.colaCount.toString();\\r\\n       
+    }\\r\\n    }\\r\\n    /**\\r\\n     * \uC7AC\uACE0 \uBD80\uC871 \uACBD\uACE0
+    \uD45C\uC2DC (\uBE68\uAC04\uC0C9 \uAE5C\uBE61\uC784)\\r\\n     */\\r\\n    ShowStockShortageWarning()
+    {\\r\\n        console.log('[StockUI] \uC7AC\uACE0 \uBD80\uC871 \uACBD\uACE0
+    \uD45C\uC2DC!');\\r\\n        // \uC774\uBBF8 \uAE5C\uBE61\uC774\uB294 \uC911\uC774\uBA74
+    \uC911\uB2E8\uD558\uACE0 \uC7AC\uC2DC\uC791\\r\\n        if (this.blinkCoroutine
+    != null) {\\r\\n            this.StopCoroutine(this.blinkCoroutine);\\r\\n       
+    }\\r\\n        // \uAE5C\uBE61\uC784 \uCF54\uB8E8\uD2F4 \uC2DC\uC791\\r\\n       
+    this.blinkCoroutine = this.StartCoroutine(this.BlinkTextCoroutine());\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uD14D\uC2A4\uD2B8 \uAE5C\uBE61\uC784 \uCF54\uB8E8\uD2F4\\r\\n    
+    */\\r\\n    *BlinkTextCoroutine() {\\r\\n        const blinkInterval = this.blinkDuration
+    / (this.blinkCount * 2);\\r\\n        for (let i = 0; i < this.blinkCount; i++)
+    {\\r\\n            // \uBE68\uAC04\uC0C9\uC73C\uB85C \uBCC0\uACBD\\r\\n           
+    if (this.pizzaText)\\r\\n                this.pizzaText.color = this.shortageColor;\\r\\n           
+    if (this.spaghettiText)\\r\\n                this.spaghettiText.color = this.shortageColor;\\r\\n           
+    if (this.colaText)\\r\\n                this.colaText.color = this.shortageColor;\\r\\n           
+    yield new UnityEngine_1.WaitForSeconds(blinkInterval);\\r\\n            // \uC6D0\uB798
+    \uC0C9\uC0C1\uC73C\uB85C \uBCF5\uAD6C\\r\\n            if (this.pizzaText)\\r\\n               
+    this.pizzaText.color = this.pizzaOriginalColor;\\r\\n            if (this.spaghettiText)\\r\\n               
+    this.spaghettiText.color = this.spaghettiOriginalColor;\\r\\n            if (this.colaText)\\r\\n               
+    this.colaText.color = this.colaOriginalColor;\\r\\n            yield new UnityEngine_1.WaitForSeconds(blinkInterval);\\r\\n       
+    }\\r\\n        // \uAE5C\uBE61\uC784 \uC644\uB8CC \uD6C4 \uC6D0\uB798 \uC0C9\uC0C1
+    \uBCF4\uC7A5\\r\\n        if (this.pizzaText)\\r\\n            this.pizzaText.color
+    = this.pizzaOriginalColor;\\r\\n        if (this.spaghettiText)\\r\\n           
+    this.spaghettiText.color = this.spaghettiOriginalColor;\\r\\n        if (this.colaText)\\r\\n           
+    this.colaText.color = this.colaOriginalColor;\\r\\n        this.blinkCoroutine
+    = null;\\r\\n        console.log('[StockUI] \uAE5C\uBE61\uC784 \uC644\uB8CC');\\r\\n   
+    }\\r\\n    /* ===== Public \uBA54\uC11C\uB4DC (\uC678\uBD80\uC5D0\uC11C \uD638\uCD9C
+    \uAC00\uB2A5) ===== */\\r\\n    /**\\r\\n     * UI\uB97C \uAC15\uC81C\uB85C \uC5C5\uB370\uC774\uD2B8
+    (\uD544\uC694 \uC2DC \uC678\uBD80\uC5D0\uC11C \uD638\uCD9C)\\r\\n     */\\r\\n   
+    ForceUpdate() {\\r\\n        this.UpdateStockDisplay();\\r\\n    }\\r\\n    /**\\r\\n    
+    * \uD2B9\uC815 \uC544\uC774\uD15C\uC758 \uD14D\uC2A4\uD2B8 \uC0C9\uC0C1 \uBCC0\uACBD
+    (\uAC15\uC870 \uB4F1\uC5D0 \uC0AC\uC6A9 \uAC00\uB2A5)\\r\\n     */\\r\\n    SetTextColor(itemType,
+    color) {\\r\\n        switch (itemType.toLowerCase()) {\\r\\n            case
+    'pizza':\\r\\n                if (this.pizzaText)\\r\\n                    this.pizzaText.color
+    = color;\\r\\n                break;\\r\\n            case 'spaghetti':\\r\\n               
+    if (this.spaghettiText)\\r\\n                    this.spaghettiText.color = color;\\r\\n               
+    break;\\r\\n            case 'cola':\\r\\n                if (this.colaText)\\r\\n                   
+    this.colaText.color = color;\\r\\n                break;\\r\\n        }\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uBAA8\uB4E0 \uD14D\uC2A4\uD2B8 \uC0C9\uC0C1\uC744
+    \uC6D0\uB798\uB300\uB85C \uBCF5\uAD6C\\r\\n     */\\r\\n    ResetTextColors()
+    {\\r\\n        if (this.pizzaText)\\r\\n            this.pizzaText.color = this.pizzaOriginalColor;\\r\\n       
+    if (this.spaghettiText)\\r\\n            this.spaghettiText.color = this.spaghettiOriginalColor;\\r\\n       
+    if (this.colaText)\\r\\n            this.colaText.color = this.colaOriginalColor;\\r\\n   
+    }\\r\\n    /**\\r\\n     * UI \uD45C\uC2DC\\r\\n     */\\r\\n    ShowUI() {\\r\\n       
+    if (this.contentPanel) {\\r\\n            this.contentPanel.SetActive(true);\\r\\n           
+    console.log('[StockUI] UI \uD45C\uC2DC');\\r\\n        }\\r\\n    }\\r\\n   
+    /**\\r\\n     * UI \uC228\uAE40\\r\\n     */\\r\\n    HideUI() {\\r\\n       
+    if (this.contentPanel) {\\r\\n            this.contentPanel.SetActive(false);\\r\\n           
+    console.log('[StockUI] UI \uC228\uAE40');\\r\\n        }\\r\\n    }\\r\\n   
+    static get instance() {\\r\\n        if (this.m_instance === null) {\\r\\n           
+    this.m_instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(StockUI));\\r\\n       
+    }\\r\\n        return this.m_instance;\\r\\n    }\\r\\n    Awake() {\\r\\n       
+    // \uC2F1\uAE00\uD1A4 \uC124\uC815\\r\\n        if (StockUI.m_instance !== null
+    && StockUI.m_instance !== this) {\\r\\n            UnityEngine_1.GameObject.Destroy(this.gameObject);\\r\\n       
+    }\\r\\n        else {\\r\\n            StockUI.m_instance = this;\\r\\n       
+    }\\r\\n    }\\r\\n}\\r\\nexports.default = StockUI;\\r\\n/* ===== Singleton =====
+    */\\r\\nStockUI.m_instance = null;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU3RvY2tVSS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIlN0b2NrVUkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxpREFBc0Q7QUFDdEQsNkNBQTJFO0FBRTNFLGlEQUEwQztBQUUxQzs7Ozs7R0FLRztBQUNILE1BQXFCLE9BQVEsU0FBUSxxQ0FBcUI7SUFBMUQ7O1FBZ0JJLDZCQUE2QjtRQUN0QixrQkFBYSxHQUFXLEdBQUcsQ0FBQztRQUM1QixlQUFVLEdBQVcsQ0FBQyxDQUFDO1FBWTlCLGFBQWE7UUFDTCxtQkFBYyxHQUFjLElBQUksQ0FBQztJQTJMN0MsQ0FBQztJQXpMRyxpQ0FBaUM7SUFDekIsS0FBSztRQUNULFlBQVk7UUFDWixJQUFJLENBQUMsYUFBYSxHQUFHLG1CQUFLLENBQUMsR0FBRyxDQUFDO1FBRS9CLGtCQUFrQjtRQUNsQixJQUFJLENBQUMsWUFBWSxHQUFHLHNCQUFZLENBQUMsUUFBUSxDQUFDO1FBRTFDLElBQUksQ0FBQyxJQUFJLENBQUMsWUFBWSxFQUFFO1lBQ3BCLE9BQU8sQ0FBQyxLQUFLLENBQUMsb0NBQW9DLENBQUMsQ0FBQztZQUNwRCxPQUFPO1NBQ1Y7UUFFRCxlQUFlO1FBQ2YsSUFBSSxJQUFJLENBQUMsU0FBUyxFQUFFO1lBQ2hCLElBQUksQ0FBQyxrQkFBa0IsR0FBRyxJQUFJLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQztTQUNsRDtRQUNELElBQUksSUFBSSxDQUFDLGFBQWEsRUFBRTtZQUNwQixJQUFJLENBQUMsc0JBQXNCLEdBQUcsSUFBSSxDQUFDLGFBQWEsQ0FBQyxLQUFLLENBQUM7U0FDMUQ7UUFDRCxJQUFJLElBQUksQ0FBQyxRQUFRLEVBQUU7WUFDZixJQUFJLENBQUMsaUJBQWlCLEdBQUcsSUFBSSxDQUFDLFFBQVEsQ0FBQyxLQUFLLENBQUM7U0FDaEQ7UUFFRCxzQkFBc0I7UUFDdEIsSUFBSSxDQUFDLFlBQVksQ0FBQyxjQUFjLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRSxDQUFD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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/StockUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"contentPanel\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"pizzaText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"spaghettiText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"colaText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"mscorlib\",\"name\":\"blinkDuration\",\"type\":\"System.Single\",\"isArray\":false,\"initValue\":[\"1\"],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"mscorlib\",\"name\":\"blinkCount\",\"type\":\"System.Single\",\"isArray\":false,\"initValue\":[\"3\"],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"StockUI\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: 58bd1d87b2d3ab016770fa2837d772ea
+  onlyWriteTrigger: 0

@@ -1,0 +1,111 @@
+fileFormatVersion: 2
+guid: cf13a1de2d331c044b3391f90aba294f
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst
+    UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nconst UnityEngine_Events_1
+    = require(\\\"UnityEngine.Events\\\");\\r\\n/**\\r\\n * \uD50C\uB808\uC774\uC5B4
+    \uC7AC\uACE0 \uAD00\uB9AC \uC2DC\uC2A4\uD15C (1\uC778 \uAC8C\uC784\uC6A9)\\r\\n
+    * - \uD53C\uC790, \uC2A4\uD30C\uAC8C\uD2F0, \uCF5C\uB77C \uC7AC\uACE0 \uAD00\uB9AC\\r\\n
+    * - UI \uC5C5\uB370\uC774\uD2B8 \uC774\uBCA4\uD2B8 \uC81C\uACF5\\r\\n * - \uC7AC\uACE0
+    \uBCF4\uCDA9/\uC18C\uC9C4 \uAE30\uB2A5\\r\\n */\\r\\nclass StockManager extends
+    ZEPETO_Script_1.ZepetoScriptBehaviour {\\r\\n    constructor() {\\r\\n       
+    super(...arguments);\\r\\n        /* ===== \uC7AC\uACE0 \uC124\uC815 ===== */\\r\\n       
+    this.maxStock = 10;\\r\\n        // \uD604\uC7AC \uC7AC\uACE0\uB7C9 (private\uC73C\uB85C
+    \uAD00\uB9AC)\\r\\n        this._pizzaCount = 10;\\r\\n        this._spaghettiCount
+    = 10;\\r\\n        this._colaCount = 10;\\r\\n    }\\r\\n    get OnStockChanged()
+    {\\r\\n        if (!this._onStockChanged) {\\r\\n            this._onStockChanged
+    = new UnityEngine_Events_1.UnityEvent();\\r\\n        }\\r\\n        return this._onStockChanged;\\r\\n   
+    }\\r\\n    get OnStockShortage() {\\r\\n        if (!this._onStockShortage) {\\r\\n           
+    this._onStockShortage = new UnityEngine_Events_1.UnityEvent();\\r\\n        }\\r\\n       
+    return this._onStockShortage;\\r\\n    }\\r\\n    /* ===== Properties (Getter)
+    ===== */\\r\\n    get pizzaCount() {\\r\\n        return this._pizzaCount;\\r\\n   
+    }\\r\\n    get spaghettiCount() {\\r\\n        return this._spaghettiCount;\\r\\n   
+    }\\r\\n    get colaCount() {\\r\\n        return this._colaCount;\\r\\n    }\\r\\n   
+    /* ===== Unity Lifecycle ===== */\\r\\n    Awake() {\\r\\n        if (StockManager.m_instance
+    !== null && StockManager.m_instance !== this) {\\r\\n            UnityEngine_1.GameObject.Destroy(this.gameObject);\\r\\n       
+    }\\r\\n        else {\\r\\n            StockManager.m_instance = this;\\r\\n           
+    if (this.transform.parent === null)\\r\\n                UnityEngine_1.GameObject.DontDestroyOnLoad(this.gameObject);\\r\\n       
+    }\\r\\n    }\\r\\n    Start() {\\r\\n        // \uCD08\uAE30 \uC7AC\uACE0 UI
+    \uC5C5\uB370\uC774\uD2B8\\r\\n        this.OnStockChanged?.Invoke();\\r\\n       
+    console.log('[StockManager] \uCD08\uAE30\uD654 \uC644\uB8CC');\\r\\n    }\\r\\n   
+    /* ===== \uC7AC\uACE0 \uAD00\uB9AC \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n    
+    * \uBAA8\uB4E0 \uC7AC\uACE0\uB97C \uCD5C\uB300\uCE58\uB85C \uBCF4\uCDA9 (\uD53C\uC790
+    \uAC00\uAC8C\uC5D0\uC11C \uD638\uCD9C)\\r\\n     */\\r\\n    RestockAll() {\\r\\n       
+    this._pizzaCount = this.maxStock;\\r\\n        this._spaghettiCount = this.maxStock;\\r\\n       
+    this._colaCount = this.maxStock;\\r\\n        console.log(`[StockManager] \uC7AC\uACE0
+    \uBCF4\uCDA9 \uC644\uB8CC: \uD53C\uC790 ${this._pizzaCount}, \uC2A4\uD30C\uAC8C\uD2F0
+    ${this._spaghettiCount}, \uCF5C\uB77C ${this._colaCount}`);\\r\\n        // UI
+    \uC5C5\uB370\uC774\uD2B8 \uC774\uBCA4\uD2B8 \uBC1C\uC0DD\\r\\n        this.OnStockChanged?.Invoke();\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uD2B9\uC815 \uC544\uC774\uD15C\uC758 \uC7AC\uACE0\uB97C
+    \uAC1C\uBCC4\uC801\uC73C\uB85C \uCD94\uAC00\\r\\n     */\\r\\n    AddStock(pizza,
+    spaghetti, cola) {\\r\\n        this._pizzaCount = Math.min(this._pizzaCount
+    + pizza, this.maxStock);\\r\\n        this._spaghettiCount = Math.min(this._spaghettiCount
+    + spaghetti, this.maxStock);\\r\\n        this._colaCount = Math.min(this._colaCount
+    + cola, this.maxStock);\\r\\n        console.log(`[StockManager] \uC7AC\uACE0
+    \uCD94\uAC00: \uD53C\uC790 +${pizza}, \uC2A4\uD30C\uAC8C\uD2F0 +${spaghetti},
+    \uCF5C\uB77C +${cola}`);\\r\\n        this.OnStockChanged?.Invoke();\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uBC30\uB2EC \uC2DC \uC7AC\uACE0 \uC18C\uC9C4\\r\\n    
+    * @returns \uC131\uACF5 \uC5EC\uBD80 (\uC7AC\uACE0\uAC00 \uCDA9\uBD84\uD558\uBA74
+    true, \uBD80\uC871\uD558\uBA74 false)\\r\\n     */\\r\\n    RemoveStock(pizza,
+    spaghetti, cola) {\\r\\n        // \uC7AC\uACE0 \uCDA9\uBD84\uD55C\uC9C0 \uD655\uC778\\r\\n       
+    if (!this.CanFulfillOrder(pizza, spaghetti, cola)) {\\r\\n            console.warn('[StockManager]
+    \uC7AC\uACE0 \uBD80\uC871! \uBC30\uB2EC \uBD88\uAC00');\\r\\n            // \uC7AC\uACE0
+    \uBD80\uC871 \uACBD\uACE0 \uC774\uBCA4\uD2B8 \uBC1C\uC0DD (UI \uAE5C\uBE61\uC784
+    \uB4F1)\\r\\n            this.OnStockShortage?.Invoke();\\r\\n            return
+    false;\\r\\n        }\\r\\n        // \uC7AC\uACE0 \uCC28\uAC10\\r\\n       
+    this._pizzaCount -= pizza;\\r\\n        this._spaghettiCount -= spaghetti;\\r\\n       
+    this._colaCount -= cola;\\r\\n        console.log(`[StockManager] \uC7AC\uACE0
+    \uC18C\uC9C4: \uD53C\uC790 -${pizza}, \uC2A4\uD30C\uAC8C\uD2F0 -${spaghetti},
+    \uCF5C\uB77C -${cola}`);\\r\\n        console.log(`[StockManager] \uB0A8\uC740
+    \uC7AC\uACE0: \uD53C\uC790 ${this._pizzaCount}, \uC2A4\uD30C\uAC8C\uD2F0 ${this._spaghettiCount},
+    \uCF5C\uB77C ${this._colaCount}`);\\r\\n        // UI \uC5C5\uB370\uC774\uD2B8
+    \uC774\uBCA4\uD2B8 \uBC1C\uC0DD\\r\\n        this.OnStockChanged?.Invoke();\\r\\n       
+    return true;\\r\\n    }\\r\\n    /**\\r\\n     * \uC8FC\uBB38\uC744 \uC774\uD589\uD560
+    \uC218 \uC788\uB294\uC9C0 \uD655\uC778 (\uC7AC\uACE0 \uCDA9\uBD84\uD55C\uC9C0
+    \uCCB4\uD06C)\\r\\n     */\\r\\n    CanFulfillOrder(pizza, spaghetti, cola) {\\r\\n       
+    return this._pizzaCount >= pizza &&\\r\\n            this._spaghettiCount >=
+    spaghetti &&\\r\\n            this._colaCount >= cola;\\r\\n    }\\r\\n    /**\\r\\n    
+    * \uD604\uC7AC \uC7AC\uACE0 \uC0C1\uD0DC\uB97C \uBB38\uC790\uC5F4\uB85C \uBC18\uD658
+    (\uB514\uBC84\uAE45/\uB85C\uAE45\uC6A9)\\r\\n     */\\r\\n    GetStockString()
+    {\\r\\n        return `\uD53C\uC790: ${this._pizzaCount}/${this.maxStock}, \uC2A4\uD30C\uAC8C\uD2F0:
+    ${this._spaghettiCount}/${this.maxStock}, \uCF5C\uB77C: ${this._colaCount}/${this.maxStock}`;\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uC7AC\uACE0 \uCD08\uAE30\uD654 (\uB514\uBC84\uADF8\uC6A9)\\r\\n    
+    */\\r\\n    ClearStock() {\\r\\n        this._pizzaCount = 0;\\r\\n        this._spaghettiCount
+    = 0;\\r\\n        this._colaCount = 0;\\r\\n        console.log('[StockManager]
+    \uC7AC\uACE0 \uCD08\uAE30\uD654');\\r\\n        this.OnStockChanged?.Invoke();\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uC7AC\uACE0\uB97C \uD2B9\uC815 \uAC12\uC73C\uB85C
+    \uC124\uC815 (\uD14C\uC2A4\uD2B8\uC6A9)\\r\\n     */\\r\\n    SetStock(pizza,
+    spaghetti, cola) {\\r\\n        this._pizzaCount = Math.max(0, Math.min(pizza,
+    this.maxStock));\\r\\n        this._spaghettiCount = Math.max(0, Math.min(spaghetti,
+    this.maxStock));\\r\\n        this._colaCount = Math.max(0, Math.min(cola, this.maxStock));\\r\\n       
+    console.log(`[StockManager] \uC7AC\uACE0 \uC124\uC815: ${this.GetStockString()}`);\\r\\n       
+    this.OnStockChanged?.Invoke();\\r\\n    }\\r\\n    static get instance() {\\r\\n       
+    if (this.m_instance === null) {\\r\\n            this.m_instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(StockManager));\\r\\n           
+    if (this.m_instance === null) {\\r\\n                this.m_instance = new UnityEngine_1.GameObject(StockManager.name).AddComponent($typeof(StockManager));\\r\\n           
+    }\\r\\n        }\\r\\n        return this.m_instance;\\r\\n    }\\r\\n}\\r\\nexports.default
+    = StockManager;\\r\\n/* ===== Singleton ===== */\\r\\nStockManager.m_instance
+    = null;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU3RvY2tNYW5hZ2VyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiU3RvY2tNYW5hZ2VyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsaURBQXNEO0FBQ3RELDZDQUF5QztBQUN6QywyREFBZ0Q7QUFFaEQ7Ozs7O0dBS0c7QUFDSCxNQUFxQixZQUFhLFNBQVEscUNBQXFCO0lBQS9EOztRQUVJLHVCQUF1QjtRQUNoQixhQUFRLEdBQVcsRUFBRSxDQUFDO1FBRTdCLHdCQUF3QjtRQUNoQixnQkFBVyxHQUFXLEVBQUUsQ0FBQztRQUN6QixvQkFBZSxHQUFXLEVBQUUsQ0FBQztRQUM3QixlQUFVLEdBQVcsRUFBRSxDQUFDO0lBNkpwQyxDQUFDO0lBekpHLElBQVcsY0FBYztRQUNyQixJQUFJLENBQUMsSUFBSSxDQUFDLGVBQWUsRUFBRTtZQUN2QixJQUFJLENBQUMsZUFBZSxHQUFHLElBQUksK0JBQVUsRUFBRSxDQUFDO1NBQzNDO1FBQ0QsT0FBTyxJQUFJLENBQUMsZUFBZSxDQUFDO0lBQ2hDLENBQUM7SUFHRCxJQUFXLGVBQWU7UUFDdEIsSUFBSSxDQUFDLElBQUksQ0FBQyxnQkFBZ0IsRUFBRTtZQUN4QixJQUFJLENBQUMsZ0JBQWdCLEdBQUcsSUFBSSwrQkFBVSxFQUFFLENBQUM7U0FDNUM7UUFDRCxPQUFPLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQztJQUNqQyxDQUFDO0lBRUQscUNBQXFDO0lBQ3JDLElBQVcsVUFBVTtRQUNqQixPQUFPLElBQUksQ0FBQyxXQUFXLENBQUM7SUFDNUIsQ0FBQztJQUVELElBQVcsY0FBYztRQUNyQixPQUFPLElBQUksQ0FBQyxlQUFlLENBQUM7SUFDaEMsQ0FBQztJQUVELElBQVcsU0FBUztRQUNoQixPQUFPLElBQUksQ0FBQyxVQUFVLENBQUM7SUFDM0IsQ0FBQztJQUVELGlDQUFpQztJQUN6QixLQUFLO1FBQ1QsSUFBSSxZQUFZLENBQUMsVUFBVSxLQUFLLElBQUksSUFBSSxZQUFZLENBQUMsVUFBVSxL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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/StockManager.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"mscorlib\",\"name\":\"maxStock\",\"type\":\"System.Single\",\"isArray\":false,\"initValue\":[\"10\"],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"StockManager\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: b5cf5d1b003a2fc957a9a6c80127455b
+  onlyWriteTrigger: 0

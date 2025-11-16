@@ -1,0 +1,44 @@
+fileFormatVersion: 2
+guid: c22a3cf5e5604115883718ba5253e775
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\r\nconst Timer_1 = require(\"./Timer\");\r\nconst
+    PlayerTrigger_1 = require(\"./PlayerTrigger\");\r\nconst ZEPETO_Character_Controller_1
+    = require(\"ZEPETO.Character.Controller\");\r\nclass TriggerTimerController extends
+    ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor() {\r\n        super(...arguments);\r\n       
+    this._triggerActivated = false;\r\n    }\r\n    get playerTrigger() { return
+    this._playerTrigger; }\r\n    get timer() { return this._timer; }\r\n    Awake()
+    {\r\n        this._playerTrigger = this.GetComponent($typeof(PlayerTrigger_1.default));\r\n       
+    this._timer = this.GetComponent($typeof(Timer_1.default));\r\n        this._playerTrigger.delegate
+    = this;\r\n        this._timer.delegate = this;\r\n    }\r\n    OnPlayerEnter(character,
+    type) {\r\n        this._timer.StartTimer();\r\n    }\r\n    OnPlayerStay(character,
+    type) { }\r\n    OnPlayerExit(character, type) {\r\n    }\r\n    OnCountdownStart()
+    {\r\n        // this.timerDisplay.gameObject.SetActive(true);\r\n    }\r\n   
+    OnStep() {\r\n        this.timerDisplay.text = `${Math.ceil(this._timer.remainingTime)}`;\r\n   
+    }\r\n    OnCoundownEnd() {\r\n        this.timerDisplay.gameObject.SetActive(false);\r\n       
+    this._triggerActivated = true;\r\n        this.activator?.Invoke();\r\n    }\r\n}\r\nexports.default
+    = TriggerTimerController;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVHJpZ2dlclRpbWVyQ29udHJvbGxlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIlRyaWdnZXJUaW1lckNvbnRyb2xsZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxpREFBc0Q7QUFDdEQsNkNBQStFO0FBQy9FLG1DQUE4QztBQUM5QyxtREFBMkY7QUFDM0YsNkVBQThEO0FBSzlELE1BQXFCLHNCQUF1QixTQUFRLHFDQUFxQjtJQUF6RTs7UUFPWSxzQkFBaUIsR0FBWSxLQUFLLENBQUM7SUF1Qy9DLENBQUM7SUFwQ0csSUFBVyxhQUFhLEtBQW9CLE9BQU8sSUFBSSxDQUFDLGNBQWMsQ0FBQyxDQUFDLENBQUM7SUFFekUsSUFBVyxLQUFLLEtBQVksT0FBTyxJQUFJLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQztJQUVqRCxLQUFLO1FBQ0QsSUFBSSxDQUFDLGNBQWMsR0FBRyxJQUFJLENBQUMsWUFBWSxTQUFDLHVCQUFhLEVBQUcsQ0FBQztRQUN6RCxJQUFJLENBQUMsTUFBTSxHQUFHLElBQUksQ0FBQyxZQUFZLFNBQUMsZUFBSyxFQUFHLENBQUM7UUFFekMsSUFBSSxDQUFDLGNBQWMsQ0FBQyxRQUFRLEdBQUcsSUFBSSxDQUFDO1FBQ3BDLElBQUksQ0FBQyxNQUFNLENBQUMsUUFBUSxHQUFHLElBQUksQ0FBQztJQUNoQyxDQUFDO0lBRUQsYUFBYSxDQUFDLFNBQTBCLEVBQUUsSUFBeUI7UUFDL0QsSUFBSSxDQUFDLE1BQU0sQ0FBQyxVQUFVLEVBQUUsQ0FBQztJQUM3QixDQUFDO0lBRUQsWUFBWSxDQUFDLFNBQTBCLEVBQUUsSUFBeUIsSUFBRyxDQUFDO0lBSXRFLFlBQVksQ0FBQyxTQUEwQixFQUFFLElBQXlCO0lBQ2xFLENBQUM7SUFFRCxnQkFBZ0I7UUFDWixnREFBZ0Q7SUFDcEQsQ0FBQztJQUVELE1BQU07UUFDRixJQUFJLENBQUMsWUFBWSxDQUFDLElBQUksR0FBRyxHQUFHLElBQUksQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxhQUFhLENBQUMsRUFBRSxDQUFDO0lBQ3ZFLENBQUM7SUFFRCxhQUFhO1FBQ1QsSUFBSSxDQUFDLFlBQVksQ0FBQyxVQUFVLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBQzlDLElBQUksQ0FBQyxpQkFBaUIsR0FBRyxJQUFJLENBQUM7UUFDOUIsSUFBSSxDQUFDLFNBQVMsRUFBRSxNQUFNLEVBQUUsQ0FBQztJQUM3QixDQUFDO0NBQ0o7QUE5Q0QseUNBOENDIn0=","assetPath":"Assets/BuilditTemplate/Modules/Scripts/TriggerTimerController.ts","manifest":{"properties":[{"assembly":"Unity.TextMeshPro","name":"timerDisplay","type":"TMPro.TextMeshPro","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"activator","type":"UnityEngine.Events.UnityEvent","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"TriggerTimerController","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 366b325b341210f5dce3cd70cf9290d8
+  onlyWriteTrigger: 0

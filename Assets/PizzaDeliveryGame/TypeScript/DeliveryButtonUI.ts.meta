@@ -1,0 +1,89 @@
+fileFormatVersion: 2
+guid: c9f8ef856de724c50991fa58f7a897ad
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst
+    UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\n/**\\r\\n * \uBAA8\uBC14\uC77C\uC6A9
+    \uBC30\uB2EC \uBC84\uD2BC UI\\r\\n * - \uD50C\uB808\uC774\uC5B4\uAC00 \uC9D1
+    \uBC94\uC704 \uB0B4\uC5D0 \uC788\uC744 \uB54C\uB9CC \uD45C\uC2DC\\r\\n * - \uBC84\uD2BC
+    \uD074\uB9AD \uC2DC \uBC30\uB2EC \uC2E4\uD589\\r\\n * - \uC2F1\uAE00\uD1A4 \uD328\uD134
+    (\uD654\uBA74\uC5D0 \uD558\uB098\uB9CC)\\r\\n */\\r\\nclass DeliveryButtonUI
+    extends ZEPETO_Script_1.ZepetoScriptBehaviour {\\r\\n    constructor() {\\r\\n       
+    super(...arguments);\\r\\n        /* ===== Private \uBCC0\uC218 ===== */\\r\\n       
+    this.currentDeliveryAction = null;\\r\\n    }\\r\\n    /* ===== Unity Lifecycle
+    ===== */\\r\\n    Awake() {\\r\\n        // \uC2F1\uAE00\uD1A4 \uC124\uC815\\r\\n       
+    if (DeliveryButtonUI.m_instance !== null && DeliveryButtonUI.m_instance !== this)
+    {\\r\\n            UnityEngine_1.GameObject.Destroy(this.gameObject);\\r\\n       
+    }\\r\\n        else {\\r\\n            DeliveryButtonUI.m_instance = this;\\r\\n       
+    }\\r\\n    }\\r\\n    Start() {\\r\\n        // \uCD08\uAE30 \uC0C1\uD0DC: \uBC84\uD2BC
+    \uC228\uAE40\\r\\n        this.HideButton();\\r\\n        // \uBC84\uD2BC \uD074\uB9AD
+    \uC774\uBCA4\uD2B8 \uB4F1\uB85D\\r\\n        if (this.deliveryButton) {\\r\\n           
+    this.deliveryButton.onClick.AddListener(() => this.OnButtonClicked());\\r\\n       
+    }\\r\\n        console.log('[DeliveryButtonUI] \uCD08\uAE30\uD654 \uC644\uB8CC');\\r\\n   
+    }\\r\\n    OnDestroy() {\\r\\n        // \uC774\uBCA4\uD2B8 \uD574\uC81C\\r\\n       
+    if (this.deliveryButton) {\\r\\n            this.deliveryButton.onClick.RemoveAllListeners();\\r\\n       
+    }\\r\\n        // \uC2F1\uAE00\uD1A4 \uC778\uC2A4\uD134\uC2A4 \uC815\uB9AC\\r\\n       
+    if (DeliveryButtonUI.m_instance === this) {\\r\\n            DeliveryButtonUI.m_instance
+    = null;\\r\\n        }\\r\\n    }\\r\\n    /* ===== \uBC84\uD2BC \uAD00\uB9AC
+    \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n     * \uBC30\uB2EC \uBC84\uD2BC
+    \uD45C\uC2DC \uBC0F \uCF5C\uBC31 \uB4F1\uB85D\\r\\n     * @param deliveryAction
+    \uBC84\uD2BC \uD074\uB9AD \uC2DC \uC2E4\uD589\uD560 \uBC30\uB2EC \uD568\uC218\\r\\n    
+    */\\r\\n    ShowDeliveryButton(deliveryAction) {\\r\\n        // \uBC30\uB2EC
+    \uC561\uC158 \uC800\uC7A5\\r\\n        this.currentDeliveryAction = deliveryAction;\\r\\n       
+    // \uBC84\uD2BC \uD45C\uC2DC\\r\\n        if (this.buttonObject) {\\r\\n           
+    this.buttonObject.SetActive(true);\\r\\n        }\\r\\n        else if (this.deliveryButton)
+    {\\r\\n            this.deliveryButton.gameObject.SetActive(true);\\r\\n       
+    }\\r\\n        console.log('[DeliveryButtonUI] \uBC30\uB2EC \uBC84\uD2BC \uD45C\uC2DC');\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uBC30\uB2EC \uBC84\uD2BC \uC228\uAE40\\r\\n     */\\r\\n   
+    HideButton() {\\r\\n        // \uBC30\uB2EC \uC561\uC158 \uCD08\uAE30\uD654\\r\\n       
+    this.currentDeliveryAction = null;\\r\\n        // \uBC84\uD2BC \uC228\uAE40\\r\\n       
+    if (this.buttonObject) {\\r\\n            this.buttonObject.SetActive(false);\\r\\n       
+    }\\r\\n        else if (this.deliveryButton) {\\r\\n            this.deliveryButton.gameObject.SetActive(false);\\r\\n       
+    }\\r\\n        console.log('[DeliveryButtonUI] \uBC30\uB2EC \uBC84\uD2BC \uC228\uAE40');\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uBC84\uD2BC\uC774 \uD45C\uC2DC \uC911\uC778\uC9C0
+    \uD655\uC778\\r\\n     */\\r\\n    IsVisible() {\\r\\n        if (this.buttonObject)
+    {\\r\\n            return this.buttonObject.activeSelf;\\r\\n        }\\r\\n       
+    else if (this.deliveryButton) {\\r\\n            return this.deliveryButton.gameObject.activeSelf;\\r\\n       
+    }\\r\\n        return false;\\r\\n    }\\r\\n    /* ===== \uBC84\uD2BC \uC774\uBCA4\uD2B8
+    ===== */\\r\\n    /**\\r\\n     * \uBC30\uB2EC \uBC84\uD2BC \uD074\uB9AD \uC2DC
+    \uD638\uCD9C\\r\\n     */\\r\\n    OnButtonClicked() {\\r\\n        console.log('[DeliveryButtonUI]
+    \uBC30\uB2EC \uBC84\uD2BC \uD074\uB9AD!');\\r\\n        // \uB4F1\uB85D\uB41C
+    \uBC30\uB2EC \uC561\uC158 \uC2E4\uD589\\r\\n        if (this.currentDeliveryAction)
+    {\\r\\n            this.currentDeliveryAction();\\r\\n        }\\r\\n       
+    else {\\r\\n            console.warn('[DeliveryButtonUI] \uBC30\uB2EC \uC561\uC158\uC774
+    \uB4F1\uB85D\uB418\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uB2E4!');\\r\\n        }\\r\\n   
+    }\\r\\n    /* ===== Public \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n    
+    * \uBC84\uD2BC \uD65C\uC131\uD654/\uBE44\uD65C\uC131\uD654\\r\\n     */\\r\\n   
+    SetButtonInteractable(interactable) {\\r\\n        if (this.deliveryButton) {\\r\\n           
+    this.deliveryButton.interactable = interactable;\\r\\n        }\\r\\n    }\\r\\n   
+    /**\\r\\n     * \uBC84\uD2BC \uD14D\uC2A4\uD2B8 \uBCC0\uACBD (TextMeshPro \uC0AC\uC6A9
+    \uC2DC)\\r\\n     */\\r\\n    SetButtonText(text) {\\r\\n        if (this.buttonText)
+    {\\r\\n            this.buttonText.text = text;\\r\\n        }\\r\\n    }\\r\\n   
+    static get instance() {\\r\\n        if (this.m_instance === null) {\\r\\n           
+    this.m_instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(DeliveryButtonUI));\\r\\n       
+    }\\r\\n        return this.m_instance;\\r\\n    }\\r\\n}\\r\\nexports.default
+    = DeliveryButtonUI;\\r\\n/* ===== Singleton (\uC120\uD0DD\uC0AC\uD56D) =====
+    */\\r\\nDeliveryButtonUI.m_instance = null;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRGVsaXZlcnlCdXR0b25VSS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIkRlbGl2ZXJ5QnV0dG9uVUkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxpREFBc0Q7QUFDdEQsNkNBQXlDO0FBSXpDOzs7OztHQUtHO0FBQ0gsTUFBcUIsZ0JBQWlCLFNBQVEscUNBQXFCO0lBQW5FOztRQVlJLDRCQUE0QjtRQUNwQiwwQkFBcUIsR0FBZSxJQUFJLENBQUM7SUFrSXJELENBQUM7SUFoSUcsaUNBQWlDO0lBQ3pCLEtBQUs7UUFDVCxTQUFTO1FBQ1QsSUFBSSxnQkFBZ0IsQ0FBQyxVQUFVLEtBQUssSUFBSSxJQUFJLGdCQUFnQixDQUFDLFVBQVUsS0FBSyxJQUFJLEVBQUU7WUFDOUUsd0JBQVUsQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLFVBQVUsQ0FBQyxDQUFDO1NBQ3ZDO2FBQU07WUFDSCxnQkFBZ0IsQ0FBQyxVQUFVLEdBQUcsSUFBSSxDQUFDO1NBQ3RDO0lBQ0wsQ0FBQztJQUVPLEtBQUs7UUFDVCxlQUFlO1FBQ2YsSUFBSSxDQUFDLFVBQVUsRUFBRSxDQUFDO1FBRWxCLGVBQWU7UUFDZixJQUFJLElBQUksQ0FBQyxjQUFjLEVBQUU7WUFDckIsSUFBSSxDQUFDLGNBQWMsQ0FBQyxPQUFPLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRSxDQUFDLElBQUksQ0FBQyxlQUFlLEVBQUUsQ0FBQyxDQUFDO1NBQ3pFO1FBRUQsT0FBTyxDQUFDLEdBQUcsQ0FBQywyQkFBMkIsQ0FBQyxDQUFDO0lBQzdDLENBQUM7SUFFTyxTQUFTO1FBQ2IsU0FBUztRQUNULElBQUksSUFBSSxDQUFDLGNBQWMsRUFBRTtZQUNyQixJQUFJLENBQUMsY0FBYyxDQUFDLE9BQU8sQ0FBQyxrQkFBa0IsRUFBRSxDQUFDO1NBQ3BEO1FBRUQsY0FBYztRQUNkLElBQUksZ0JBQWdCLENBQUMsVUFBVSxLQUFLLElBQUksRUFBRTtZQUN0QyxnQkFBZ0IsQ0FBQyxVQUFVLEdBQUcs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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/DeliveryButtonUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.UI\",\"name\":\"deliveryButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"buttonObject\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"buttonText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]}],\"name\":\"DeliveryButtonUI\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: 
+  onlyWriteTrigger: 0

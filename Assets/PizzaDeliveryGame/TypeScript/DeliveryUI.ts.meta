@@ -1,0 +1,108 @@
+fileFormatVersion: 2
+guid: c44919fd2ee25480f980ad14839f4f82
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst
+    UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nconst DeliveryManager_1 =
+    require(\\\"./DeliveryManager\\\");\\r\\n/**\\r\\n * \uBC30\uB2EC UI \uD45C\uC2DC
+    \uC2A4\uD06C\uB9BD\uD2B8\\r\\n * - DeliveryManager\uC758 \uC810\uC218/\uBC30\uB2EC
+    \uD69F\uC218 \uBCC0\uACBD\uC744 \uAC10\uC9C0\uD558\uC5EC UI \uC5C5\uB370\uC774\uD2B8\\r\\n
+    * - \uBC30\uB2EC \uC644\uB8CC \uC2DC \uAC15\uC870 \uD6A8\uACFC\\r\\n * - StockUI
+    \uD328\uD134\uC744 \uB530\uB984\\r\\n */\\r\\nclass DeliveryUI extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\\r\\n    constructor() {\\r\\n        super(...arguments);\\r\\n        /*
+    ===== \uBC30\uB2EC \uC644\uB8CC \uD6A8\uACFC \uC124\uC815 ===== */\\r\\n       
+    this.highlightDuration = 0.5;\\r\\n        // \uAC15\uC870 \uCF54\uB8E8\uD2F4
+    \uCC38\uC870\\r\\n        this.highlightCoroutine = null;\\r\\n    }\\r\\n   
+    /* ===== Unity Lifecycle ===== */\\r\\n    Start() {\\r\\n        // Color \uCD08\uAE30\uD654\\r\\n       
+    this.highlightColor = new UnityEngine_1.Color(1, 0.8, 0, 1); // \uD669\uAE08\uC0C9\\r\\n       
+    // DeliveryManager \uCC3E\uAE30\\r\\n        this.deliveryManager = DeliveryManager_1.default.instance;\\r\\n       
+    if (!this.deliveryManager) {\\r\\n            console.error('[DeliveryUI] DeliveryManager\uB97C
+    \uCC3E\uC744 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4!');\\r\\n            return;\\r\\n       
+    }\\r\\n        // \uC6D0\uB798 \uD14D\uC2A4\uD2B8 \uC0C9\uC0C1 \uC800\uC7A5\\r\\n       
+    if (this.scoreText) {\\r\\n            this.scoreOriginalColor = this.scoreText.color;\\r\\n       
+    }\\r\\n        if (this.deliveryCountText) {\\r\\n            this.deliveryCountOriginalColor
+    = this.deliveryCountText.color;\\r\\n        }\\r\\n        // DeliveryManager
+    \uC774\uBCA4\uD2B8 \uAD6C\uB3C5\\r\\n        this.deliveryManager.OnScoreChanged.AddListener(()
+    => this.UpdateUI());\\r\\n        this.deliveryManager.OnDeliveryCompleted.AddListener(()
+    => this.ShowDeliveryCompletedEffect());\\r\\n        // \uCD08\uAE30 UI \uC5C5\uB370\uC774\uD2B8\\r\\n       
+    this.UpdateUI();\\r\\n        console.log('[DeliveryUI] \uCD08\uAE30\uD654 \uC644\uB8CC');\\r\\n   
+    }\\r\\n    OnDestroy() {\\r\\n        // \uC774\uBCA4\uD2B8 \uAD6C\uB3C5 \uD574\uC81C\\r\\n       
+    if (this.deliveryManager) {\\r\\n            this.deliveryManager.OnScoreChanged.RemoveListener(()
+    => this.UpdateUI());\\r\\n            this.deliveryManager.OnDeliveryCompleted.RemoveListener(()
+    => this.ShowDeliveryCompletedEffect());\\r\\n        }\\r\\n    }\\r\\n    /*
+    ===== UI \uC5C5\uB370\uC774\uD2B8 \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n    
+    * UI \uC5C5\uB370\uC774\uD2B8 - \uC810\uC218\uC640 \uBC30\uB2EC \uD69F\uC218
+    \uD45C\uC2DC\\r\\n     */\\r\\n    UpdateUI() {\\r\\n        if (!this.deliveryManager)\\r\\n           
+    return;\\r\\n        // \uC810\uC218 \uD14D\uC2A4\uD2B8 \uC5C5\uB370\uC774\uD2B8\\r\\n       
+    if (this.scoreText) {\\r\\n            this.scoreText.text = this.deliveryManager.score.toString();\\r\\n       
+    }\\r\\n        // \uBC30\uB2EC \uD69F\uC218 \uD14D\uC2A4\uD2B8 \uC5C5\uB370\uC774\uD2B8\\r\\n       
+    if (this.deliveryCountText) {\\r\\n            this.deliveryCountText.text =
+    this.deliveryManager.totalDeliveries.toString();\\r\\n        }\\r\\n    }\\r\\n   
+    /**\\r\\n     * \uBC30\uB2EC \uC644\uB8CC \uD6A8\uACFC \uD45C\uC2DC (\uD669\uAE08\uC0C9
+    \uAC15\uC870)\\r\\n     */\\r\\n    ShowDeliveryCompletedEffect() {\\r\\n       
+    console.log('[DeliveryUI] \uBC30\uB2EC \uC644\uB8CC \uD6A8\uACFC \uD45C\uC2DC!');\\r\\n       
+    // \uC774\uBBF8 \uAC15\uC870 \uC911\uC774\uBA74 \uC911\uB2E8\uD558\uACE0 \uC7AC\uC2DC\uC791\\r\\n       
+    if (this.highlightCoroutine != null) {\\r\\n            this.StopCoroutine(this.highlightCoroutine);\\r\\n       
+    }\\r\\n        // \uAC15\uC870 \uCF54\uB8E8\uD2F4 \uC2DC\uC791\\r\\n        this.highlightCoroutine
+    = this.StartCoroutine(this.HighlightTextCoroutine());\\r\\n    }\\r\\n    /**\\r\\n    
+    * \uD14D\uC2A4\uD2B8 \uAC15\uC870 \uCF54\uB8E8\uD2F4\\r\\n     */\\r\\n    *HighlightTextCoroutine()
+    {\\r\\n        // \uD669\uAE08\uC0C9\uC73C\uB85C \uBCC0\uACBD\\r\\n        if
+    (this.scoreText)\\r\\n            this.scoreText.color = this.highlightColor;\\r\\n       
+    if (this.deliveryCountText)\\r\\n            this.deliveryCountText.color = this.highlightColor;\\r\\n       
+    yield new UnityEngine_1.WaitForSeconds(this.highlightDuration);\\r\\n       
+    // \uC6D0\uB798 \uC0C9\uC0C1\uC73C\uB85C \uBCF5\uAD6C\\r\\n        if (this.scoreText)\\r\\n           
+    this.scoreText.color = this.scoreOriginalColor;\\r\\n        if (this.deliveryCountText)\\r\\n           
+    this.deliveryCountText.color = this.deliveryCountOriginalColor;\\r\\n       
+    this.highlightCoroutine = null;\\r\\n        console.log('[DeliveryUI] \uAC15\uC870
+    \uD6A8\uACFC \uC644\uB8CC');\\r\\n    }\\r\\n    /* ===== Public \uBA54\uC11C\uB4DC
+    (\uC678\uBD80\uC5D0\uC11C \uD638\uCD9C \uAC00\uB2A5) ===== */\\r\\n    /**\\r\\n    
+    * UI\uB97C \uAC15\uC81C\uB85C \uC5C5\uB370\uC774\uD2B8 (\uD544\uC694 \uC2DC \uC678\uBD80\uC5D0\uC11C
+    \uD638\uCD9C)\\r\\n     */\\r\\n    ForceUpdate() {\\r\\n        this.UpdateUI();\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uD14D\uC2A4\uD2B8 \uC0C9\uC0C1\uC744 \uC6D0\uB798\uB300\uB85C
+    \uBCF5\uAD6C\\r\\n     */\\r\\n    ResetTextColors() {\\r\\n        if (this.scoreText)\\r\\n           
+    this.scoreText.color = this.scoreOriginalColor;\\r\\n        if (this.deliveryCountText)\\r\\n           
+    this.deliveryCountText.color = this.deliveryCountOriginalColor;\\r\\n    }\\r\\n   
+    /**\\r\\n     * \uD2B9\uC815 \uD14D\uC2A4\uD2B8\uC758 \uC0C9\uC0C1 \uBCC0\uACBD
+    (\uAC15\uC870 \uB4F1\uC5D0 \uC0AC\uC6A9 \uAC00\uB2A5)\\r\\n     */\\r\\n    SetTextColor(textType,
+    color) {\\r\\n        switch (textType.toLowerCase()) {\\r\\n            case
+    'score':\\r\\n                if (this.scoreText)\\r\\n                    this.scoreText.color
+    = color;\\r\\n                break;\\r\\n            case 'delivery':\\r\\n           
+    case 'deliverycount':\\r\\n                if (this.deliveryCountText)\\r\\n                   
+    this.deliveryCountText.color = color;\\r\\n                break;\\r\\n       
+    }\\r\\n    }\\r\\n    /**\\r\\n     * UI \uD45C\uC2DC\\r\\n     */\\r\\n    ShowUI()
+    {\\r\\n        if (this.contentPanel) {\\r\\n            this.contentPanel.SetActive(true);\\r\\n           
+    console.log('[DeliveryUI] UI \uD45C\uC2DC');\\r\\n        }\\r\\n    }\\r\\n   
+    /**\\r\\n     * UI \uC228\uAE40\\r\\n     */\\r\\n    HideUI() {\\r\\n       
+    if (this.contentPanel) {\\r\\n            this.contentPanel.SetActive(false);\\r\\n           
+    console.log('[DeliveryUI] UI \uC228\uAE40');\\r\\n        }\\r\\n    }\\r\\n   
+    static get instance() {\\r\\n        if (this.m_instance === null) {\\r\\n           
+    this.m_instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(DeliveryUI));\\r\\n       
+    }\\r\\n        return this.m_instance;\\r\\n    }\\r\\n    Awake() {\\r\\n       
+    // \uC2F1\uAE00\uD1A4 \uC124\uC815\\r\\n        if (DeliveryUI.m_instance !==
+    null && DeliveryUI.m_instance !== this) {\\r\\n            UnityEngine_1.GameObject.Destroy(this.gameObject);\\r\\n       
+    }\\r\\n        else {\\r\\n            DeliveryUI.m_instance = this;\\r\\n       
+    }\\r\\n    }\\r\\n}\\r\\nexports.default = DeliveryUI;\\r\\n/* ===== Singleton
+    ===== */\\r\\nDeliveryUI.m_instance = null;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRGVsaXZlcnlVSS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIkRlbGl2ZXJ5VUkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxpREFBc0Q7QUFDdEQsNkNBQTJFO0FBRTNFLHVEQUFnRDtBQUVoRDs7Ozs7R0FLRztBQUNILE1BQXFCLFVBQVcsU0FBUSxxQ0FBcUI7SUFBN0Q7O1FBYUksNkJBQTZCO1FBQ3RCLHNCQUFpQixHQUFXLEdBQUcsQ0FBQztRQVV2QyxZQUFZO1FBQ0osdUJBQWtCLEdBQWMsSUFBSSxDQUFDO0lBbUtqRCxDQUFDO0lBaktHLGlDQUFpQztJQUN6QixLQUFLO1FBQ1QsWUFBWTtRQUNaLElBQUksQ0FBQyxjQUFjLEdBQUcsSUFBSSxtQkFBSyxDQUFDLENBQUMsRUFBRSxHQUFHLEVBQUUsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLENBQUMsTUFBTTtRQUVyRCxxQkFBcUI7UUFDckIsSUFBSSxDQUFDLGVBQWUsR0FBRyx5QkFBZSxDQUFDLFFBQVEsQ0FBQztRQUVoRCxJQUFJLENBQUMsSUFBSSxDQUFDLGVBQWUsRUFBRTtZQUN2QixPQUFPLENBQUMsS0FBSyxDQUFDLDBDQUEwQyxDQUFDLENBQUM7WUFDMUQsT0FBTztTQUNWO1FBRUQsZUFBZTtRQUNmLElBQUksSUFBSSxDQUFDLFNBQVMsRUFBRTtZQUNoQixJQUFJLENBQUMsa0JBQWtCLEdBQUcsSUFBSSxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUM7U0FDbEQ7UUFDRCxJQUFJLElBQUksQ0FBQyxpQkFBaUIsRUFBRTtZQUN4QixJQUFJLENBQUMsMEJBQTBCLEdBQUcsSUFBSSxDQUFDLGlCQUFpQixDQUFDLEtBQUssQ0FBQztTQUNsRTtRQUVELHlCQUF5QjtRQUN6QixJQUFJLENBQUMsZUFBZSxDQUFDLGNBQWMsQ0FBQyxXQUFXLENBQUMsR0FBRyxFQUFFLENBQUMsSUFBSSxDQUFDLFFBQVEsRUFBRSxDQUFDLENBQUM7UUFDdkUsSUFBSSxDQUFDLGVBQWUsQ0FBQyxt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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/DeliveryUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"contentPanel\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"scoreText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"deliveryCountText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"mscorlib\",\"name\":\"highlightDuration\",\"type\":\"System.Single\",\"isArray\":false,\"initValue\":[\"0.5\"],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"highlightColor\",\"type\":\"UnityEngine.Color\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"DeliveryUI\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: 9c355def110b33692210eefc50d8c025
+  onlyWriteTrigger: 0

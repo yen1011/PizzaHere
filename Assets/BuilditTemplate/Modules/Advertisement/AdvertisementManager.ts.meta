@@ -1,0 +1,65 @@
+fileFormatVersion: 2
+guid: 5491895edbd55495890f0f0e3c5f9167
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    UnityEngine_UI_1 = require(\"UnityEngine.UI\");\r\nconst ZEPETO_Advertisement_General_1
+    = require(\"ZEPETO.Advertisement.General\");\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    ZEPETO_Character_Controller_1 = require(\"ZEPETO.Character.Controller\");\r\nconst
+    ApplicationUtilities_1 = require(\"../Scripts/Utility/ApplicationUtilities\");\r\nconst
+    ZEPETO_World_Gui_1 = require(\"ZEPETO.World.Gui\");\r\nconst ZEPETO_World_Gui_ZepetoToast_1
+    = require(\"ZEPETO.World.Gui.ZepetoToast\");\r\nconst AD_KEY = \"Monetize_Template\";\r\nclass
+    AdvertisementManager extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    static
+    get Instance() {\r\n        if (ZEPETO_Script_1.ZepetoScriptBehaviour.op_Equality(this.instance,
+    null)) {\r\n            this.instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(AdvertisementManager));\r\n       
+    }\r\n        return this.instance;\r\n    }\r\n    ReWardTeleport(position, rotation)
+    {\r\n        this.destinationPosiiton = position;\r\n        this.destinationRotation
+    = rotation;\r\n        this.ShowAd(this.rewardTeleport);\r\n    }\r\n    rewardTeleport()
+    {\r\n        ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.Teleport(this.destinationPosiiton,
+    this.destinationRotation);\r\n    }\r\n    // Method to show an advertisement
+    and specify a reward function to call upon ad completion\r\n    ShowAd(rewardFunction)
+    {\r\n        // console.log(`ShowAd Platform:${ApplicationUtilities.currentPlatform}
+    isMobile: ${ApplicationUtilities.isMobile}`);\r\n        if (ApplicationUtilities_1.ApplicationUtilities.isMobile)
+    {\r\n            ZEPETO_Advertisement_General_1.WorldAdvertisement.Show(AD_KEY,
+    // Using the defined advertisement key\r\n            // Using the defined advertisement
+    key\r\n            result => rewardFunction() //this.rewardTeleport()\r\n           
+    );\r\n        }\r\n        else {\r\n            ZEPETO_World_Gui_1.ZepetoToast.Show(ZEPETO_World_Gui_ZepetoToast_1.Type.None,
+    \"Ads are only visible on the mobile Zepeto app\");\r\n        }\r\n    }\r\n   
+    // Method to handle the result of the advertisement show\r\n    OnAdShowResult(result,
+    rewardFunction) {\r\n        if (result === ZEPETO_Advertisement_General_1.AdShowResult.Finished)
+    {\r\n            // If the ad was successfully watched to completion\r\n           
+    console.log(\"Ad show successful; Finished.\");\r\n            rewardFunction();
+    // Call the specified reward function\r\n            return;\r\n        }\r\n       
+    // Variable to store the failure message\r\n        let failMessage;\r\n       
+    // Determine the appropriate failure message based on the ad result\r\n       
+    switch (result) {\r\n            case ZEPETO_Advertisement_General_1.AdShowResult.Failed:\r\n               
+    failMessage = \"Failed\";\r\n                break;\r\n            case ZEPETO_Advertisement_General_1.AdShowResult.Skipped:\r\n               
+    failMessage = \"Skipped\";\r\n                break;\r\n            case ZEPETO_Advertisement_General_1.AdShowResult.NotReady:\r\n               
+    failMessage = \"NotReady\";\r\n                break;\r\n            default:\r\n               
+    failMessage = \"Unknown result\";\r\n                break;\r\n        }\r\n       
+    // Log the failure message\r\n        console.log(`Ad show failed; ${failMessage}.`);\r\n   
+    }\r\n}\r\nexports.default = AdvertisementManager;\r\n// Singleton declaration\r\nAdvertisementManager.instance
+    = null;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQWR2ZXJ0aXNlbWVudE1hbmFnZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJBZHZlcnRpc2VtZW50TWFuYWdlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUF5RTtBQUN6RSxtREFBd0M7QUFDeEMsK0VBQWdGO0FBQ2hGLGlEQUFzRDtBQUN0RCw2RUFBNEQ7QUFFNUQsa0ZBQW9HO0FBQ3BHLHVEQUE4RTtBQUM5RSwrRUFBa0Q7QUFHbEQsTUFBTSxNQUFNLEdBQVcsbUJBQW1CLENBQUM7QUFFM0MsTUFBcUIsb0JBQXFCLFNBQVEscUNBQXFCO0lBVzVELE1BQU0sS0FBSyxRQUFRO1FBQ3RCLElBdEJDLHFDQUFxQixDQTJEbEIsV0FBSyxDQXJDTCxJQUFJLENBQUMsUUFBUSxFQUFJLElBQUksR0FBRTtZQUN2QixJQUFJLENBQUMsUUFBUSxHQUFHLHdCQUFVLENBQUMsZ0JBQWdCLFNBQUMsb0JBQW9CLEVBQUcsQ0FBQztTQUN2RTtRQUVELE9BQU8sSUFBSSxDQUFDLFFBQVEsQ0FBQztJQUN6QixDQUFDO0lBRU0sY0FBYyxDQUFDLFFBQWlCLEVBQUUsUUFBb0I7UUFDekQsSUFBSSxDQUFDLG1CQUFtQixHQUFHLFFBQVEsQ0FBQztRQUNwQyxJQUFJLENBQUMsbUJBQW1CLEdBQUcsUUFBUSxDQUFDO1FBQ3BDLElBQUksQ0FBQyxNQUFNLENBQUMsSUFBSSxDQUFDLGNBQWMsQ0FBQyxDQUFDO0lBQ3JDLENBQUM7SUFFRCxjQUFjO1FBQ1YsMkNBQWEsQ0FBQyxRQUFRLENBQUMsV0FBVyxDQUFDLFlBQVksQ0FBQyxTQUFTLENBQUMsUUFBUSxDQUFDLElBQUksQ0FBQyxtQkFBbUIsRUFBRSxJQUFJLENBQUMsbUJBQW1CLENBQUMsQ0FBQztJQUMzSCxDQUFDO0lBRUQsMkZBQTJGO0lBQ3BGLE1BQU0sQ0FBQyxjQUEwQjtRQUVwQyxxSEFBcUg7UUFDckgsSUFBSSwyQ0FBb0IsQ0FBQyxRQUFRLEVBQUU7WUFDL0IsaURBQWtCLENBQUMsSUFBSSxDQUNuQixNQUFNLEVBQUUsc0NBQXNDO1lBQzlDLEFBRFEsc0NBQXNDO1lBQzlDLE1BQU0sQ0FBQyxFQUFFLENBQUMsY0FBYyxFQUFFLENBQUMsdUJBQXVCO2FBQ3JELENBQUM7U0FDTDthQUNJO1lBQ0QsOEJBQVcsQ0FBQyxJQUFJLENBQUMsbUNBQUksQ0FBQyxJQUFJLEVBQUUsK0NBQStDLENBQUMsQ0FBQztTQUNoRjtJQUNMLENBQUM7SUFFRCx3REFBd0Q7SUFDeEQsY0FBYyxDQUFDLE1BQW9CLEVBQUUsY0FBMEI7UUFDM0QsSUFBSSxNQUFNLEtBQUssMkNBQVksQ0FBQyxRQUFRLEVBQUU7WUFDbEMsbURBQW1EO1lBQ25ELE9BQU8sQ0FBQyxHQUFHLENBQUMsK0JBQStCLENBQUMsQ0FBQztZQUM3QyxjQUFjLEVBQUUsQ0FBQyxDQUFDLHFDQUFxQztZQUN2RCxPQUFPO1NBQ1Y7UUFFRCx3Q0FBd0M7UUFDeEMsSUFBSSxXQUFtQixDQUFDO1FBQ3hCLG1FQUFtRTtRQUNuRSxRQUFRLE1BQU0sRUFBRTtZQUNaLEtBQUssMkNBQVksQ0FBQyxNQUFNO2dCQUNwQixXQUFXLEdBQUcsUUFBUSxDQUFDO2dCQUN2QixNQUFNO1lBQ1YsS0FBSywyQ0FBWSxDQUFDLE9BQU87Z0JBQ3JCLFdBQVcsR0FBRyxTQUFTLENBQUM7Z0JBQ3hCLE1BQU07WUFDVixLQUFLLDJDQUFZLENBQUMsUUFBUTtnQkFDdEIsV0FBVyxHQUFHLFVBQVUsQ0FBQztnQkFDekIsTUFBTTtZQUNWO2dCQUNJLFdBQVcsR0FBRyxnQkFBZ0IsQ0FBQztnQkFDL0IsTUFBTTtTQUNiO1FBQ0QsMEJBQTBCO1FBQzFCLE9BQU8sQ0FBQyxHQUFHLENBQUMsbUJBQW1CLFdBQVcsR0FBRyxDQUFDLENBQUM7SUFDbkQsQ0FBQzs7QUF4RUwsdUNBeUVDO0FBakVHLHdCQUF3QjtBQUNULDZCQUFRLEdBQXlCLElBQUksQ0FBQyJ9","assetPath":"Assets/BuilditTemplate/Modules/Advertisement/AdvertisementManager.ts","manifest":{"properties":[{"assembly":"UnityEngine.CoreModule","name":"destinationPosiiton","type":"UnityEngine.Vector3","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"HideInInspector","args":[]}]},{"assembly":"UnityEngine.CoreModule","name":"destinationRotation","type":"UnityEngine.Quaternion","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"HideInInspector","args":[]}]}],"name":"AdvertisementManager","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 0370b5ead0aee5c27a355288e7f7769e
+  onlyWriteTrigger: 0

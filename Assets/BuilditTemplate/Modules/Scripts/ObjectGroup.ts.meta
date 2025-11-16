@@ -1,0 +1,34 @@
+fileFormatVersion: 2
+guid: b3ba00be5106431580ba8e5d2e5042a8
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst GroupManager_1 = require(\"./GroupManager\");\r\nclass
+    ObjectGroup extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    get members()
+    {\r\n        return GroupManager_1.default.instance.GetMembers(this.groupId);\r\n   
+    }\r\n    ;\r\n    Awake() {\r\n        GroupManager_1.default.instance.AddGroup(this);\r\n   
+    }\r\n}\r\nexports.default = ObjectGroup;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiT2JqZWN0R3JvdXAuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJPYmplY3RHcm91cC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUF3QztBQUN4QyxpREFBcUQ7QUFDckQsaURBQTBDO0FBRTFDLE1BQXFCLFdBQVksU0FBUSxxQ0FBcUI7SUFLMUQsSUFBVyxPQUFPO1FBQ2QsT0FBTyxzQkFBWSxDQUFDLFFBQVEsQ0FBQyxVQUFVLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxDQUFDO0lBQzFELENBQUM7SUFBQSxDQUFDO0lBRUYsS0FBSztRQUVELHNCQUFZLENBQUMsUUFBUSxDQUFDLFFBQVEsQ0FBQyxJQUFJLENBQUMsQ0FBQztJQUN6QyxDQUFDO0NBRUo7QUFkRCw4QkFjQyJ9","assetPath":"Assets/BuilditTemplate/Modules/Scripts/ObjectGroup.ts","manifest":{"properties":[{"assembly":"mscorlib","name":"groupId","type":"System.String","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Tooltip","args":["\"The
+    id of the group\""]}]}],"name":"ObjectGroup","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 920ac1b7198a49f77fb30727f686d4ce
+  onlyWriteTrigger: 0

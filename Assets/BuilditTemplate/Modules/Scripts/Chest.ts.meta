@@ -1,0 +1,42 @@
+fileFormatVersion: 2
+guid: ef9b6ebdd855483c80972a2de2f3e7f3
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nclass Chest extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\r\n    constructor() {\r\n        super(...arguments);\r\n        this.isOpen
+    = true;\r\n        this.openSpeed = 5;\r\n    }\r\n    Update() {\r\n       
+    if (this.isOpen) {\r\n            this.SetRotation(this.openRef.rotation);\r\n       
+    }\r\n        else {\r\n            this.SetRotation(this.closeRef.rotation);\r\n       
+    }\r\n    }\r\n    Open(open) {\r\n        if (this.isOpen == open)\r\n           
+    return;\r\n        this.isOpen = open;\r\n        if (open) {\r\n           
+    this.openAudio?.Play();\r\n            this.glow.SetActive(true);\r\n       
+    }\r\n        else {\r\n            this.glow.SetActive(false);\r\n           
+    this.closeAudio?.Play();\r\n        }\r\n    }\r\n    SetRotation(toRot) {\r\n       
+    if (UnityEngine_1.Quaternion.op_Inequality(this.lid.rotation, toRot)) {\r\n           
+    this.lid.rotation = UnityEngine_1.Quaternion.Lerp(this.lid.rotation, toRot, UnityEngine_1.Time.deltaTime
+    * this.openSpeed);\r\n        }\r\n    }\r\n}\r\nexports.default = Chest;\r\n//#
+    sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ2hlc3QuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJDaGVzdC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUFnRjtBQUNoRixpREFBcUQ7QUFHckQsTUFBcUIsS0FBTSxTQUFRLHFDQUFxQjtJQUF4RDs7UUFFVyxXQUFNLEdBQVksSUFBSSxDQUFDO1FBT3ZCLGNBQVMsR0FBVyxDQUFDLENBQUM7SUFtQ2pDLENBQUM7SUE5QkcsTUFBTTtRQUNGLElBQUcsSUFBSSxDQUFDLE1BQU0sRUFBQztZQUNYLElBQUksQ0FBQyxXQUFXLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxRQUFRLENBQUMsQ0FBQztTQUMzQzthQUNHO1lBQ0EsSUFBSSxDQUFDLFdBQVcsQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDLFFBQVEsQ0FBQyxDQUFDO1NBQzVDO0lBQ0wsQ0FBQztJQUVNLElBQUksQ0FBQyxJQUFhO1FBQ3JCLElBQUksSUFBSSxDQUFDLE1BQU0sSUFBSSxJQUFJO1lBQUUsT0FBTztRQUVoQyxJQUFJLENBQUMsTUFBTSxHQUFHLElBQUksQ0FBQztRQUNuQixJQUFJLElBQUksRUFBRTtZQUNOLElBQUksQ0FBQyxTQUFTLEVBQUUsSUFBSSxFQUFFLENBQUM7WUFDdkIsSUFBSSxDQUFDLElBQUksQ0FBQyxTQUFTLENBQUMsSUFBSSxDQUFDLENBQUM7U0FDN0I7YUFDSTtZQUNELElBQUksQ0FBQyxJQUFJLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO1lBQzNCLElBQUksQ0FBQyxVQUFVLEVBQUUsSUFBSSxFQUFFLENBQUM7U0FDM0I7SUFDTCxDQUFDO0lBR08sV0FBVyxDQUFDLEtBQWlCO1FBQ2pDLElBM0NBLHdCQUFVLENBZ0RneW9FLGFBQWMsQ0FMcHpvRSxJQUFJLENBQUMsR0FBRyxDQUFDLFFBQVEsRUFBSSxLQUFLLEdBQUU7WUFDNUIsSUFBSSxDQUFDLEdBQUcsQ0FBQyxRQUFRLEdBQUcsd0JBQVUsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxRQUFRLEVBQUUsS0FBSyxFQUFFLGtCQUFJLENBQUMsU0FBUyxHQUFHLElBQUksQ0FBQyxTQUFTLENBQUMsQ0FBQztTQUNsRztJQUNMLENBQUM7Q0FFSjtBQTVDRCx3QkE0Q0MifQ==","assetPath":"Assets/BuilditTemplate/Modules/Scripts/Chest.ts","manifest":{"properties":[{"assembly":"mscorlib","name":"isOpen","type":"System.Boolean","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"lid","type":"UnityEngine.Transform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"gold","type":"UnityEngine.Transform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"glow","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"openRef","type":"UnityEngine.Transform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"closeRef","type":"UnityEngine.Transform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"mscorlib","name":"openSpeed","type":"System.Single","isArray":false,"initValue":["5"],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.AudioModule","name":"openAudio","type":"UnityEngine.AudioSource","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.AudioModule","name":"closeAudio","type":"UnityEngine.AudioSource","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"Chest","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 71609e43dbcb1d3709f291f7ea35544f
+  onlyWriteTrigger: 0

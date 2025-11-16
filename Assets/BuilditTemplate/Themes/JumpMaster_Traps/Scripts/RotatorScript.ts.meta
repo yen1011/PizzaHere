@@ -1,0 +1,34 @@
+fileFormatVersion: 2
+guid: 78487611d59304f4ab999b24cea0af10
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nclass
+    RotatorScript extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor()
+    {\r\n        super(...arguments);\r\n        // Speed of rotator in x direction.\r\n       
+    this.xSpeed = 0;\r\n        // Speed of rotator in y direction.\r\n        this.ySpeed
+    = 5;\r\n        // Speed of rotator in z direction.\r\n        this.zSpeed =
+    0;\r\n    }\r\n    Update() {\r\n        this.transform.Rotate(this.xSpeed, this.ySpeed,
+    this.zSpeed);\r\n    }\r\n}\r\nexports.default = RotatorScript;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUm90YXRvclNjcmlwdC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIlJvdGF0b3JTY3JpcHQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxpREFBc0Q7QUFFdEQsTUFBcUIsYUFBYyxTQUFRLHFDQUFxQjtJQUFoRTs7UUFFSSxtQ0FBbUM7UUFDVCxXQUFNLEdBQVcsQ0FBQyxDQUFDO1FBQzdDLG1DQUFtQztRQUNULFdBQU0sR0FBVyxDQUFDLENBQUM7UUFDN0MsbUNBQW1DO1FBQ1QsV0FBTSxHQUFXLENBQUMsQ0FBQztJQU1qRCxDQUFDO0lBSkcsTUFBTTtRQUNGLElBQUksQ0FBQyxTQUFTLENBQUMsTUFBTSxDQUFDLElBQUksQ0FBQyxNQUFNLEVBQUUsSUFBSSxDQUFDLE1BQU0sRUFBRSxJQUFJLENBQUMsTUFBTSxDQUFDLENBQUM7SUFDakUsQ0FBQztDQUVKO0FBYkQsZ0NBYUMifQ==","assetPath":"Assets/BuilditTemplate/Themes/JumpMaster_Traps/Scripts/RotatorScript.ts","manifest":{"properties":[{"assembly":"mscorlib","name":"xSpeed","type":"System.Single","isArray":false,"initValue":["0"],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]},{"assembly":"mscorlib","name":"ySpeed","type":"System.Single","isArray":false,"initValue":["5"],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]},{"assembly":"mscorlib","name":"zSpeed","type":"System.Single","isArray":false,"initValue":["0"],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]}],"name":"RotatorScript","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: effa3b751573b633f59b8f086eb172c0
+  onlyWriteTrigger: 0

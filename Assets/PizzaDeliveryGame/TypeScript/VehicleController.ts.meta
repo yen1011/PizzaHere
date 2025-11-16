@@ -1,0 +1,116 @@
+fileFormatVersion: 2
+guid: 96a0e5161eb754ed396362a67d354957
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst
+    UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nconst ZEPETO_Character_Controller_1
+    = require(\\\"ZEPETO.Character.Controller\\\");\\r\\nconst DeliveryButtonUI_1
+    = require(\\\"./DeliveryButtonUI\\\");\\r\\nconst DeliveryHouse_1 = require(\\\"./DeliveryHouse\\\");\\r\\nconst
+    DeliveryManager_1 = require(\\\"./DeliveryManager\\\");\\r\\n/**\\r\\n * \uBC30\uB2EC
+    \uCC28\uB7C9 \uCEE8\uD2B8\uB864\uB7EC\\r\\n * - \uD50C\uB808\uC774\uC5B4\uAC00
+    \uCC28\uB7C9\uC5D0 \uD0D1\uC2B9\uD558\uBA74 \uBC30\uB2EC \uBC84\uD2BC UI \uD45C\uC2DC\\r\\n
+    * - \uCC28\uB7C9\uC5D0\uC11C \uB0B4\uB9AC\uBA74 \uBC30\uB2EC \uBC84\uD2BC UI
+    \uC228\uAE40\\r\\n * - \uAC00\uAE4C\uC6B4 \uC9D1\uC5D0 \uC8FC\uBB38\uC774 \uC788\uC744
+    \uB54C\uB9CC \uBC30\uB2EC \uAC00\uB2A5\\r\\n */\\r\\nclass VehicleController
+    extends ZEPETO_Script_1.ZepetoScriptBehaviour {\\r\\n    constructor() {\\r\\n       
+    super(...arguments);\\r\\n        /* ===== \uC124\uC815 ===== */\\r\\n       
+    // \uBC30\uB2EC \uAC00\uB2A5\uD55C \uCD5C\uB300 \uAC70\uB9AC (\uBBF8\uD130)\\r\\n       
+    this.deliveryRange = 5.0;\\r\\n        this.isPlayerInVehicle = false;\\r\\n       
+    this.nearestHouse = null;\\r\\n    }\\r\\n    /* ===== Unity Lifecycle =====
+    */\\r\\n    Start() {\\r\\n        // DeliveryButtonUI \uCC3E\uAE30\\r\\n       
+    this.deliveryButtonUI = DeliveryButtonUI_1.default.instance;\\r\\n        if
+    (!this.deliveryButtonUI) {\\r\\n            console.error('[VehicleController]
+    DeliveryButtonUI\uB97C \uCC3E\uC744 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4!');\\r\\n           
+    return;\\r\\n        }\\r\\n        console.log(`[VehicleController] ${this.gameObject.name}
+    \uCD08\uAE30\uD654 \uC644\uB8CC`);\\r\\n    }\\r\\n    Update() {\\r\\n       
+    // \uCC28\uB7C9\uC5D0 \uD0D1\uC2B9 \uC911\uC77C \uB54C\uB9CC \uAC00\uAE4C\uC6B4
+    \uC9D1 \uCC3E\uAE30\\r\\n        if (this.isPlayerInVehicle) {\\r\\n           
+    this.UpdateNearestHouse();\\r\\n        }\\r\\n    }\\r\\n    /* ===== Trigger
+    \uC774\uBCA4\uD2B8 ===== */\\r\\n    /**\\r\\n     * \uD50C\uB808\uC774\uC5B4\uAC00
+    \uCC28\uB7C9\uC5D0 \uD0D1\uC2B9 (Trigger \uC9C4\uC785)\\r\\n     */\\r\\n   
+    OnTriggerEnter(coll) {\\r\\n        // LocalPlayer \uCCB4\uD06C\\r\\n       
+    if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance || !ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer)\\r\\n           
+    return;\\r\\n        const character = coll.GetComponent($typeof(ZEPETO_Character_Controller_1.ZepetoCharacter));\\r\\n       
+    if (!character)\\r\\n            return;\\r\\n        // LocalPlayer\uC778\uC9C0
+    \uD655\uC778\\r\\n        if (character !== ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character)
+    {\\r\\n            return;\\r\\n        }\\r\\n        this.isPlayerInVehicle
+    = true;\\r\\n        this.OnPlayerEnterVehicle();\\r\\n    }\\r\\n    /**\\r\\n    
+    * \uD50C\uB808\uC774\uC5B4\uAC00 \uCC28\uB7C9\uC5D0\uC11C \uD558\uCC28 (Trigger
+    \uC774\uD0C8)\\r\\n     */\\r\\n    OnTriggerExit(coll) {\\r\\n        if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance
+    || !ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer)\\r\\n           
+    return;\\r\\n        const character = coll.GetComponent($typeof(ZEPETO_Character_Controller_1.ZepetoCharacter));\\r\\n       
+    if (!character)\\r\\n            return;\\r\\n        if (character !== ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character)
+    {\\r\\n            return;\\r\\n        }\\r\\n        this.isPlayerInVehicle
+    = false;\\r\\n        this.OnPlayerExitVehicle();\\r\\n    }\\r\\n    /**\\r\\n    
+    * \uD50C\uB808\uC774\uC5B4\uAC00 \uCC28\uB7C9\uC5D0 \uD0D1\uC2B9\uD588\uC744
+    \uB54C\\r\\n     */\\r\\n    OnPlayerEnterVehicle() {\\r\\n        console.log('[VehicleController]
+    \uD50C\uB808\uC774\uC5B4\uAC00 \uCC28\uB7C9\uC5D0 \uD0D1\uC2B9\uD588\uC2B5\uB2C8\uB2E4.');\\r\\n       
+    // \uAC00\uAE4C\uC6B4 \uC9D1 \uCC3E\uAE30 \uC2DC\uC791\\r\\n        this.UpdateNearestHouse();\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uD50C\uB808\uC774\uC5B4\uAC00 \uCC28\uB7C9\uC5D0\uC11C
+    \uD558\uCC28\uD588\uC744 \uB54C\\r\\n     */\\r\\n    OnPlayerExitVehicle() {\\r\\n       
+    console.log('[VehicleController] \uD50C\uB808\uC774\uC5B4\uAC00 \uCC28\uB7C9\uC5D0\uC11C
+    \uD558\uCC28\uD588\uC2B5\uB2C8\uB2E4.');\\r\\n        // \uBC30\uB2EC \uBC84\uD2BC
+    \uC228\uAE30\uAE30\\r\\n        if (this.deliveryButtonUI) {\\r\\n           
+    this.deliveryButtonUI.HideButton();\\r\\n        }\\r\\n        this.nearestHouse
+    = null;\\r\\n    }\\r\\n    /* ===== \uBC30\uB2EC \uC9D1 \uAC10\uC9C0 ===== */\\r\\n   
+    /**\\r\\n     * \uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC8FC\uBB38\uC774 \uC788\uB294
+    \uC9D1 \uCC3E\uAE30 \uBC0F \uBC84\uD2BC \uC5C5\uB370\uC774\uD2B8\\r\\n     */\\r\\n   
+    UpdateNearestHouse() {\\r\\n        if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance
+    || !ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer)\\r\\n           
+    return;\\r\\n        const localPlayer = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character;\\r\\n       
+    if (!localPlayer)\\r\\n            return;\\r\\n        // DeliveryManager\uC5D0\uC11C
+    \uBAA8\uB4E0 \uC9D1 \uAC00\uC838\uC624\uAE30\\r\\n        const deliveryManager
+    = DeliveryManager_1.default.instance;\\r\\n        if (!deliveryManager)\\r\\n           
+    return;\\r\\n        const allHouses = deliveryManager.GetAllHouses();\\r\\n       
+    let closestHouse = null;\\r\\n        let closestDistance = this.deliveryRange;\\r\\n       
+    // \uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC8FC\uBB38\uC774 \uC788\uB294 \uC9D1 \uCC3E\uAE30\\r\\n       
+    for (const house of allHouses) {\\r\\n            if (!house || !house.HasActiveOrder())\\r\\n               
+    continue;\\r\\n            const distance = UnityEngine_1.Vector3.Distance(house.transform.position,
+    localPlayer.transform.position);\\r\\n            if (distance <= closestDistance)
+    {\\r\\n                closestDistance = distance;\\r\\n                closestHouse
+    = house;\\r\\n            }\\r\\n        }\\r\\n        // \uAC00\uC7A5 \uAC00\uAE4C\uC6B4
+    \uC9D1\uC774 \uBCC0\uACBD\uB418\uC5C8\uC744 \uB54C\\r\\n        if (closestHouse
+    !== this.nearestHouse) {\\r\\n            this.nearestHouse = closestHouse;\\r\\n           
+    if (this.nearestHouse) {\\r\\n                // \uBC30\uB2EC \uBC84\uD2BC \uD45C\uC2DC\\r\\n               
+    console.log(`[VehicleController] \uBC30\uB2EC \uAC00\uB2A5\uD55C \uC9D1: ${this.nearestHouse.gameObject.name}`);\\r\\n               
+    if (this.deliveryButtonUI) {\\r\\n                    this.deliveryButtonUI.ShowDeliveryButton(()
+    => this.TryDeliverToNearestHouse());\\r\\n                }\\r\\n           
+    }\\r\\n            else {\\r\\n                // \uBC94\uC704 \uB0B4 \uC9D1
+    \uC5C6\uC74C - \uBC84\uD2BC \uC228\uAE40\\r\\n                if (this.deliveryButtonUI)
+    {\\r\\n                    this.deliveryButtonUI.HideButton();\\r\\n               
+    }\\r\\n            }\\r\\n        }\\r\\n    }\\r\\n    /**\\r\\n     * \uAC00\uC7A5
+    \uAC00\uAE4C\uC6B4 \uC9D1\uC73C\uB85C \uBC30\uB2EC \uC2DC\uB3C4\\r\\n     */\\r\\n   
+    TryDeliverToNearestHouse() {\\r\\n        if (!this.nearestHouse) {\\r\\n           
+    console.log('[VehicleController] \uBC30\uB2EC\uD560 \uC9D1\uC774 \uC5C6\uC2B5\uB2C8\uB2E4.');\\r\\n           
+    return;\\r\\n        }\\r\\n        console.log(`[VehicleController] ${this.nearestHouse.gameObject.name}\uB85C
+    \uBC30\uB2EC \uC2DC\uB3C4`);\\r\\n        this.nearestHouse.TryDeliver();\\r\\n   
+    }\\r\\n    /* ===== Public \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n    
+    * \uD50C\uB808\uC774\uC5B4\uAC00 \uCC28\uB7C9\uC5D0 \uD0D1\uC2B9 \uC911\uC778\uC9C0
+    \uD655\uC778\\r\\n     */\\r\\n    IsPlayerInVehicle() {\\r\\n        return
+    this.isPlayerInVehicle;\\r\\n    }\\r\\n    /**\\r\\n     * \uD604\uC7AC \uBC30\uB2EC
+    \uAC00\uB2A5\uD55C \uC9D1\uC774 \uC788\uB294\uC9C0 \uD655\uC778\\r\\n     */\\r\\n   
+    HasNearbyHouse() {\\r\\n        return this.nearestHouse !== null;\\r\\n    }\\r\\n}\\r\\nexports.default
+    = VehicleController;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVmVoaWNsZUNvbnRyb2xsZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJWZWhpY2xlQ29udHJvbGxlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGlEQUFzRDtBQUN0RCw2Q0FBZ0Q7QUFDaEQsNkVBQTZFO0FBQzdFLHlEQUFrRDtBQUNsRCxtREFBNEM7QUFDNUMsdURBQWdEO0FBRWhEOzs7OztHQUtHO0FBQ0gsTUFBcUIsaUJBQWtCLFNBQVEscUNBQXFCO0lBQXBFOztRQUVJLG9CQUFvQjtRQUNwQixvQkFBb0I7UUFDYixrQkFBYSxHQUFXLEdBQUcsQ0FBQztRQUkzQixzQkFBaUIsR0FBWSxLQUFLLENBQUM7UUFDbkMsaUJBQVksR0FBa0IsSUFBSSxDQUFDO0lBZ0svQyxDQUFDO0lBOUpHLGlDQUFpQztJQUN6QixLQUFLO1FBQ1Qsc0JBQXNCO1FBQ3RCLElBQUksQ0FBQyxnQkFBZ0IsR0FBRywwQkFBZ0IsQ0FBQyxRQUFRLENBQUM7UUFDbEQsSUFBSSxDQUFDLElBQUksQ0FBQyxnQkFBZ0IsRUFBRTtZQUN4QixPQUFPLENBQUMsS0FBSyxDQUFDLGtEQUFrRCxDQUFDLENBQUM7WUFDbEUsT0FBTztTQUNWO1FBRUQsT0FBTyxDQUFDLEdBQUcsQ0FBQyx1QkFBdUIsSUFBSSxDQUFDLFVBQVUsQ0FBQyxJQUFJLFNBQVMsQ0FBQyxDQUFDO0lBQ3RFLENBQUM7SUFFTyxNQUFNO1FBQ1Ysd0JBQXdCO1FBQ3hCLElBQUksSUFBSSxDQUFDLGlCQUFpQixFQUFFO1lBQ3hCLElBQUksQ0FBQyxrQkFBa0IsRUFBRSxDQUFDO1NBQzdCO0lBQ0wsQ0FBQztJQUVELDZCQUE2QjtJQUU3Qjs7T0FFRztJQUNLLGNBQWMsQ0FBQyxJQUFjO1FBQ2pDLGlCQUFpQjtRQUNqQixJQUFJLENBQUMsMkNBQWEsQ0FBQyxRQUFRLElBQUksQ0FBQywyQ0FBYSxDQUFDLFFBQVEsQ0FBQyxXQUFXO1lBQUUsT0FBTztRQUUzRSxNQUFNLFNBQVMsR0FBRyxJQUFJLENB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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/VehicleController.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"mscorlib\",\"name\":\"deliveryRange\",\"type\":\"System.Single\",\"isArray\":false,\"initValue\":[\"5\"],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"VehicleController\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: 72f288514e242edd4d24f3e0f438246f
+  onlyWriteTrigger: 0

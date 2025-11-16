@@ -1,0 +1,23 @@
+{
+  "name": "asset.squidgame",
+  "scope": "asset",
+  "displayName": "Squid Theme",
+  "version": "1.0.3",
+  "unity": "2020.3",
+  "description": "Theme with interactive objects to create a fun game",
+  "documentationUrl": "",
+  "keywords": [
+    "asset", "squid"
+  ],
+  "license": "LICENSE.md",
+  "licensesUrl": "https://docs.zepeto.me/studio/reference/zepeto_world_license",
+  "category": "Unity",
+  "hideInEditor": false,
+  "author": {
+    "name": "ZEPETO Asset",
+    "email": "support@zepeto.me",
+    "url": "https://zepeto.me"
+  },
+  "dependencies": { },
+  "samples": []
+}

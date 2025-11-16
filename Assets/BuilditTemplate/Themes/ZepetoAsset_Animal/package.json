@@ -1,0 +1,23 @@
+{
+  "name": "asset.animal",
+  "scope": "asset",
+  "displayName": "Animal",
+  "version": "1.0.0",
+  "unity": "2020.3",
+  "description": "Collection of animals",
+  "documentationUrl": "",
+  "keywords": [
+    "asset", "animal"
+  ],
+  "license": "LICENSE.md",
+  "licensesUrl": "https://docs.zepeto.me/studio/reference/zepeto_world_license",
+  "category": "Unity",
+  "hideInEditor": false,
+  "author": {
+    "name": "ZEPETO Asset",
+    "email": "support@zepeto.me",
+    "url": "https://zepeto.me"
+  },
+  "dependencies": {},
+  "samples": []
+}

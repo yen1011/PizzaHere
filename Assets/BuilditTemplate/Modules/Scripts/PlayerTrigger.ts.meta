@@ -1,0 +1,71 @@
+fileFormatVersion: 2
+guid: 973c8a88d8394c46ba42dec5fb29cb09
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nexports.ZepetoCharacterType = void 0;\r\nconst ZEPETO_Character_Controller_1
+    = require(\"ZEPETO.Character.Controller\");\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst UnityEngine_Events_1 =
+    require(\"UnityEngine.Events\");\r\nvar ZepetoCharacterType;\r\n(function (ZepetoCharacterType)
+    {\r\n    ZepetoCharacterType[ZepetoCharacterType[\"LocalPlayer\"] = 0] = \"LocalPlayer\";\r\n   
+    ZepetoCharacterType[ZepetoCharacterType[\"NetworkPlayer\"] = 1] = \"NetworkPlayer\";\r\n   
+    ZepetoCharacterType[ZepetoCharacterType[\"NPC\"] = 2] = \"NPC\";\r\n})(ZepetoCharacterType
+    = exports.ZepetoCharacterType || (exports.ZepetoCharacterType = {}));\r\nclass
+    PlayerTrigger extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    get OnPlayerEnter()
+    {\r\n        if (!this._OnPlayerEnter)\r\n            this._OnPlayerEnter = new
+    ($generic(UnityEngine_Events_1.UnityEvent$1, ZEPETO_Character_Controller_1.ZepetoCharacter))();\r\n       
+    return this._OnPlayerEnter;\r\n    }\r\n    set OnPlayerEnter(event) {\r\n       
+    this._OnPlayerEnter = event;\r\n    }\r\n    get OnPlayerStay() {\r\n       
+    this._OnPlayerStay ?? (this._OnPlayerStay = new ($generic(UnityEngine_Events_1.UnityEvent$1,
+    ZEPETO_Character_Controller_1.ZepetoCharacter))());\r\n        return this._OnPlayerStay;\r\n   
+    }\r\n    set OnPlayerStay(event) {\r\n        this._OnPlayerStay = event;\r\n   
+    }\r\n    get OnPlayerExit() {\r\n        this._OnPlayerExit ?? (this._OnPlayerExit
+    = new ($generic(UnityEngine_Events_1.UnityEvent$1, ZEPETO_Character_Controller_1.ZepetoCharacter))());\r\n       
+    return this._OnPlayerExit;\r\n    }\r\n    set OnPlayerExit(event) {\r\n       
+    this._OnPlayerExit = event;\r\n    }\r\n    // ----------------------------------------------------------------
+    //\r\n    CheckForCharacter(character) {\r\n        if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer)\r\n           
+    return ZepetoCharacterType.NPC;\r\n        if (ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character
+    === character)\r\n            return ZepetoCharacterType.LocalPlayer;\r\n       
+    return ZepetoCharacterType.NetworkPlayer;\r\n    }\r\n    _OnTrigger(collider,
+    execute) {\r\n        var character = collider.GetComponent($typeof(ZEPETO_Character_Controller_1.ZepetoCharacter));\r\n       
+    if (character) {\r\n            switch (this.CheckForCharacter(character)) {\r\n               
+    case ZepetoCharacterType.LocalPlayer:\r\n                    if (this.detectLocalPlayer)\r\n                       
+    execute(character, ZepetoCharacterType.LocalPlayer);\r\n                    break;\r\n               
+    case ZepetoCharacterType.NetworkPlayer:\r\n                    if (this.detectNetworkPlayer)\r\n                       
+    execute(character, ZepetoCharacterType.NetworkPlayer);\r\n                   
+    break;\r\n                case ZepetoCharacterType.NPC:\r\n                   
+    if (this.detectNpc)\r\n                        execute(character, ZepetoCharacterType.NPC);\r\n                   
+    break;\r\n            }\r\n        }\r\n    }\r\n    OnTriggerEnter(collider)
+    {\r\n        this._OnTrigger(collider, (character, type) => {\r\n           
+    if (this.delegate?.OnPlayerEnter)\r\n                this.delegate?.OnPlayerEnter(character,
+    type);\r\n            this._OnPlayerEnter?.Invoke(character);\r\n        });\r\n   
+    }\r\n    OnTriggerStay(collider) {\r\n        this._OnTrigger(collider, (character,
+    type) => {\r\n            if (this.delegate?.OnPlayerStay)\r\n               
+    this.delegate?.OnPlayerStay(character, type);\r\n            this._OnPlayerStay?.Invoke(character);\r\n       
+    });\r\n    }\r\n    OnTriggerExit(collider) {\r\n        this._OnTrigger(collider,
+    (character, type) => {\r\n            if (this.delegate?.OnPlayerExit)\r\n               
+    this.delegate?.OnPlayerExit(character, type);\r\n            this._OnPlayerExit?.Invoke(character);\r\n       
+    });\r\n    }\r\n}\r\nexports.default = PlayerTrigger;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUGxheWVyVHJpZ2dlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIlBsYXllclRyaWdnZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBQUEsNkVBQTZFO0FBQzdFLDZDQUE0RjtBQUM1RixpREFBcUQ7QUFDckQsMkRBQTREO0FBVTVELElBQVksbUJBSVg7QUFKRCxXQUFZLG1CQUFtQjtJQUMzQiwyRUFBVyxDQUFBO0lBQ1gsK0VBQWEsQ0FBQTtJQUNiLDJEQUFHLENBQUE7QUFDUCxDQUFDLEVBSlcsbUJBQW1CLEdBQW5CLDJCQUFtQixLQUFuQiwyQkFBbUIsUUFJOUI7QUFFRCxNQUFxQixhQUFjLFNBQVEscUNBQXFCO0lBVzVELElBQVcsYUFBYTtRQUNwQixJQUFJLENBQUMsSUFBSSxDQUFDLGNBQWM7WUFBRSxJQUFJLENBQUMsY0FBYyxpQkFBTyxpQ0FBWSxFQUFDLDZDQUFlLElBQUcsQ0FBQztRQUNwRixPQUFPLElBQUksQ0FBQyxjQUFjLENBQUM7SUFDL0IsQ0FBQztJQUNELElBQVcsYUFBYSxDQUFDLEtBQW9DO1FBQ3pELElBQUksQ0FBQyxjQUFjLEdBQUcsS0FBSyxDQUFDO0lBQ2hDLENBQUM7SUFHRCxJQUFXLFlBQVk7UUFDbkIsSUFBSSxDQUFDLGFBQWEsS0FBbEIsSUFBSSxDQUFDLGFBQWEsaUJBQVMsaUNBQVksRUFBQyw2Q0FBZSxNQUFJO1FBQzNELE9BQU8sSUFBSSxDQUFDLGFBQWEsQ0FBQztJQUM5QixDQUFDO0lBQ0QsSUFBVyxZQUFZLENBQUMsS0FBb0M7UUFDeEQsSUFBSSxDQUFDLGFBQWEsR0FBRyxLQUFLLENBQUM7SUFDL0IsQ0FBQztJQUdELElBQVcsWUFBWTtRQUNuQixJQUFJLENBQUMsYUFBYSxLQUFsQixJQUFJLENBQUMsYUFBYSxpQkFBUyxpQ0FBWSxFQUFDLDZDQUFlLE1BQUk7UUFDM0QsT0FBTyxJQUFJLENBQUMsYUFBYSxDQUFDO0lBQzlCLENBQUM7SUFDRCxJQUFXLFlBQVksQ0FBQyxLQUFvQztRQUN4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","assetPath":"Assets/BuilditTemplate/Modules/Scripts/PlayerTrigger.ts","manifest":{"properties":[{"assembly":"mscorlib","name":"detectLocalPlayer","type":"System.Boolean","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"mscorlib","name":"detectNetworkPlayer","type":"System.Boolean","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"mscorlib","name":"detectNpc","type":"System.Boolean","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"","name":"delegate","type":"/Users/yeeunmin/Downloads/PizzaHere
+    2/Assets/BuilditTemplate/Modules/Scripts/PlayerTrigger.PlayerTriggerInterface","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"HideInInspector","args":[]}]}],"name":"PlayerTrigger","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 0cd9887a363bd0c886c3801381dc54ba
+  onlyWriteTrigger: 0

@@ -1,0 +1,23 @@
+{
+  "name": "builditup.core",
+  "scope": "builditup",
+  "displayName": "Buildit Unity Plugin Core",
+  "version": "1.0.10",
+  "unity": "2020.3",
+  "description": "Core modules for Buildit Unity Plugin",
+  "documentationUrl": "",
+  "keywords": [
+    "buildit", "core"
+  ],
+  "license": "LICENSE.md",
+  "licensesUrl": "https://docs.zepeto.me/studio/reference/zepeto_world_license",
+  "category": "Unity",
+  "hideInEditor": false,
+  "author": {
+    "name": "ZEPETO",
+    "email": "support@zepeto.me",
+    "url": "https://zepeto.me"
+  },
+  "dependencies": {},
+  "samples": []
+}

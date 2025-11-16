@@ -1,0 +1,98 @@
+fileFormatVersion: 2
+guid: ff67654bfd1d4bb1b73ccb8937f63044
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nexports.Direction = void 0;\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    UnityEngine_UI_1 = require(\"UnityEngine.UI\");\r\nconst UnityEngine_Events_1
+    = require(\"UnityEngine.Events\");\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    UnityEngine_RectTransform_1 = require(\"UnityEngine.RectTransform\");\r\nconst
+    ZEPETO_Character_Controller_1 = require(\"ZEPETO.Character.Controller\");\r\nclass
+    UIMenuController extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor()
+    {\r\n        super(...arguments);\r\n        this.direction = Direction.Left;\r\n       
+    this._touchBlockDelay = 0.5;\r\n        this._menuVisible = false;\r\n       
+    // TODO: Type set\r\n        this._directionScreen = {\r\n            left: {
+    l: 0, r: 0, t: 0, b: 0, w: 340, h: 0, pivot: { x: 0, y: 0.5 }, anchors: Anchors.left,
+    offset: { x: 1, y: 0, z: 0 } },\r\n            right: { l: 0, r: -35, t: 35,
+    b: 35, w: 340, h: 0, pivot: { x: 1, y: 0.5 }, anchors: Anchors.right, offset:
+    { x: -1, y: 0, z: 0 } },\r\n            bottom: { l: 0, r: 0, t: 0, b: 0, w:
+    0, h: 400, pivot: { x: 0, y: 0 }, anchors: Anchors.bottom, offset: { x: 0, y:
+    -1, z: 0 } },\r\n        };\r\n    }\r\n    get onOpened() { this.open ?? (this.open
+    = new UnityEngine_Events_1.UnityEvent()); return this.open; }\r\n    get onClosed()
+    { this.close ?? (this.close = new UnityEngine_Events_1.UnityEvent()); return
+    this.close; }\r\n    get menuVisible() {\r\n        return this._menuVisible;\r\n   
+    }\r\n    Awake() {\r\n        this.OnInitUI();\r\n    }\r\n    OnInitUI() {\r\n       
+    let rect;\r\n        switch (this.direction) {\r\n            case Direction.Left:\r\n               
+    rect = this._directionScreen.left;\r\n                break;\r\n            case
+    Direction.Right:\r\n                rect = this._directionScreen.right;\r\n               
+    break;\r\n            case Direction.Bottom:\r\n                rect = this._directionScreen.bottom;\r\n               
+    break;\r\n        }\r\n        this.panelRect.anchorMin = new UnityEngine_1.Vector2(rect.anchors.min.x,
+    rect.anchors.min.y);\r\n        this.panelRect.anchorMax = new UnityEngine_1.Vector2(rect.anchors.max.x,
+    rect.anchors.max.y);\r\n        this.panelRect.pivot = new UnityEngine_1.Vector2(rect.pivot.x,
+    rect.pivot.y);\r\n        // this.panelRect.sizeDelta = new Vector2(rect.w, rect.h);\r\n       
+    this.panelRect.offsetMin = new UnityEngine_1.Vector2(rect.l, rect.t);\r\n       
+    this.panelRect.offsetMax = new UnityEngine_1.Vector2(rect.r, -rect.b);\r\n       
+    if (rect.h != 0)\r\n            this.panelRect.SetSizeWithCurrentAnchors(UnityEngine_RectTransform_1.Axis.Vertical,
+    rect.h);\r\n        if (rect.w != 0)\r\n            this.panelRect.SetSizeWithCurrentAnchors(UnityEngine_RectTransform_1.Axis.Horizontal,
+    rect.w);\r\n        this.cameraOffsetAdjustment = UnityEngine_1.Vector3.op_Multiply(new
+    UnityEngine_1.Vector3(rect.offset.x, rect.offset.y, rect.offset.z), 0.5);\r\n   
+    }\r\n    OnShowUI() {\r\n    }\r\n    OnHideUI(isFromInit) {\r\n    }\r\n   
+    IsEnableShow() {\r\n        return true;\r\n    }\r\n    IsEnableHide() {\r\n       
+    return true;\r\n    }\r\n    ToggleMenu() {\r\n        this._menuVisible ? this.Hide()
+    : this.ShowMenu();\r\n    }\r\n    Hide() {\r\n        this.GetComponent($typeof(UnityEngine_1.Canvas)).enabled
+    = false;\r\n        this._menuVisible = false;\r\n        ZEPETO_Character_Controller_1.ZepetoPlayers.instance.ZepetoCamera.additionalOffset
+    = this.savedCameraOffset;\r\n        this.close?.Invoke();\r\n    }\r\n    ShowMenu()
+    {\r\n        if (this._menuVisible)\r\n            return;\r\n        this._menuVisible
+    = true;\r\n        this.transform.GetChild(0).gameObject.SetActive(true);\r\n       
+    this.GetComponent($typeof(UnityEngine_1.Canvas)).enabled = true;\r\n        this.closeButton?.onClick.RemoveAllListeners();\r\n       
+    this.closeButton?.onClick.AddListener(() => this.Hide());\r\n        // if (titleKey)
+    {\r\n        //     this.titleText.text = titleKey; // TODO: Localize\r\n       
+    // } else {\r\n        //     this.titleText.text = \"\";\r\n        // }\r\n       
+    this.savedCameraOffset = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.ZepetoCamera.additionalOffset;\r\n       
+    // Logic for moving the character\r\n        // let forwardAngle = ZepetoPlayers.instance.ZepetoCamera.cameraParent.transform.localEulerAngles.y
+    - 180;  // 180 is zero state angle\r\n        // let v = Quaternion.AngleAxis(forwardAngle,
+    Vector3.up) * this.cameraOffsetAdjustment;\r\n        // ZepetoPlayers.instance.ZepetoCamera.additionalOffset
+    = v;\r\n        this.open?.Invoke();\r\n        //this._isVisible = true;\r\n   
+    }\r\n}\r\nexports.default = UIMenuController;\r\nvar Direction;\r\n(function
+    (Direction) {\r\n    Direction[Direction[\"Left\"] = 0] = \"Left\";\r\n    Direction[Direction[\"Bottom\"]
+    = 1] = \"Bottom\";\r\n    Direction[Direction[\"Right\"] = 2] = \"Right\";\r\n   
+    Direction[Direction[\"Top\"] = 3] = \"Top\";\r\n})(Direction = exports.Direction
+    || (exports.Direction = {}));\r\nconst Anchors = {\r\n    left: {\r\n       
+    min: { x: 0, y: 0 },\r\n        max: { x: 0, y: 1 }\r\n    },\r\n    right: {\r\n       
+    min: { x: 1, y: 0 },\r\n        max: { x: 1, y: 1 }\r\n    },\r\n    bottom:
+    {\r\n        min: { x: 0, y: 0 },\r\n        max: { x: 1, y: 0 }\r\n    },\r\n   
+    top: {\r\n        min: { x: 0, y: 1 },\r\n        max: { x: 1, y: 1 }\r\n   
+    }\r\n};\r\n// RectTransform rectTransform;\r\n//\r\n// /*Left*/ rectTransform.offsetMin.x;\r\n//
+    /*Right*/ rectTransform.offsetMax.x;\r\n// /*Top*/ rectTransform.offsetMax.y;\r\n//
+    /*Bottom*/ rectTransform.offsetMin.y;\r\n// public static class RectTransformExtensions\r\n//
+    {\r\n//     public static RectTransform Left( this RectTransform rt, float x
+    )\r\n// {\r\n//     rt.offsetMin = new Vector2( x, rt.offsetMin.y );\r\n//    
+    return rt;\r\n// }\r\n//\r\n// public static RectTransform Right( this RectTransform
+    rt, float x )\r\n// {\r\n//     rt.offsetMax = new Vector2( -x, rt.offsetMax.y
+    );\r\n//     return rt;\r\n// }\r\n//\r\n// public static RectTransform Bottom(
+    this RectTransform rt, float y )\r\n// {\r\n//     rt.offsetMin = new Vector2(
+    rt.offsetMin.x, y );\r\n//     return rt;\r\n// }\r\n//\r\n// public static RectTransform
+    Top( this RectTransform rt, float y )\r\n// {\r\n//     rt.offsetMax = new Vector2(
+    rt.offsetMax.x, -y );\r\n//     return rt;\r\n// }\r\n// }\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVUlNZW51Q29udHJvbGxlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIlVJTWVudUNvbnRyb2xsZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBQUEsNkNBQTRGO0FBQzVGLG1EQUE2RDtBQUM3RCwyREFBOEM7QUFDOUMsaURBQW9EO0FBQ3BELHlFQUErQztBQUMvQyw2RUFBd0U7QUFHeEUsTUFBcUIsZ0JBQWlCLFNBQVEscUNBQXFCO0lBQW5FOztRQU9XLGNBQVMsR0FBYyxTQUFTLENBQUMsSUFBSSxDQUFDO1FBRTVCLHFCQUFnQixHQUFHLEdBQUcsQ0FBQztRQUNoQyxpQkFBWSxHQUFZLEtBQUssQ0FBQztRQUV0QyxpQkFBaUI7UUFDQSxxQkFBZ0IsR0FBRztZQUNoQyxJQUFJLEVBQUUsRUFBRSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsRUFBRSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsRUFBRSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsRUFBRSxHQUFHLEVBQUUsQ0FBQyxFQUFDLENBQUMsRUFBRSxLQUFLLEVBQUUsRUFBRSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsRUFBRSxHQUFHLEVBQUUsRUFBRSxPQUFPLEVBQUUsT0FBTyxDQUFDLElBQUksRUFBRSxNQUFNLEVBQUUsRUFBRSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsRUFBRSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsRUFBRSxFQUFFO1lBQzNILEtBQUssRUFBRSxFQUFFLENBQUMsRUFBRSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsRUFBRSxFQUFFLENBQUMsRUFBRSxFQUFFLEVBQUUsQ0FBQyxFQUFFLEVBQUUsRUFBRSxDQUFDLEVBQUUsR0FBRyxFQUFFLENBQUMsRUFBRSxDQUFDLEVBQUUsS0FBSyxFQUFFLEVBQUUsQ0FBQyxFQUFFLENBQUMsRUFBRSxDQUFDLEVBQUUsR0FBRyxFQUFFLEVBQUUsT0FBTyxFQUFFLE9BQU8sQ0FBQyxLQUFLLEVBQUUs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","assetPath":"Assets/BuilditTemplate/Modules/Wardrobe/Scripts/UIMenuController.ts","manifest":{"properties":[{"assembly":"UnityEngine.CoreModule","name":"root","type":"UnityEngine.Transform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"closeButton","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"titleText","type":"UnityEngine.UI.Text","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"titlePanel","type":"UnityEngine.RectTransform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"panelRect","type":"UnityEngine.RectTransform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"","name":"direction","type":"Direction","isArray":false,"initValue":["Left"],"enumKeys":["Left","Bottom","Right","Top"],"enumValues":["0","1","2","3"],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"cameraOffsetAdjustment","type":"UnityEngine.Vector3","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"open","type":"UnityEngine.Events.UnityEvent","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"close","type":"UnityEngine.Events.UnityEvent","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"UIMenuController","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 03effb11b53788b18490962889490b48
+  onlyWriteTrigger: 0

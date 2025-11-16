@@ -1,0 +1,81 @@
+fileFormatVersion: 2
+guid: 6af72b928b1a0434c99eb6d4d7815500
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\n/**\\r\\n
+    * \uBC30\uB2EC \uC8FC\uBB38 \uD074\uB798\uC2A4\\r\\n * - \uD53C\uC790, \uC2A4\uD30C\uAC8C\uD2F0,
+    \uCF5C\uB77C \uC8FC\uBB38\uB7C9 \uAD00\uB9AC\\r\\n * - \uB79C\uB364 \uC8FC\uBB38
+    \uC0DD\uC131 \uAE30\uB2A5\\r\\n */\\r\\nclass Order {\\r\\n    /* ===== Properties
+    (Getter) ===== */\\r\\n    get pizzaAmount() {\\r\\n        return this._pizzaAmount;\\r\\n   
+    }\\r\\n    get spaghettiAmount() {\\r\\n        return this._spaghettiAmount;\\r\\n   
+    }\\r\\n    get colaAmount() {\\r\\n        return this._colaAmount;\\r\\n   
+    }\\r\\n    /* ===== Constructor ===== */\\r\\n    /**\\r\\n     * \uC8FC\uBB38
+    \uC0DD\uC131\\r\\n     * @param pizza \uD53C\uC790 \uAC1C\uC218 (\uAE30\uBCF8\uAC12:
+    0)\\r\\n     * @param spaghetti \uC2A4\uD30C\uAC8C\uD2F0 \uAC1C\uC218 (\uAE30\uBCF8\uAC12:
+    0)\\r\\n     * @param cola \uCF5C\uB77C \uAC1C\uC218 (\uAE30\uBCF8\uAC12: 0)\\r\\n    
+    */\\r\\n    constructor(pizza = 0, spaghetti = 0, cola = 0) {\\r\\n        this._pizzaAmount
+    = pizza;\\r\\n        this._spaghettiAmount = spaghetti;\\r\\n        this._colaAmount
+    = cola;\\r\\n    }\\r\\n    /* ===== Static \uBA54\uC11C\uB4DC ===== */\\r\\n   
+    /**\\r\\n     * \uB79C\uB364 \uC8FC\uBB38 \uC0DD\uC131\\r\\n     * - 1-3\uAC1C\uC758
+    \uC544\uC774\uD15C \uC911 \uB79C\uB364 \uC120\uD0DD\\r\\n     * - \uAC01 \uC544\uC774\uD15C\uC740
+    1-3\uAC1C \uB79C\uB364 \uC218\uB7C9\\r\\n     */\\r\\n    static GenerateRandomOrder()
+    {\\r\\n        // Random.Range\uB97C \uC815\uC218\uB85C \uBCC0\uD658 (ZEPETO\uB294
+    \uC2E4\uC218\uB97C \uBC18\uD658\uD568)\\r\\n        let pizza = UnityEngine_1.Mathf.FloorToInt(UnityEngine_1.Random.Range(0,
+    2)) === 1 ? UnityEngine_1.Mathf.FloorToInt(UnityEngine_1.Random.Range(1, 4))
+    : 0;\\r\\n        let spaghetti = UnityEngine_1.Mathf.FloorToInt(UnityEngine_1.Random.Range(0,
+    2)) === 1 ? UnityEngine_1.Mathf.FloorToInt(UnityEngine_1.Random.Range(1, 4))
+    : 0;\\r\\n        let cola = UnityEngine_1.Mathf.FloorToInt(UnityEngine_1.Random.Range(0,
+    2)) === 1 ? UnityEngine_1.Mathf.FloorToInt(UnityEngine_1.Random.Range(1, 4))
+    : 0;\\r\\n        console.log(`[Order] \uCD08\uAE30 \uB79C\uB364 \uC0DD\uC131:
+    \uD53C\uC790=${pizza}, \uC2A4\uD30C\uAC8C\uD2F0=${spaghetti}, \uCF5C\uB77C=${cola}`);\\r\\n       
+    // \uCD5C\uC18C 1\uAC1C \uC544\uC774\uD15C\uC740 \uC8FC\uBB38\uB418\uB3C4\uB85D
+    \uBCF4\uC7A5\\r\\n        if (pizza === 0 && spaghetti === 0 && cola === 0) {\\r\\n           
+    console.log('[Order] \uBAA8\uB450 0\uC774\uBBC0\uB85C \uCD5C\uC18C 1\uAC1C \uC544\uC774\uD15C
+    \uAC15\uC81C \uC0DD\uC131');\\r\\n            const randomItem = UnityEngine_1.Mathf.FloorToInt(UnityEngine_1.Random.Range(0,
+    3));\\r\\n            const amount = UnityEngine_1.Mathf.FloorToInt(UnityEngine_1.Random.Range(1,
+    4));\\r\\n            console.log(`[Order] \uC120\uD0DD\uB41C \uC544\uC774\uD15C:
+    ${randomItem}, \uC218\uB7C9: ${amount}`);\\r\\n            switch (randomItem)
+    {\\r\\n                case 0:\\r\\n                    pizza = amount;\\r\\n                   
+    break;\\r\\n                case 1:\\r\\n                    spaghetti = amount;\\r\\n                   
+    break;\\r\\n                case 2:\\r\\n                    cola = amount;\\r\\n                   
+    break;\\r\\n            }\\r\\n        }\\r\\n        console.log(`[Order] \uCD5C\uC885
+    \uC8FC\uBB38: \uD53C\uC790=${pizza}, \uC2A4\uD30C\uAC8C\uD2F0=${spaghetti}, \uCF5C\uB77C=${cola}`);\\r\\n       
+    return new Order(pizza, spaghetti, cola);\\r\\n    }\\r\\n    /* ===== Instance
+    \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n     * \uC8FC\uBB38 \uB0B4\uC6A9\uC744
+    \uBB38\uC790\uC5F4\uB85C \uBC18\uD658 (UI \uD45C\uC2DC\uC6A9)\\r\\n     */\\r\\n   
+    GetOrderString() {\\r\\n        let orderText = \\\"\uC8FC\uBB38:\\\\n\\\";\\r\\n       
+    if (this._pizzaAmount > 0)\\r\\n            orderText += `\uD53C\uC790 ${this._pizzaAmount}\\\\n`;\\r\\n       
+    if (this._spaghettiAmount > 0)\\r\\n            orderText += `\uC2A4\uD30C\uAC8C\uD2F0
+    ${this._spaghettiAmount}\\\\n`;\\r\\n        if (this._colaAmount > 0)\\r\\n           
+    orderText += `\uCF5C\uB77C ${this._colaAmount}\\\\n`;\\r\\n        return orderText.trimEnd();\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uC720\uD6A8\uD55C \uC8FC\uBB38\uC778\uC9C0 \uD655\uC778
+    (\uCD5C\uC18C 1\uAC1C \uC544\uC774\uD15C \uD3EC\uD568)\\r\\n     */\\r\\n   
+    IsValid() {\\r\\n        return this._pizzaAmount > 0 || this._spaghettiAmount
+    > 0 || this._colaAmount > 0;\\r\\n    }\\r\\n    /**\\r\\n     * \uC8FC\uBB38
+    \uC815\uBCF4\uB97C \uAC04\uB2E8\uD55C \uBB38\uC790\uC5F4\uB85C \uBC18\uD658 (\uB85C\uAE45\uC6A9)\\r\\n    
+    */\\r\\n    ToString() {\\r\\n        return `Order(\uD53C\uC790:${this._pizzaAmount},
+    \uC2A4\uD30C\uAC8C\uD2F0:${this._spaghettiAmount}, \uCF5C\uB77C:${this._colaAmount})`;\\r\\n   
+    }\\r\\n}\\r\\nexports.default = Order;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiT3JkZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJPcmRlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUE0QztBQUU1Qzs7OztHQUlHO0FBQ0gsTUFBcUIsS0FBSztJQU90QixxQ0FBcUM7SUFDckMsSUFBVyxXQUFXO1FBQ2xCLE9BQU8sSUFBSSxDQUFDLFlBQVksQ0FBQztJQUM3QixDQUFDO0lBRUQsSUFBVyxlQUFlO1FBQ3RCLE9BQU8sSUFBSSxDQUFDLGdCQUFnQixDQUFDO0lBQ2pDLENBQUM7SUFFRCxJQUFXLFVBQVU7UUFDakIsT0FBTyxJQUFJLENBQUMsV0FBVyxDQUFDO0lBQzVCLENBQUM7SUFFRCw2QkFBNkI7SUFFN0I7Ozs7O09BS0c7SUFDSCxZQUFZLFFBQWdCLENBQUMsRUFBRSxZQUFvQixDQUFDLEVBQUUsT0FBZSxDQUFDO1FBQ2xFLElBQUksQ0FBQyxZQUFZLEdBQUcsS0FBSyxDQUFDO1FBQzFCLElBQUksQ0FBQyxnQkFBZ0IsR0FBRyxTQUFTLENBQUM7UUFDbEMsSUFBSSxDQUFDLFdBQVcsR0FBRyxJQUFJLENBQUM7SUFDNUIsQ0FBQztJQUVELDRCQUE0QjtJQUU1Qjs7OztPQUlHO0lBQ0ksTUFBTSxDQUFDLG1CQUFtQjtRQUM3Qix5Q0FBeUM7UUFDekMsSUFBSSxLQUFLLEdBQUcsbUJBQUssQ0FBQyxVQUFVLENBQUMsb0JBQU0sQ0FBQyxLQUFLLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLEtBQUssQ0FBQyxDQUFDLENBQUMsQ0FBQyxtQkFBSyxDQUFDLFVBQVUsQ0FBQyxvQkFBTSxDQUFDLEtBQUssQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO1FBQ2xHLElBQUksU0FBUyxHQUFHLG1CQUFLLENBQUMsVUFBVSxDQUFDLG9CQUFNLENBQUMsS0FBSyxDQUFDLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLENB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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/Order.ts\",\"manifest\":{\"properties\":[],\"name\":\"Order\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: cc67de7373ae4d7a496eae2556623305
+  onlyWriteTrigger: 0

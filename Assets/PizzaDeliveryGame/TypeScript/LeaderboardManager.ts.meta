@@ -1,0 +1,55 @@
+fileFormatVersion: 2
+guid: 58538a10fb1964ae1b9393b052bd099e
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: 89072204048b7087d871d10c191cb608
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst
+    UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nconst ZEPETO_Script_Leaderboard_1
+    = require(\\\"ZEPETO.Script.Leaderboard\\\");\\r\\nclass LeaderboardManager extends
+    ZEPETO_Script_1.ZepetoScriptBehaviour {\\r\\n    constructor() {\\r\\n       
+    super(...arguments);\\r\\n        this.leaderboardId = \\\"8768c315-7244-4abc-acdf-2460cd7e8a3a\\\";\\r\\n   
+    }\\r\\n    static get instance() {\\r\\n        if (this.m_instance === null)
+    {\\r\\n            this.m_instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(LeaderboardManager));\\r\\n       
+    }\\r\\n        return this.m_instance;\\r\\n    }\\r\\n    SetScore(score) {\\r\\n       
+    // \uACF5\uC2DD \uAC00\uC774\uB4DC\uC758 \uD638\uCD9C \uD615\uC2DD\uC744 \uC5C4\uACA9\uD788
+    \uB530\uB985\uB2C8\uB2E4.\\r\\n        ZEPETO_Script_Leaderboard_1.LeaderboardAPI.SetScore(this.leaderboardId,
+    score, (result) => {\\r\\n            console.log(`[Leaderboard] \uB4F1\uB85D
+    \uACB0\uACFC: ${result.isSuccess}`);\\r\\n        }, (error) => {\\r\\n           
+    console.error(`[Leaderboard] \uB4F1\uB85D \uC5D0\uB7EC: ${error}`);\\r\\n       
+    });\\r\\n    }\\r\\n    GetRankings() {\\r\\n        // \uACF5\uC2DD \uAC00\uC774\uB4DC\uC758
+    GetRangeRank \uD615\uC2DD\uC744 \uB530\uB985\uB2C8\uB2E4.\\r\\n        ZEPETO_Script_Leaderboard_1.LeaderboardAPI.GetRangeRank(this.leaderboardId,
+    1, 10, ZEPETO_Script_Leaderboard_1.ResetRule.none, false, (result) => {\\r\\n           
+    if (result.rankInfo && result.rankInfo.rankList) {\\r\\n                for (let
+    i = 0; i < result.rankInfo.rankList.length; ++i) {\\r\\n                    const
+    rank = result.rankInfo.rankList.get_Item(i);\\r\\n                    console.log(`\uC21C\uC704:
+    ${rank.rank}, \uC810\uC218: ${rank.score}`);\\r\\n                }\\r\\n           
+    }\\r\\n        }, (error) => {\\r\\n            console.error(`[Leaderboard]
+    \uC870\uD68C \uC5D0\uB7EC: ${error}`);\\r\\n        });\\r\\n    }\\r\\n    Awake()
+    {\\r\\n        if (LeaderboardManager.m_instance !== null && LeaderboardManager.m_instance
+    !== this) {\\r\\n            UnityEngine_1.GameObject.Destroy(this.gameObject);\\r\\n       
+    }\\r\\n        else {\\r\\n            LeaderboardManager.m_instance = this;\\r\\n       
+    }\\r\\n    }\\r\\n}\\r\\nexports.default = LeaderboardManager;\\r\\n// \uC2F1\uAE00\uD1A4
+    \uC778\uC2A4\uD134\uC2A4 \uCD94\uAC00\\r\\nLeaderboardManager.m_instance = null;\\r\\n//#
+    sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiTGVhZGVyYm9hcmRNYW5hZ2VyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiTGVhZGVyYm9hcmRNYW5hZ2VyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsaURBQXFEO0FBQ3JELDZDQUF3QztBQUN4Qyx5RUFBNkc7QUFFN0csTUFBcUIsa0JBQW1CLFNBQVEscUNBQXFCO0lBQXJFOztRQVdXLGtCQUFhLEdBQVcsc0NBQXNDLENBQUM7SUFzQzFFLENBQUM7SUE3Q1UsTUFBTSxLQUFLLFFBQVE7UUFDdEIsSUFBSSxJQUFJLENBQUMsVUFBVSxLQUFLLElBQUksRUFBRTtZQUMxQixJQUFJLENBQUMsVUFBVSxHQUFHLHdCQUFVLENBQUMsZ0JBQWdCLFNBQUMsa0JBQWtCLEVBQUcsQ0FBQztTQUN2RTtRQUNELE9BQU8sSUFBSSxDQUFDLFVBQVUsQ0FBQztJQUMzQixDQUFDO0lBSU0sUUFBUSxDQUFDLEtBQWE7UUFDekIsMkJBQTJCO1FBQzNCLDBDQUFjLENBQUMsUUFBUSxDQUFDLElBQUksQ0FBQyxhQUFhLEVBQUUsS0FBSyxFQUM3QyxDQUFDLE1BQXdCLEVBQUUsRUFBRTtZQUN6QixPQUFPLENBQUMsR0FBRyxDQUFDLHdCQUF3QixNQUFNLENBQUMsU0FBUyxFQUFFLENBQUMsQ0FBQztRQUM1RCxDQUFDLEVBQ0QsQ0FBQyxLQUFhLEVBQUUsRUFBRTtZQUNkLE9BQU8sQ0FBQyxLQUFLLENBQUMsd0JBQXdCLEtBQUssRUFBRSxDQUFDLENBQUM7UUFDbkQsQ0FBQyxDQUNKLENBQUM7SUFDTixDQUFDO0lBRU0sV0FBVztRQUNkLGlDQUFpQztRQUNqQywwQ0FBYyxDQUFDLFlBQVksQ0FBQyxJQUFJLENBQUMsYUFBYSxFQUFFLENBQUMsRUFBRSxFQUFFLEVBQUUscUNBQVMsQ0FBQyxJQUFJLEVBQUUsS0FBSyxFQUN4RSxDQUFDLE1BQTRCLEVBQUUsRUFBRTtZQUM3QixJQUFJLE1BQU0sQ0FBQyxRQUFRLElBQUksTUFBTSxDQUFDLFFBQVEsQ0FBQyxRQUFRLEVBQUU7Z0JBQzdDLEtBQUssSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxNQUFNLENBQUMsUUFBUSxDQUFDLFFBQVEsQ0FBQyxNQUFNLEVBQUUsRUFBRSxDQUFDLEVBQUU7b0JBQ3RELE1BQU0sSUFBSSxHQUFHLE1BQU0sQ0FBQyxRQUFRLENBQUMsUUFBUSxDQUFDLFFBQVEsQ0FBQyxDQUFDLENBQUMsQ0FBQztvQkFDbEQsT0FBTyxDQUFDLEdBQUcsQ0FBQyxPQUFPLElBQUksQ0FBQyxJQUFJLFNBQVMsSUFBSSxDQUFDLEtBQUssRUFBRSxDQUFDLENBQUM7aUJBQ3REO2FBQ0o7UUFDTCxDQUFDLEVBQ0QsQ0FBQyxLQUFhLEVBQUUsRUFBRTtZQUNkLE9BQU8sQ0FBQyxLQUFLLENBQUMsd0JBQXdCLEtBQUssRUFBRSxDQUFDLENBQUM7UUFDbkQsQ0FBQyxDQUNKLENBQUM7SUFDTixDQUFDO0lBRU8sS0FBSztRQUNULElBQUksa0JBQWtCLENBQUMsVUFBVSxLQUFLLElBQUksSUFBSSxrQkFBa0IsQ0FBQyxVQUFVLEtBQUssSUFBSSxFQUFFO1lBQ2xGLHdCQUFVLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxVQUFVLENBQUMsQ0FBQztTQUN2QzthQUFNO1lBQ0gsa0JBQWtCLENBQUMsVUFBVSxHQUFHLElBQUksQ0FBQztTQUN4QztJQUNMLENBQUM7O0FBaERMLHFDQWlEQztBQS9DRyxjQUFjO0FBQ0MsNkJBQVUsR0FBdUIsSUFBSSxDQUFDIn0=\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/LeaderboardManager.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"mscorlib\",\"name\":\"leaderboardId\",\"type\":\"System.String\",\"isArray\":false,\"initValue\":[\"8768c315-7244-4abc-acdf-2460cd7e8a3a\"],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"LeaderboardManager\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: d829640fb01989f698fbdc36c61bf230
+  onlyWriteTrigger: 0

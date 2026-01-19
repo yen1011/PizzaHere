@@ -24,53 +24,69 @@ ScriptedImporter:
   wrapperOutputDirectory: Generated
   compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
     \\\"__esModule\\\", { value: true });\\r\\nconst ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst
-    UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nconst DeliveryManager_1 =
-    require(\\\"./DeliveryManager\\\");\\r\\nconst GameTimer_1 = require(\\\"./GameTimer\\\");\\r\\nconst
-    GameStartUI_1 = require(\\\"./GameStartUI\\\");\\r\\n/**\\r\\n * Game Over Result
-    UI\\r\\n * - Displays when the timer ends\\r\\n * - Shows delivery count and
-    score\\r\\n * - Fetches data from DeliveryManager\\r\\n */\\r\\nclass ResultUI
-    extends ZEPETO_Script_1.ZepetoScriptBehaviour {\\r\\n    /* ===== Unity Lifecycle
-    ===== */\\r\\n    Start() {\\r\\n        console.log('[ResultUI] Start initializing...');\\r\\n       
-    // Find DeliveryManager\\r\\n        this.deliveryManager = DeliveryManager_1.default.instance;\\r\\n       
-    if (!this.deliveryManager) {\\r\\n            console.error('[ResultUI] DeliveryManager
-    not found!');\\r\\n        }\\r\\n        else {\\r\\n            console.log('[ResultUI]
-    DeliveryManager found.');\\r\\n        }\\r\\n        // Find GameTimer\\r\\n       
-    this.gameTimer = GameTimer_1.default.instance;\\r\\n        if (!this.gameTimer)
-    {\\r\\n            console.warn('[ResultUI] GameTimer not found!');\\r\\n       
-    }\\r\\n        else {\\r\\n            console.log('[ResultUI] GameTimer found.');\\r\\n       
+    UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nconst TMPro_1 = require(\\\"TMPro\\\");\\r\\nconst
+    DeliveryManager_1 = require(\\\"./DeliveryManager\\\");\\r\\nconst GameTimer_1
+    = require(\\\"./GameTimer\\\");\\r\\nconst GameStartUI_1 = require(\\\"./GameStartUI\\\");\\r\\nconst
+    LeaderboardManager_1 = require(\\\"./LeaderboardManager\\\");\\r\\nconst LeaderboardUI_1
+    = require(\\\"./LeaderboardUI\\\");\\r\\n/**\\r\\n * Game Over Result UI\\r\\n
+    * - Displays when the timer ends\\r\\n * - Shows delivery count and score\\r\\n
+    * - Fetches data from DeliveryManager\\r\\n */\\r\\nclass ResultUI extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\\r\\n    /* ===== Unity Lifecycle ===== */\\r\\n    Start() {\\r\\n       
+    console.log('[ResultUI] Start initializing...');\\r\\n        // Find DeliveryManager\\r\\n       
+    this.deliveryManager = DeliveryManager_1.default.instance;\\r\\n        if (!this.deliveryManager)
+    {\\r\\n            console.error('[ResultUI] DeliveryManager not found!');\\r\\n       
+    }\\r\\n        else {\\r\\n            console.log('[ResultUI] DeliveryManager
+    found.');\\r\\n        }\\r\\n        // Find GameTimer\\r\\n        this.gameTimer
+    = GameTimer_1.default.instance;\\r\\n        if (!this.gameTimer) {\\r\\n           
+    console.warn('[ResultUI] GameTimer not found!');\\r\\n        }\\r\\n       
+    else {\\r\\n            console.log('[ResultUI] GameTimer found.');\\r\\n       
     }\\r\\n        // Find GameStartUI\\r\\n        this.gameStartUI = GameStartUI_1.default.instance;\\r\\n       
     if (!this.gameStartUI) {\\r\\n            console.warn('[ResultUI] GameStartUI
     not found!');\\r\\n        }\\r\\n        else {\\r\\n            console.log('[ResultUI]
-    GameStartUI found.');\\r\\n        }\\r\\n        // Add listener for the restart
-    button\\r\\n        if (this.restartButton) {\\r\\n            this.restartButton.onClick.AddListener(()
+    GameStartUI found.');\\r\\n        }\\r\\n        // Find LeaderboardManager\\r\\n       
+    this.leaderboardManager = LeaderboardManager_1.default.instance;\\r\\n       
+    if (!this.leaderboardManager) {\\r\\n            console.warn('[ResultUI] LeaderboardManager
+    not found!');\\r\\n        }\\r\\n        else {\\r\\n            console.log('[ResultUI]
+    LeaderboardManager found.');\\r\\n        }\\r\\n        // Find LeaderboardUI\\r\\n       
+    this.leaderboardUI = LeaderboardUI_1.default.instance;\\r\\n        if (!this.leaderboardUI)
+    {\\r\\n            console.warn('[ResultUI] LeaderboardUI not found!');\\r\\n       
+    }\\r\\n        else {\\r\\n            console.log('[ResultUI] LeaderboardUI
+    found.');\\r\\n        }\\r\\n        // Add listener for the restart button\\r\\n       
+    if (this.restartButton) {\\r\\n            this.restartButton.onClick.AddListener(()
     => this.OnRestartButtonClicked());\\r\\n            console.log('[ResultUI] Restart
     button event listener added.');\\r\\n        }\\r\\n        else {\\r\\n           
     console.warn('[ResultUI] restartButton is null! Assign it in the Inspector.');\\r\\n       
-    }\\r\\n        // Initial state: Hide Result panel\\r\\n        this.HideResult();\\r\\n       
-    console.log('[ResultUI] Initialization complete.');\\r\\n    }\\r\\n    /* =====
-    Result UI Display ===== */\\r\\n    /**\\r\\n     * Show the Result panel and
-    update data\\r\\n     */\\r\\n    ShowResult() {\\r\\n        console.log('[ResultUI]
-    ShowResult() called!');\\r\\n        if (!this.deliveryManager) {\\r\\n           
-    console.error('[ResultUI] DeliveryManager is missing!');\\r\\n            return;\\r\\n       
-    }\\r\\n        // Get data from DeliveryManager\\r\\n        const totalDeliveries
-    = this.deliveryManager.totalDeliveries;\\r\\n        const totalScore = this.deliveryManager.score;\\r\\n       
-    console.log(`[ResultUI] Displaying Result - Deliveries: ${totalDeliveries}, Score:
-    ${totalScore}`);\\r\\n        // \uBAA8\uB4E0 \uAC8C\uC784 \uAE30\uB2A5 \uBE44\uD65C\uC131\uD654\\r\\n       
-    this.DisableGameFunctions();\\r\\n        // Update UI\\r\\n        this.UpdateResultUI(totalDeliveries,
-    totalScore);\\r\\n        // Show Result panel\\r\\n        if (this.resultPanel)
-    {\\r\\n            this.resultPanel.SetActive(true);\\r\\n            console.log('[ResultUI]
-    Result panel activated.');\\r\\n        }\\r\\n        else {\\r\\n           
-    console.error('[ResultUI] resultPanel is null! Assign it in the Inspector.');\\r\\n       
-    }\\r\\n    }\\r\\n    /**\\r\\n     * Update Result UI text (Modified section)\\r\\n    
-    */\\r\\n    UpdateResultUI(deliveries, score) {\\r\\n        // Update delivery
-    count text\\r\\n        if (this.deliveryCountText) {\\r\\n            // Changed:
-    Added \\\"Deliveries: \\\" prefix\\r\\n            this.deliveryCountText.text
-    = `Deliveries: ${deliveries}`;\\r\\n            console.log(`[ResultUI] Delivery
-    count text: ${this.deliveryCountText.text}`);\\r\\n        }\\r\\n        else
-    {\\r\\n            console.warn('[ResultUI] deliveryCountText is null!');\\r\\n       
+    }\\r\\n        // Add listener for the leaderboard button\\r\\n        if (this.leaderboardButton)
+    {\\r\\n            this.leaderboardButton.onClick.AddListener(() => this.OnLeaderboardButtonClicked());\\r\\n           
+    console.log('[ResultUI] Leaderboard button event listener added.');\\r\\n       
+    }\\r\\n        else {\\r\\n            console.warn('[ResultUI] leaderboardButton
+    is null! Assign it in the Inspector.');\\r\\n        }\\r\\n        // Initial
+    state: Hide Result panel\\r\\n        this.HideResult();\\r\\n        console.log('[ResultUI]
+    Initialization complete.');\\r\\n    }\\r\\n    /* ===== Result UI Display =====
+    */\\r\\n    /**\\r\\n     * Show the Result panel and update data\\r\\n     */\\r\\n   
+    ShowResult() {\\r\\n        console.log('[ResultUI] ShowResult() called!');\\r\\n       
+    if (!this.deliveryManager) {\\r\\n            console.error('[ResultUI] DeliveryManager
+    is missing!');\\r\\n            return;\\r\\n        }\\r\\n        // Get data
+    from DeliveryManager\\r\\n        const totalDeliveries = this.deliveryManager.totalDeliveries;\\r\\n       
+    const totalScore = this.deliveryManager.score;\\r\\n        console.log(`[ResultUI]
+    Displaying Result - Deliveries: ${totalDeliveries}, Score: ${totalScore}`);\\r\\n       
+    // \uBAA8\uB4E0 \uAC8C\uC784 \uAE30\uB2A5 \uBE44\uD65C\uC131\uD654\\r\\n       
+    this.DisableGameFunctions();\\r\\n        // \uB9AC\uB354\uBCF4\uB4DC\uC5D0 \uC810\uC218
+    \uC81C\uCD9C\\r\\n        this.SubmitScoreToLeaderboard(totalScore);\\r\\n       
+    // Update UI\\r\\n        this.UpdateResultUI(totalDeliveries, totalScore);\\r\\n       
+    // Show Result panel\\r\\n        if (this.resultPanel) {\\r\\n            this.resultPanel.SetActive(true);\\r\\n           
+    console.log('[ResultUI] Result panel activated.');\\r\\n        }\\r\\n       
+    else {\\r\\n            console.error('[ResultUI] resultPanel is null! Assign
+    it in the Inspector.');\\r\\n        }\\r\\n    }\\r\\n    /**\\r\\n     * Update
+    Result UI text (Modified section)\\r\\n     */\\r\\n    UpdateResultUI(deliveries,
+    score) {\\r\\n        // Update delivery count text\\r\\n        if (this.deliveryCountText)
+    {\\r\\n            // Changed: Added \\\"Deliveries: \\\" prefix\\r\\n           
+    this.deliveryCountText.text = `Deliveries: ${deliveries}`;\\r\\n            console.log(`[ResultUI]
+    Delivery count text: ${this.deliveryCountText.text}`);\\r\\n        }\\r\\n       
+    else {\\r\\n            console.warn('[ResultUI] deliveryCountText is null!');\\r\\n       
     }\\r\\n        // Update score text\\r\\n        if (this.scoreText) {\\r\\n           
     // Changed: Added \\\"Profit: \\\" prefix (from \\\"\uC218\uC775:\\\")\\r\\n           
-    this.scoreText.text = `Profit: ${score}`;\\r\\n            console.log(`[ResultUI]
+    this.scoreText.text = `Profit: \u20A9 ${score}`;\\r\\n            console.log(`[ResultUI]
     Score text: ${this.scoreText.text}`);\\r\\n        }\\r\\n        else {\\r\\n           
     console.warn('[ResultUI] scoreText is null!');\\r\\n        }\\r\\n        //
     Title text (Optional)\\r\\n        if (this.titleText) {\\r\\n            this.titleText.text
@@ -83,12 +99,24 @@ ScriptedImporter:
     }\\r\\n        return false;\\r\\n    }\\r\\n    /**\\r\\n     * Called when
     the restart button is clicked\\r\\n     */\\r\\n    OnRestartButtonClicked()
     {\\r\\n        console.log('[ResultUI] Restart button clicked!');\\r\\n       
-    this.RestartGame();\\r\\n    }\\r\\n    /**\\r\\n     * Restart the game (Hide
-    Result panel and reset game)\\r\\n     */\\r\\n    RestartGame() {\\r\\n       
-    console.log('[ResultUI] Restarting game...');\\r\\n        // Hide Result panel\\r\\n       
-    this.HideResult();\\r\\n        // Reset DeliveryManager\\r\\n        if (this.deliveryManager)
-    {\\r\\n            this.deliveryManager.ResetGame();\\r\\n            console.log('[ResultUI]
-    DeliveryManager reset.');\\r\\n        }\\r\\n        // \uAC8C\uC784 UI \uD45C\uC2DC\\r\\n       
+    this.RestartGame();\\r\\n    }\\r\\n    /**\\r\\n     * Called when the leaderboard
+    button is clicked\\r\\n     */\\r\\n    OnLeaderboardButtonClicked() {\\r\\n       
+    console.log(\\\"[ResultUI] Leaderboard button clicked!\\\");\\r\\n        //
+    1. \uACB0\uACFC\uCC3D\uC744 \uC228\uAE41\uB2C8\uB2E4.\\r\\n        this.HideResult();\\r\\n       
+    // 2. \uC2F1\uAE00\uD1A4 \uC778\uC2A4\uD134\uC2A4\uB97C \uD1B5\uD574 \uB9AC\uB354\uBCF4\uB4DC\uB97C
+    \uC9C1\uC811 \uD638\uCD9C\uD569\uB2C8\uB2E4. (\uAC00\uC7A5 \uD655\uC2E4\uD55C
+    \uBC29\uBC95)\\r\\n        if (LeaderboardUI_1.default.instance) {\\r\\n           
+    console.log(\\\"[ResultUI] LeaderboardUI \uC778\uC2A4\uD134\uC2A4 \uBC1C\uACAC!
+    ShowLeaderboard \uD638\uCD9C\\\");\\r\\n            LeaderboardUI_1.default.instance.ShowLeaderboard();\\r\\n       
+    }\\r\\n        else {\\r\\n            console.error(\\\"[ResultUI] LeaderboardUI
+    \uC778\uC2A4\uD134\uC2A4\uB97C \uCC3E\uC744 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4!
+    \uC2A4\uD06C\uB9BD\uD2B8\uAC00 \uC52C\uC5D0 \uC788\uB294\uC9C0 \uD655\uC778\uD558\uC138\uC694.\\\");\\r\\n       
+    }\\r\\n    }\\r\\n    /**\\r\\n     * Restart the game (Hide Result panel and
+    reset game)\\r\\n     */\\r\\n    RestartGame() {\\r\\n        console.log('[ResultUI]
+    Restarting game...');\\r\\n        // Hide Result panel\\r\\n        this.HideResult();\\r\\n       
+    // Reset DeliveryManager\\r\\n        if (this.deliveryManager) {\\r\\n           
+    this.deliveryManager.ResetGame();\\r\\n            console.log('[ResultUI] DeliveryManager
+    reset.');\\r\\n        }\\r\\n        // \uAC8C\uC784 UI \uD45C\uC2DC\\r\\n       
     if (this.gameStartUI) {\\r\\n            this.gameStartUI.ShowGameUI();\\r\\n           
     console.log('[ResultUI] Game UI shown.');\\r\\n        }\\r\\n        // GameTimer
     \uB9AC\uC14B \uBC0F \uBC14\uB85C \uC2DC\uC791\\r\\n        if (this.gameTimer)
@@ -100,18 +128,28 @@ ScriptedImporter:
     {\\r\\n        console.log('[ResultUI] Disabling all game functions...');\\r\\n       
     // \uBAA8\uB4E0 \uAC8C\uC784 UI \uC228\uAE40\\r\\n        if (this.gameStartUI)
     {\\r\\n            this.gameStartUI.HideGameUI();\\r\\n        }\\r\\n       
-    console.log('[ResultUI] All game functions disabled.');\\r\\n    }\\r\\n    static
-    get instance() {\\r\\n        if (this.m_instance === null) {\\r\\n           
-    this.m_instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(ResultUI));\\r\\n       
+    console.log('[ResultUI] All game functions disabled.');\\r\\n    }\\r\\n    /**\\r\\n    
+    * \uB9AC\uB354\uBCF4\uB4DC\uC5D0 \uC810\uC218 \uC81C\uCD9C (\uC218\uC815\uB41C
+    \uC139\uC158: \uC778\uC790 \uAC1C\uC218 \uC870\uC815)\\r\\n     */\\r\\n    SubmitScoreToLeaderboard(score)
+    {\\r\\n        if (!this.leaderboardManager) {\\r\\n            console.warn('[ResultUI]
+    LeaderboardManager\uB97C \uCC3E\uC744 \uC218 \uC5C6\uC5B4 \uC810\uC218\uB97C
+    \uC81C\uCD9C\uD558\uC9C0 \uBABB\uD588\uC2B5\uB2C8\uB2E4.');\\r\\n           
+    return;\\r\\n        }\\r\\n        console.log(`[ResultUI] \uB9AC\uB354\uBCF4\uB4DC\uC5D0
+    \uC810\uC218 \uC81C\uCD9C \uC2DC\uB3C4: ${score}`);\\r\\n        // \uC218\uC815:
+    LeaderboardManager\uC758 SetScore \uD615\uC2DD(\uC778\uC790 1\uAC1C)\uC5D0 \uB9DE\uCDB0
+    \uD638\uCD9C\uD569\uB2C8\uB2E4.\\r\\n        this.leaderboardManager.SetScore(score);\\r\\n   
+    }\\r\\n    static get instance() {\\r\\n        if (this.m_instance === null)
+    {\\r\\n            this.m_instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(ResultUI));\\r\\n       
     }\\r\\n        return this.m_instance;\\r\\n    }\\r\\n    Awake() {\\r\\n       
     // Singleton setup\\r\\n        if (ResultUI.m_instance !== null && ResultUI.m_instance
     !== this) {\\r\\n            UnityEngine_1.GameObject.Destroy(this.gameObject);\\r\\n       
     }\\r\\n        else {\\r\\n            ResultUI.m_instance = this;\\r\\n       
     }\\r\\n    }\\r\\n    OnDestroy() {\\r\\n        // Clean up button events\\r\\n       
     if (this.restartButton) {\\r\\n            this.restartButton.onClick.RemoveAllListeners();\\r\\n       
+    }\\r\\n        if (this.leaderboardButton) {\\r\\n            this.leaderboardButton.onClick.RemoveAllListeners();\\r\\n       
     }\\r\\n        // Clean up singleton instance\\r\\n        if (ResultUI.m_instance
     === this) {\\r\\n            ResultUI.m_instance = null;\\r\\n        }\\r\\n   
     }\\r\\n}\\r\\nexports.default = ResultUI;\\r\\n/* ===== Singleton (Optional)
-    ===== */\\r\\nResultUI.m_instance = null;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUmVzdWx0VUkuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJSZXN1bHRVSS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGlEQUFzRDtBQUN0RCw2Q0FBeUM7QUFHekMsdURBQWdEO0FBQ2hELDJDQUFvQztBQUNwQywrQ0FBd0M7QUFFeEM7Ozs7O0dBS0c7QUFDSCxNQUFxQixRQUFTLFNBQVEscUNBQXFCO0lBeUJ2RCxpQ0FBaUM7SUFDekIsS0FBSztRQUNULE9BQU8sQ0FBQyxHQUFHLENBQUMsa0NBQWtDLENBQUMsQ0FBQztRQUVoRCx1QkFBdUI7UUFDdkIsSUFBSSxDQUFDLGVBQWUsR0FBRyx5QkFBZSxDQUFDLFFBQVEsQ0FBQztRQUNoRCxJQUFJLENBQUMsSUFBSSxDQUFDLGVBQWUsRUFBRTtZQUN2QixPQUFPLENBQUMsS0FBSyxDQUFDLHVDQUF1QyxDQUFDLENBQUM7U0FDMUQ7YUFBTTtZQUNILE9BQU8sQ0FBQyxHQUFHLENBQUMsbUNBQW1DLENBQUMsQ0FBQztTQUNwRDtRQUVELGlCQUFpQjtRQUNqQixJQUFJLENBQUMsU0FBUyxHQUFHLG1CQUFTLENBQUMsUUFBUSxDQUFDO1FBQ3BDLElBQUksQ0FBQyxJQUFJLENBQUMsU0FBUyxFQUFFO1lBQ2pCLE9BQU8sQ0FBQyxJQUFJLENBQUMsaUNBQWlDLENBQUMsQ0FBQztTQUNuRDthQUFNO1lBQ0gsT0FBTyxDQUFDLEdBQUcsQ0FBQyw2QkFBNkIsQ0FBQyxDQUFDO1NBQzlDO1FBRUQsbUJBQW1CO1FBQ25CLElBQUksQ0FBQyxXQUFXLEdBQUcscUJBQVcsQ0FBQyxRQUFRLENBQUM7UUFDeEMsSUFBSSxDQUFDLElBQUksQ0FBQyxXQUFXLEVBQUU7WUFDbkIsT0FBTyxDQUFDLElBQUksQ0FBQyxtQ0FBbUMsQ0FBQyxDQUFDO1NBQ3JEO2FBQU07WUFDSCxPQUFPLENBQUMsR0FBRyxDQUFDLCtCQUErQixDQUFDLENBQUM7U0FDaEQ7UUFFRCxzQ0FBc0M7UUFDdEMsSUFBSSxJQUFJLENBQUMs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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/ResultUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"resultPanel\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"deliveryCountText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"scoreText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"titleText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"restartButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]}],\"name\":\"ResultUI\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
-  typescriptHash: a42ca8f96f3efe51b5daddf1ddbf23a4
+    ===== */\\r\\nResultUI.m_instance = null;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUmVzdWx0VUkuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJSZXN1bHRVSS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGlEQUFzRDtBQUN0RCw2Q0FBeUM7QUFDekMsaUNBQXdDO0FBRXhDLHVEQUFnRDtBQUNoRCwyQ0FBb0M7QUFDcEMsK0NBQXdDO0FBQ3hDLDZEQUFzRDtBQUN0RCxtREFBNEM7QUFFNUM7Ozs7O0dBS0c7QUFDSCxNQUFxQixRQUFTLFNBQVEscUNBQXFCO0lBZ0N2RCxpQ0FBaUM7SUFDekIsS0FBSztRQUNULE9BQU8sQ0FBQyxHQUFHLENBQUMsa0NBQWtDLENBQUMsQ0FBQztRQUVoRCx1QkFBdUI7UUFDdkIsSUFBSSxDQUFDLGVBQWUsR0FBRyx5QkFBZSxDQUFDLFFBQVEsQ0FBQztRQUNoRCxJQUFJLENBQUMsSUFBSSxDQUFDLGVBQWUsRUFBRTtZQUN2QixPQUFPLENBQUMsS0FBSyxDQUFDLHVDQUF1QyxDQUFDLENBQUM7U0FDMUQ7YUFBTTtZQUNILE9BQU8sQ0FBQyxHQUFHLENBQUMsbUNBQW1DLENBQUMsQ0FBQztTQUNwRDtRQUVELGlCQUFpQjtRQUNqQixJQUFJLENBQUMsU0FBUyxHQUFHLG1CQUFTLENBQUMsUUFBUSxDQUFDO1FBQ3BDLElBQUksQ0FBQyxJQUFJLENBQUMsU0FBUyxFQUFFO1lBQ2pCLE9BQU8sQ0FBQyxJQUFJLENBQUMsaUNBQWlDLENBQUMsQ0FBQztTQUNuRDthQUFNO1lBQ0gsT0FBTyxDQUFDLEdBQUcsQ0FBQyw2QkFBNkIsQ0FBQyxDQUFDO1NBQzlDO1FBRUQsbUJBQW1CO1FBQ25CLElBQUksQ0FBQyxXQUFXLEdBQUcscUJBQVcsQ0FBQyxRQUFRLENBQUM7UUFDeEMsSUFBSSxDQUFDLElBQUksQ0FBQyxXQUFXLEVBQUU7WUFDbkIsT0FBTyxDQUFDLElBQUksQ0FBQyxtQ0FBbUMsQ0FBQyxDQUFDO1NBQ3JEO2FBQU07WUFDSCxPQUFPLENBQUMsR0FBRyxDQUFDLCtCQUErQixDQUFDLENBQUM7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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/ResultUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"resultPanel\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"deliveryCountText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"scoreText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"titleText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"restartButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"leaderboardButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"leaderboardPanel\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]}],\"name\":\"ResultUI\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: ebcf4a183f9a4aaf795af1be84008a28
   onlyWriteTrigger: 0

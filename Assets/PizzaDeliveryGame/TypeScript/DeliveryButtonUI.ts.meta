@@ -30,30 +30,45 @@ ScriptedImporter:
     \uD074\uB9AD \uC2DC \uBC30\uB2EC \uC2E4\uD589\\r\\n * - \uC2F1\uAE00\uD1A4 \uD328\uD134
     (\uD654\uBA74\uC5D0 \uD558\uB098\uB9CC)\\r\\n */\\r\\nclass DeliveryButtonUI
     extends ZEPETO_Script_1.ZepetoScriptBehaviour {\\r\\n    constructor() {\\r\\n       
-    super(...arguments);\\r\\n        /* ===== Private \uBCC0\uC218 ===== */\\r\\n       
+    super(...arguments);\\r\\n        this.soundVolume = 1.0; // \uD6A8\uACFC\uC74C
+    \uBCFC\uB968 (0.0 ~ 1.0)\\r\\n        /* ===== Private \uBCC0\uC218 ===== */\\r\\n       
     this.currentDeliveryAction = null;\\r\\n    }\\r\\n    /* ===== Unity Lifecycle
     ===== */\\r\\n    Awake() {\\r\\n        // \uC2F1\uAE00\uD1A4 \uC124\uC815\\r\\n       
     if (DeliveryButtonUI.m_instance !== null && DeliveryButtonUI.m_instance !== this)
     {\\r\\n            UnityEngine_1.GameObject.Destroy(this.gameObject);\\r\\n       
     }\\r\\n        else {\\r\\n            DeliveryButtonUI.m_instance = this;\\r\\n       
-    }\\r\\n    }\\r\\n    Start() {\\r\\n        // \uCD08\uAE30 \uC0C1\uD0DC: \uBC84\uD2BC
-    \uC228\uAE40\\r\\n        this.HideButton();\\r\\n        // \uBC84\uD2BC \uD074\uB9AD
-    \uC774\uBCA4\uD2B8 \uB4F1\uB85D\\r\\n        if (this.deliveryButton) {\\r\\n           
-    this.deliveryButton.onClick.AddListener(() => this.OnButtonClicked());\\r\\n       
-    }\\r\\n        console.log('[DeliveryButtonUI] \uCD08\uAE30\uD654 \uC644\uB8CC');\\r\\n   
-    }\\r\\n    OnDestroy() {\\r\\n        // \uC774\uBCA4\uD2B8 \uD574\uC81C\\r\\n       
-    if (this.deliveryButton) {\\r\\n            this.deliveryButton.onClick.RemoveAllListeners();\\r\\n       
-    }\\r\\n        // \uC2F1\uAE00\uD1A4 \uC778\uC2A4\uD134\uC2A4 \uC815\uB9AC\\r\\n       
-    if (DeliveryButtonUI.m_instance === this) {\\r\\n            DeliveryButtonUI.m_instance
-    = null;\\r\\n        }\\r\\n    }\\r\\n    /* ===== \uBC84\uD2BC \uAD00\uB9AC
-    \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n     * \uBC30\uB2EC \uBC84\uD2BC
-    \uD45C\uC2DC \uBC0F \uCF5C\uBC31 \uB4F1\uB85D\\r\\n     * @param deliveryAction
-    \uBC84\uD2BC \uD074\uB9AD \uC2DC \uC2E4\uD589\uD560 \uBC30\uB2EC \uD568\uC218\\r\\n    
-    */\\r\\n    ShowDeliveryButton(deliveryAction) {\\r\\n        // \uBC30\uB2EC
-    \uC561\uC158 \uC800\uC7A5\\r\\n        this.currentDeliveryAction = deliveryAction;\\r\\n       
-    // \uBC84\uD2BC \uD45C\uC2DC\\r\\n        if (this.buttonObject) {\\r\\n           
-    this.buttonObject.SetActive(true);\\r\\n        }\\r\\n        else if (this.deliveryButton)
-    {\\r\\n            this.deliveryButton.gameObject.SetActive(true);\\r\\n       
+    }\\r\\n    }\\r\\n    Start() {\\r\\n        // AudioSource \uCEF4\uD3EC\uB10C\uD2B8
+    \uCD94\uAC00 \uB610\uB294 \uAC00\uC838\uC624\uAE30\\r\\n        this.audioSource
+    = this.GetComponent($typeof(UnityEngine_1.AudioSource));\\r\\n        if (!this.audioSource)
+    {\\r\\n            this.audioSource = this.gameObject.AddComponent($typeof(UnityEngine_1.AudioSource));\\r\\n       
+    }\\r\\n        this.audioSource.playOnAwake = false;\\r\\n        this.audioSource.volume
+    = this.soundVolume;\\r\\n        // \uD6A8\uACFC\uC74C \uB85C\uB4DC (Inspector\uC5D0\uC11C
+    \uD560\uB2F9\uB418\uC9C0 \uC54A\uC740 \uACBD\uC6B0)\\r\\n        if (!this.clickSound)
+    {\\r\\n            this.LoadClickSound();\\r\\n        }\\r\\n        // \uCD08\uAE30
+    \uC0C1\uD0DC: \uBC84\uD2BC \uC228\uAE40\\r\\n        this.HideButton();\\r\\n       
+    // \uBC84\uD2BC \uD074\uB9AD \uC774\uBCA4\uD2B8 \uB4F1\uB85D\\r\\n        if
+    (this.deliveryButton) {\\r\\n            this.deliveryButton.onClick.AddListener(()
+    => this.OnButtonClicked());\\r\\n        }\\r\\n        console.log('[DeliveryButtonUI]
+    \uCD08\uAE30\uD654 \uC644\uB8CC');\\r\\n    }\\r\\n    /**\\r\\n     * \uD6A8\uACFC\uC74C
+    \uD30C\uC77C \uB85C\uB4DC (Resources \uD3F4\uB354 \uB610\uB294 \uC9C1\uC811 \uAC80\uC0C9)\\r\\n    
+    */\\r\\n    LoadClickSound() {\\r\\n        // AudioSource \uCEF4\uD3EC\uB10C\uD2B8\uC5D0\uC11C
+    \uAC00\uC838\uC624\uAE30 (Inspector\uC5D0 \uD560\uB2F9\uB41C \uACBD\uC6B0)\\r\\n       
+    const audioSource = this.GetComponent($typeof(UnityEngine_1.AudioSource));\\r\\n       
+    if (audioSource && audioSource.clip) {\\r\\n            this.clickSound = audioSource.clip;\\r\\n           
+    console.log('[DeliveryButtonUI] AudioSource\uC5D0\uC11C \uD6A8\uACFC\uC74C \uB85C\uB4DC:
+    ' + this.clickSound.name);\\r\\n        }\\r\\n    }\\r\\n    OnDestroy() {\\r\\n       
+    // \uC774\uBCA4\uD2B8 \uD574\uC81C\\r\\n        if (this.deliveryButton) {\\r\\n           
+    this.deliveryButton.onClick.RemoveAllListeners();\\r\\n        }\\r\\n       
+    // \uC2F1\uAE00\uD1A4 \uC778\uC2A4\uD134\uC2A4 \uC815\uB9AC\\r\\n        if (DeliveryButtonUI.m_instance
+    === this) {\\r\\n            DeliveryButtonUI.m_instance = null;\\r\\n       
+    }\\r\\n    }\\r\\n    /* ===== \uBC84\uD2BC \uAD00\uB9AC \uBA54\uC11C\uB4DC =====
+    */\\r\\n    /**\\r\\n     * \uBC30\uB2EC \uBC84\uD2BC \uD45C\uC2DC \uBC0F \uCF5C\uBC31
+    \uB4F1\uB85D\\r\\n     * @param deliveryAction \uBC84\uD2BC \uD074\uB9AD \uC2DC
+    \uC2E4\uD589\uD560 \uBC30\uB2EC \uD568\uC218\\r\\n     */\\r\\n    ShowDeliveryButton(deliveryAction)
+    {\\r\\n        // \uBC30\uB2EC \uC561\uC158 \uC800\uC7A5\\r\\n        this.currentDeliveryAction
+    = deliveryAction;\\r\\n        // \uBC84\uD2BC \uD45C\uC2DC\\r\\n        if (this.buttonObject)
+    {\\r\\n            this.buttonObject.SetActive(true);\\r\\n        }\\r\\n       
+    else if (this.deliveryButton) {\\r\\n            this.deliveryButton.gameObject.SetActive(true);\\r\\n       
     }\\r\\n        console.log('[DeliveryButtonUI] \uBC30\uB2EC \uBC84\uD2BC \uD45C\uC2DC');\\r\\n   
     }\\r\\n    /**\\r\\n     * \uBC30\uB2EC \uBC84\uD2BC \uC228\uAE40\\r\\n     */\\r\\n   
     HideButton() {\\r\\n        // \uBC30\uB2EC \uC561\uC158 \uCD08\uAE30\uD654\\r\\n       
@@ -68,22 +83,33 @@ ScriptedImporter:
     }\\r\\n        return false;\\r\\n    }\\r\\n    /* ===== \uBC84\uD2BC \uC774\uBCA4\uD2B8
     ===== */\\r\\n    /**\\r\\n     * \uBC30\uB2EC \uBC84\uD2BC \uD074\uB9AD \uC2DC
     \uD638\uCD9C\\r\\n     */\\r\\n    OnButtonClicked() {\\r\\n        console.log('[DeliveryButtonUI]
-    \uBC30\uB2EC \uBC84\uD2BC \uD074\uB9AD!');\\r\\n        // \uB4F1\uB85D\uB41C
+    \uBC30\uB2EC \uBC84\uD2BC \uD074\uB9AD!');\\r\\n        // \uD6A8\uACFC\uC74C
+    \uC7AC\uC0DD\\r\\n        this.PlayClickSound();\\r\\n        // \uB4F1\uB85D\uB41C
     \uBC30\uB2EC \uC561\uC158 \uC2E4\uD589\\r\\n        if (this.currentDeliveryAction)
     {\\r\\n            this.currentDeliveryAction();\\r\\n        }\\r\\n       
     else {\\r\\n            console.warn('[DeliveryButtonUI] \uBC30\uB2EC \uC561\uC158\uC774
     \uB4F1\uB85D\uB418\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uB2E4!');\\r\\n        }\\r\\n   
-    }\\r\\n    /* ===== Public \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n    
+    }\\r\\n    /**\\r\\n     * \uD074\uB9AD \uD6A8\uACFC\uC74C \uC7AC\uC0DD\\r\\n    
+    */\\r\\n    PlayClickSound() {\\r\\n        if (this.clickSound && this.audioSource)
+    {\\r\\n            this.audioSource.PlayOneShot(this.clickSound, this.soundVolume);\\r\\n           
+    console.log('[DeliveryButtonUI] \uD074\uB9AD \uD6A8\uACFC\uC74C \uC7AC\uC0DD');\\r\\n       
+    }\\r\\n    }\\r\\n    /* ===== Public \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n    
     * \uBC84\uD2BC \uD65C\uC131\uD654/\uBE44\uD65C\uC131\uD654\\r\\n     */\\r\\n   
     SetButtonInteractable(interactable) {\\r\\n        if (this.deliveryButton) {\\r\\n           
     this.deliveryButton.interactable = interactable;\\r\\n        }\\r\\n    }\\r\\n   
     /**\\r\\n     * \uBC84\uD2BC \uD14D\uC2A4\uD2B8 \uBCC0\uACBD (TextMeshPro \uC0AC\uC6A9
     \uC2DC)\\r\\n     */\\r\\n    SetButtonText(text) {\\r\\n        if (this.buttonText)
     {\\r\\n            this.buttonText.text = text;\\r\\n        }\\r\\n    }\\r\\n   
-    static get instance() {\\r\\n        if (this.m_instance === null) {\\r\\n           
-    this.m_instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(DeliveryButtonUI));\\r\\n       
+    /**\\r\\n     * \uD6A8\uACFC\uC74C \uBCFC\uB968 \uC124\uC815\\r\\n     */\\r\\n   
+    SetSoundVolume(volume) {\\r\\n        this.soundVolume = Math.max(0, Math.min(1,
+    volume)); // 0~1 \uC0AC\uC774\uB85C \uC81C\uD55C\\r\\n        if (this.audioSource)
+    {\\r\\n            this.audioSource.volume = this.soundVolume;\\r\\n        }\\r\\n   
+    }\\r\\n    /**\\r\\n     * \uD6A8\uACFC\uC74C \uD074\uB9BD \uBCC0\uACBD\\r\\n    
+    */\\r\\n    SetClickSound(sound) {\\r\\n        this.clickSound = sound;\\r\\n   
+    }\\r\\n    static get instance() {\\r\\n        if (this.m_instance === null)
+    {\\r\\n            this.m_instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(DeliveryButtonUI));\\r\\n       
     }\\r\\n        return this.m_instance;\\r\\n    }\\r\\n}\\r\\nexports.default
     = DeliveryButtonUI;\\r\\n/* ===== Singleton (\uC120\uD0DD\uC0AC\uD56D) =====
-    */\\r\\nDeliveryButtonUI.m_instance = null;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRGVsaXZlcnlCdXR0b25VSS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIkRlbGl2ZXJ5QnV0dG9uVUkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxpREFBc0Q7QUFDdEQsNkNBQXlDO0FBSXpDOzs7OztHQUtHO0FBQ0gsTUFBcUIsZ0JBQWlCLFNBQVEscUNBQXFCO0lBQW5FOztRQVlJLDRCQUE0QjtRQUNwQiwwQkFBcUIsR0FBZSxJQUFJLENBQUM7SUFrSXJELENBQUM7SUFoSUcsaUNBQWlDO0lBQ3pCLEtBQUs7UUFDVCxTQUFTO1FBQ1QsSUFBSSxnQkFBZ0IsQ0FBQyxVQUFVLEtBQUssSUFBSSxJQUFJLGdCQUFnQixDQUFDLFVBQVUsS0FBSyxJQUFJLEVBQUU7WUFDOUUsd0JBQVUsQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLFVBQVUsQ0FBQyxDQUFDO1NBQ3ZDO2FBQU07WUFDSCxnQkFBZ0IsQ0FBQyxVQUFVLEdBQUcsSUFBSSxDQUFDO1NBQ3RDO0lBQ0wsQ0FBQztJQUVPLEtBQUs7UUFDVCxlQUFlO1FBQ2YsSUFBSSxDQUFDLFVBQVUsRUFBRSxDQUFDO1FBRWxCLGVBQWU7UUFDZixJQUFJLElBQUksQ0FBQyxjQUFjLEVBQUU7WUFDckIsSUFBSSxDQUFDLGNBQWMsQ0FBQyxPQUFPLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRSxDQUFDLElBQUksQ0FBQyxlQUFlLEVBQUUsQ0FBQyxDQUFDO1NBQ3pFO1FBRUQsT0FBTyxDQUFDLEdBQUcsQ0FBQywyQkFBMkIsQ0FBQyxDQUFDO0lBQzdDLENBQUM7SUFFTyxTQUFTO1FBQ2IsU0FBUztRQUNULElBQUksSUFBSSxDQUFDLGNBQWMsRUFBRTtZQUNyQixJQUFJLENBQUMsY0FBYyxDQUFDLE9BQU8sQ0FBQyxrQkFBa0IsRUFBRSxDQUFDO1NBQ3BEO1FBRUQsY0FBYztRQUNkLElBQUksZ0JBQWdCLENBQUMsVUFBVSxLQUFLLElBQUksRUFBRTtZQUN0QyxnQkFBZ0IsQ0FBQyxVQUFVLEdBQUcs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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/DeliveryButtonUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.UI\",\"name\":\"deliveryButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"buttonObject\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"buttonText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]}],\"name\":\"DeliveryButtonUI\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
-  typescriptHash: 
+    */\\r\\nDeliveryButtonUI.m_instance = null;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRGVsaXZlcnlCdXR0b25VSS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIkRlbGl2ZXJ5QnV0dG9uVUkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxpREFBc0Q7QUFDdEQsNkNBQWlFO0FBSWpFOzs7OztHQUtHO0FBQ0gsTUFBcUIsZ0JBQWlCLFNBQVEscUNBQXFCO0lBQW5FOztRQWlCWSxnQkFBVyxHQUFXLEdBQUcsQ0FBQyxDQUFDLHFCQUFxQjtRQUV4RCw0QkFBNEI7UUFDcEIsMEJBQXFCLEdBQWUsSUFBSSxDQUFDO0lBMExyRCxDQUFDO0lBdkxHLGlDQUFpQztJQUN6QixLQUFLO1FBQ1QsU0FBUztRQUNULElBQUksZ0JBQWdCLENBQUMsVUFBVSxLQUFLLElBQUksSUFBSSxnQkFBZ0IsQ0FBQyxVQUFVLEtBQUssSUFBSSxFQUFFO1lBQzlFLHdCQUFVLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxVQUFVLENBQUMsQ0FBQztTQUN2QzthQUFNO1lBQ0gsZ0JBQWdCLENBQUMsVUFBVSxHQUFHLElBQUksQ0FBQztTQUN0QztJQUNMLENBQUM7SUFFTyxLQUFLO1FBQ1QsOEJBQThCO1FBQzlCLElBQUksQ0FBQyxXQUFXLEdBQUcsSUFBSSxDQUFDLFlBQVksU0FBQyx5QkFBVyxFQUFHLENBQUM7UUFDcEQsSUFBSSxDQUFDLElBQUksQ0FBQyxXQUFXLEVBQUU7WUFDbkIsSUFBSSxDQUFDLFdBQVcsR0FBRyxJQUFJLENBQUMsVUFBVSxDQUFDLFlBQVksU0FBQyx5QkFBVyxFQUFHLENBQUM7U0FDbEU7UUFDRCxJQUFJLENBQUMsV0FBVyxDQUFDLFdBQVcsR0FBRyxLQUFLLENBQUM7UUFDckMsSUFBSSxDQUFDLFdBQVcsQ0FBQyxNQUFNLEdBQUcsSUFBSSxDQUFDLFdBQVcsQ0FBQztRQUUzQyxrQ0FBa0M7UUFDbEMsSUFBSSxDQUFDLElBQUksQ0FBQyxVQUFVLEVBQUU7WUFDbEIsSUFBSSxDQUFDLGNBQWMsRUFBRSxDQUFDO1NBQ3pCO1FBRUQs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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/DeliveryButtonUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.UI\",\"name\":\"deliveryButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"buttonObject\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"buttonText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"UnityEngine.AudioModule\",\"name\":\"clickSound\",\"type\":\"UnityEngine.AudioClip\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"mscorlib\",\"name\":\"soundVolume\",\"type\":\"System.Single\",\"isArray\":false,\"initValue\":[\"1\"],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]}],\"name\":\"DeliveryButtonUI\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: bc9df7ba2ff7a3e8d25ad3b02ed1c534
   onlyWriteTrigger: 0

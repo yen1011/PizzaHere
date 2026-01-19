@@ -37,6 +37,8 @@ export default class ResultUI extends ZepetoScriptBehaviour {
     @SerializeField()
     private leaderboardButton: Button; // Leaderboard button
 
+    @SerializeField() private leaderboardPanel: GameObject;
+
     /* ===== Private Variables ===== */
     private deliveryManager: DeliveryManager;
     private gameTimer: GameTimer;
@@ -207,13 +209,18 @@ export default class ResultUI extends ZepetoScriptBehaviour {
     /**
      * Called when the leaderboard button is clicked
      */
-    private OnLeaderboardButtonClicked(): void {
-        console.log('[ResultUI] Leaderboard button clicked!');
+    private OnLeaderboardButtonClicked() {
+        console.log("[ResultUI] Leaderboard button clicked!");
+        
+        // 1. 결과창을 숨깁니다.
+        this.HideResult(); 
 
-        if (this.leaderboardUI) {
-            this.leaderboardUI.ShowLeaderboard();
+        // 2. 싱글톤 인스턴스를 통해 리더보드를 직접 호출합니다. (가장 확실한 방법)
+        if (LeaderboardUI.instance) {
+            console.log("[ResultUI] LeaderboardUI 인스턴스 발견! ShowLeaderboard 호출");
+            LeaderboardUI.instance.ShowLeaderboard();
         } else {
-            console.error('[ResultUI] LeaderboardUI not found!');
+            console.error("[ResultUI] LeaderboardUI 인스턴스를 찾을 수 없습니다! 스크립트가 씬에 있는지 확인하세요.");
         }
     }
 
@@ -263,25 +270,18 @@ export default class ResultUI extends ZepetoScriptBehaviour {
     }
 
     /**
-     * 리더보드에 점수 제출
+     * 리더보드에 점수 제출 (수정된 섹션: 인자 개수 조정)
      */
     private SubmitScoreToLeaderboard(score: number): void {
         if (!this.leaderboardManager) {
-            console.warn('[ResultUI] LeaderboardManager not found. Score not submitted.');
+            console.warn('[ResultUI] LeaderboardManager를 찾을 수 없어 점수를 제출하지 못했습니다.');
             return;
         }
 
-        console.log(`[ResultUI] Submitting score to leaderboard: ${score}`);
+        console.log(`[ResultUI] 리더보드에 점수 제출 시도: ${score}`);
 
-        this.leaderboardManager.SetScore(
-            score,
-            () => {
-                console.log('[ResultUI] Score submitted successfully!');
-            },
-            (error) => {
-                console.error(`[ResultUI] Failed to submit score: ${error}`);
-            }
-        );
+        // 수정: LeaderboardManager의 SetScore 형식(인자 1개)에 맞춰 호출합니다.
+        this.leaderboardManager.SetScore(score);
     }
 
     /* ===== Singleton (Optional) ===== */

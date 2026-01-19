@@ -38,11 +38,11 @@ ScriptedImporter:
     }\\r\\n        else {\\r\\n            RefillButtonUI.m_instance = this;\\r\\n       
     }\\r\\n    }\\r\\n    Start() {\\r\\n        // \uCD08\uAE30 \uC0C1\uD0DC: \uBC84\uD2BC
     \uC228\uAE40\\r\\n        this.HideButton();\\r\\n        // \uBC84\uD2BC \uD074\uB9AD
-    \uC774\uBCA4\uD2B8 \uB4F1\uB85D\\r\\n        if (this.refillButton) {\\r\\n           
-    this.refillButton.onClick.AddListener(() => this.OnButtonClicked());\\r\\n       
+    \uC774\uBCA4\uD2B8 \uB4F1\uB85D\\r\\n        if (this.refillButton && this.refillButton
+    != null) {\\r\\n            this.refillButton.onClick.AddListener(() => this.OnButtonClicked());\\r\\n       
     }\\r\\n        console.log('[RefillButtonUI] \uCD08\uAE30\uD654 \uC644\uB8CC');\\r\\n   
     }\\r\\n    OnDestroy() {\\r\\n        // \uC774\uBCA4\uD2B8 \uD574\uC81C\\r\\n       
-    if (this.refillButton) {\\r\\n            this.refillButton.onClick.RemoveAllListeners();\\r\\n       
+    if (this.refillButton && this.refillButton != null) {\\r\\n            this.refillButton.onClick.RemoveAllListeners();\\r\\n       
     }\\r\\n        // \uC2F1\uAE00\uD1A4 \uC778\uC2A4\uD134\uC2A4 \uC815\uB9AC\\r\\n       
     if (RefillButtonUI.m_instance === this) {\\r\\n            RefillButtonUI.m_instance
     = null;\\r\\n        }\\r\\n    }\\r\\n    /* ===== \uBC84\uD2BC \uAD00\uB9AC
@@ -50,22 +50,31 @@ ScriptedImporter:
     \uBC84\uD2BC \uD45C\uC2DC \uBC0F \uCF5C\uBC31 \uB4F1\uB85D\\r\\n     * @param
     refillAction \uBC84\uD2BC \uD074\uB9AD \uC2DC \uC2E4\uD589\uD560 \uC7AC\uACE0
     \uBCF4\uCDA9 \uD568\uC218\\r\\n     */\\r\\n    ShowRefillButton(refillAction)
-    {\\r\\n        // \uC7AC\uACE0 \uBCF4\uCDA9 \uC561\uC158 \uC800\uC7A5\\r\\n       
-    this.currentRefillAction = refillAction;\\r\\n        // \uBC84\uD2BC \uD45C\uC2DC\\r\\n       
-    if (this.buttonObject) {\\r\\n            this.buttonObject.SetActive(true);\\r\\n       
-    }\\r\\n        else if (this.refillButton) {\\r\\n            this.refillButton.gameObject.SetActive(true);\\r\\n       
-    }\\r\\n        console.log('[RefillButtonUI] \uC7AC\uACE0 \uBCF4\uCDA9 \uBC84\uD2BC
-    \uD45C\uC2DC');\\r\\n    }\\r\\n    /**\\r\\n     * \uC7AC\uACE0 \uBCF4\uCDA9
-    \uBC84\uD2BC \uC228\uAE40\\r\\n     */\\r\\n    HideButton() {\\r\\n        //
-    \uC7AC\uACE0 \uBCF4\uCDA9 \uC561\uC158 \uCD08\uAE30\uD654\\r\\n        this.currentRefillAction
-    = null;\\r\\n        // \uBC84\uD2BC \uC228\uAE40\\r\\n        if (this.buttonObject)
-    {\\r\\n            this.buttonObject.SetActive(false);\\r\\n        }\\r\\n       
-    else if (this.refillButton) {\\r\\n            this.refillButton.gameObject.SetActive(false);\\r\\n       
-    }\\r\\n        console.log('[RefillButtonUI] \uC7AC\uACE0 \uBCF4\uCDA9 \uBC84\uD2BC
-    \uC228\uAE40');\\r\\n    }\\r\\n    /**\\r\\n     * \uBC84\uD2BC\uC774 \uD45C\uC2DC
-    \uC911\uC778\uC9C0 \uD655\uC778\\r\\n     */\\r\\n    IsVisible() {\\r\\n       
-    if (this.buttonObject) {\\r\\n            return this.buttonObject.activeSelf;\\r\\n       
-    }\\r\\n        else if (this.refillButton) {\\r\\n            return this.refillButton.gameObject.activeSelf;\\r\\n       
+    {\\r\\n        try {\\r\\n            // \uC7AC\uACE0 \uBCF4\uCDA9 \uC561\uC158
+    \uC800\uC7A5\\r\\n            this.currentRefillAction = refillAction;\\r\\n           
+    // \uBC84\uD2BC \uD45C\uC2DC\\r\\n            if (this.buttonObject) {\\r\\n               
+    this.buttonObject.SetActive(true);\\r\\n            }\\r\\n            else if
+    (this.refillButton && this.refillButton.gameObject) {\\r\\n                this.refillButton.gameObject.SetActive(true);\\r\\n           
+    }\\r\\n            console.log('[RefillButtonUI] \uC7AC\uACE0 \uBCF4\uCDA9 \uBC84\uD2BC
+    \uD45C\uC2DC');\\r\\n        }\\r\\n        catch (e) {\\r\\n            // GameObject\uAC00
+    \uD30C\uAD34\uB41C \uACBD\uC6B0 \uBB34\uC2DC\\r\\n        }\\r\\n    }\\r\\n   
+    /**\\r\\n     * \uC7AC\uACE0 \uBCF4\uCDA9 \uBC84\uD2BC \uC228\uAE40\\r\\n    
+    */\\r\\n    HideButton() {\\r\\n        try {\\r\\n            // \uC7AC\uACE0
+    \uBCF4\uCDA9 \uC561\uC158 \uCD08\uAE30\uD654\\r\\n            this.currentRefillAction
+    = null;\\r\\n            // \uBC84\uD2BC \uC228\uAE40\\r\\n            if (this.buttonObject)
+    {\\r\\n                this.buttonObject.SetActive(false);\\r\\n            }\\r\\n           
+    else if (this.refillButton && this.refillButton.gameObject) {\\r\\n               
+    this.refillButton.gameObject.SetActive(false);\\r\\n            }\\r\\n           
+    console.log('[RefillButtonUI] \uC7AC\uACE0 \uBCF4\uCDA9 \uBC84\uD2BC \uC228\uAE40');\\r\\n       
+    }\\r\\n        catch (e) {\\r\\n            // GameObject\uAC00 \uD30C\uAD34\uB41C
+    \uACBD\uC6B0 \uBB34\uC2DC\\r\\n        }\\r\\n    }\\r\\n    /**\\r\\n     *
+    \uBC84\uD2BC\uC774 \uD45C\uC2DC \uC911\uC778\uC9C0 \uD655\uC778\\r\\n     */\\r\\n   
+    IsVisible() {\\r\\n        try {\\r\\n            // GameObject\uAC00 \uD30C\uAD34\uB418\uC5C8\uB294\uC9C0
+    \uD655\uC778\\r\\n            if (this.buttonObject) {\\r\\n                return
+    this.buttonObject.activeSelf;\\r\\n            }\\r\\n            else if (this.refillButton
+    && this.refillButton.gameObject) {\\r\\n                return this.refillButton.gameObject.activeSelf;\\r\\n           
+    }\\r\\n        }\\r\\n        catch (e) {\\r\\n            // GameObject\uAC00
+    \uD30C\uAD34\uB41C \uACBD\uC6B0 \uBB34\uC2DC\\r\\n            return false;\\r\\n       
     }\\r\\n        return false;\\r\\n    }\\r\\n    /* ===== \uBC84\uD2BC \uC774\uBCA4\uD2B8
     ===== */\\r\\n    /**\\r\\n     * \uC7AC\uACE0 \uBCF4\uCDA9 \uBC84\uD2BC \uD074\uB9AD
     \uC2DC \uD638\uCD9C\\r\\n     */\\r\\n    OnButtonClicked() {\\r\\n        console.log('[RefillButtonUI]
@@ -76,15 +85,15 @@ ScriptedImporter:
     \uB4F1\uB85D\uB418\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uB2E4!');\\r\\n        }\\r\\n   
     }\\r\\n    /* ===== Public \uBA54\uC11C\uB4DC ===== */\\r\\n    /**\\r\\n    
     * \uBC84\uD2BC \uD65C\uC131\uD654/\uBE44\uD65C\uC131\uD654\\r\\n     */\\r\\n   
-    SetButtonInteractable(interactable) {\\r\\n        if (this.refillButton) {\\r\\n           
-    this.refillButton.interactable = interactable;\\r\\n        }\\r\\n    }\\r\\n   
-    /**\\r\\n     * \uBC84\uD2BC \uD14D\uC2A4\uD2B8 \uBCC0\uACBD (TextMeshPro \uC0AC\uC6A9
-    \uC2DC)\\r\\n     */\\r\\n    SetButtonText(text) {\\r\\n        if (this.buttonText)
-    {\\r\\n            this.buttonText.text = text;\\r\\n        }\\r\\n    }\\r\\n   
-    static get instance() {\\r\\n        if (this.m_instance === null) {\\r\\n           
-    this.m_instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(RefillButtonUI));\\r\\n       
+    SetButtonInteractable(interactable) {\\r\\n        if (this.refillButton && this.refillButton
+    != null) {\\r\\n            this.refillButton.interactable = interactable;\\r\\n       
+    }\\r\\n    }\\r\\n    /**\\r\\n     * \uBC84\uD2BC \uD14D\uC2A4\uD2B8 \uBCC0\uACBD
+    (TextMeshPro \uC0AC\uC6A9 \uC2DC)\\r\\n     */\\r\\n    SetButtonText(text) {\\r\\n       
+    if (this.buttonText && this.buttonText != null) {\\r\\n            this.buttonText.text
+    = text;\\r\\n        }\\r\\n    }\\r\\n    static get instance() {\\r\\n       
+    if (this.m_instance === null) {\\r\\n            this.m_instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(RefillButtonUI));\\r\\n       
     }\\r\\n        return this.m_instance;\\r\\n    }\\r\\n}\\r\\nexports.default
     = RefillButtonUI;\\r\\n/* ===== Singleton ===== */\\r\\nRefillButtonUI.m_instance
-    = null;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUmVmaWxsQnV0dG9uVUkuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJSZWZpbGxCdXR0b25VSS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGlEQUFzRDtBQUN0RCw2Q0FBeUM7QUFJekM7Ozs7O0dBS0c7QUFDSCxNQUFxQixjQUFlLFNBQVEscUNBQXFCO0lBQWpFOztRQVlJLDRCQUE0QjtRQUNwQix3QkFBbUIsR0FBZSxJQUFJLENBQUM7SUFrSW5ELENBQUM7SUFoSUcsaUNBQWlDO0lBQ3pCLEtBQUs7UUFDVCxTQUFTO1FBQ1QsSUFBSSxjQUFjLENBQUMsVUFBVSxLQUFLLElBQUksSUFBSSxjQUFjLENBQUMsVUFBVSxLQUFLLElBQUksRUFBRTtZQUMxRSx3QkFBVSxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsVUFBVSxDQUFDLENBQUM7U0FDdkM7YUFBTTtZQUNILGNBQWMsQ0FBQyxVQUFVLEdBQUcsSUFBSSxDQUFDO1NBQ3BDO0lBQ0wsQ0FBQztJQUVPLEtBQUs7UUFDVCxlQUFlO1FBQ2YsSUFBSSxDQUFDLFVBQVUsRUFBRSxDQUFDO1FBRWxCLGVBQWU7UUFDZixJQUFJLElBQUksQ0FBQyxZQUFZLEVBQUU7WUFDbkIsSUFBSSxDQUFDLFlBQVksQ0FBQyxPQUFPLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRSxDQUFDLElBQUksQ0FBQyxlQUFlLEVBQUUsQ0FBQyxDQUFDO1NBQ3ZFO1FBRUQsT0FBTyxDQUFDLEdBQUcsQ0FBQyx5QkFBeUIsQ0FBQyxDQUFDO0lBQzNDLENBQUM7SUFFTyxTQUFTO1FBQ2IsU0FBUztRQUNULElBQUksSUFBSSxDQUFDLFlBQVksRUFBRTtZQUNuQixJQUFJLENBQUMsWUFBWSxDQUFDLE9BQU8sQ0FBQyxrQkFBa0IsRUFBRSxDQUFDO1NBQ2xEO1FBRUQsY0FBYztRQUNkLElBQUksY0FBYyxDQUFDLFVBQVUsS0FBSyxJQUFJLEVBQUU7WUFDcEMsY0FBYyxDQUFDLFVBQVUsR0FBRyxJQUFJLENBQUM7U0FDcEM7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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/RefillButtonUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.UI\",\"name\":\"refillButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"buttonObject\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"buttonText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]}],\"name\":\"RefillButtonUI\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
-  typescriptHash: 0eb7c9373e5d836d8073440d83edbf1a
+    = null;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUmVmaWxsQnV0dG9uVUkuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJSZWZpbGxCdXR0b25VSS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGlEQUFzRDtBQUN0RCw2Q0FBeUM7QUFJekM7Ozs7O0dBS0c7QUFDSCxNQUFxQixjQUFlLFNBQVEscUNBQXFCO0lBQWpFOztRQVlJLDRCQUE0QjtRQUNwQix3QkFBbUIsR0FBZSxJQUFJLENBQUM7SUFnSm5ELENBQUM7SUE5SUcsaUNBQWlDO0lBQ3pCLEtBQUs7UUFDVCxTQUFTO1FBQ1QsSUFBSSxjQUFjLENBQUMsVUFBVSxLQUFLLElBQUksSUFBSSxjQUFjLENBQUMsVUFBVSxLQUFLLElBQUksRUFBRTtZQUMxRSx3QkFBVSxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsVUFBVSxDQUFDLENBQUM7U0FDdkM7YUFBTTtZQUNILGNBQWMsQ0FBQyxVQUFVLEdBQUcsSUFBSSxDQUFDO1NBQ3BDO0lBQ0wsQ0FBQztJQUVPLEtBQUs7UUFDVCxlQUFlO1FBQ2YsSUFBSSxDQUFDLFVBQVUsRUFBRSxDQUFDO1FBRWxCLGVBQWU7UUFDZixJQUFJLElBQUksQ0FBQyxZQUFZLElBQUksSUFBSSxDQUFDLFlBQVksSUFBSSxJQUFJLEVBQUU7WUFDaEQsSUFBSSxDQUFDLFlBQVksQ0FBQyxPQUFPLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRSxDQUFDLElBQUksQ0FBQyxlQUFlLEVBQUUsQ0FBQyxDQUFDO1NBQ3ZFO1FBRUQsT0FBTyxDQUFDLEdBQUcsQ0FBQyx5QkFBeUIsQ0FBQyxDQUFDO0lBQzNDLENBQUM7SUFFTyxTQUFTO1FBQ2IsU0FBUztRQUNULElBQUksSUFBSSxDQUFDLFlBQVksSUFBSSxJQUFJLENBQUMsWUFBWSxJQUFJLElBQUksRUFBRTtZQUNoRCxJQUFJLENBQUMsWUFBWSxDQUFDLE9BQU8sQ0FBQyxrQkFBa0IsRUFBRSxDQUFDO1NBQ2xEO1FBRUQsY0FBYztRQUNkLElBQUksY0FBYyxDQUFDLFVB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\",\"assetPath\":\"Assets/PizzaDeliveryGame/TypeScript/RefillButtonUI.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.UI\",\"name\":\"refillButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"buttonObject\",\"type\":\"UnityEngine.GameObject\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]},{\"assembly\":\"Unity.TextMeshPro\",\"name\":\"buttonText\",\"type\":\"TMPro.TextMeshProUGUI\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[{\"name\":\"SerializeField\",\"args\":[]}]}],\"name\":\"RefillButtonUI\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: acea1e7ea23d02b839c943e8aad9077d
   onlyWriteTrigger: 0

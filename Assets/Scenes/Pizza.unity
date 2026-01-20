@@ -5235,30 +5235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &154421722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12047,30 +12023,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!4 &366368410 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1208793003501927399, guid: 8cd26bb31c1ce4b17a1ddcd6c75f8604, type: 3}
@@ -12279,30 +12231,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &376686432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12403,7 +12331,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -15, y: -85.13287}
+  m_AnchoredPosition: {x: -72, y: -85.13287}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &376833746
@@ -12497,7 +12425,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -73.76996, y: 0, z: 0, w: 0}
+  m_margin: {x: -73.76996, y: 0, z: -109.709755, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -20445,30 +20373,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &601964769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21517,30 +21421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &649491428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22041,7 +21921,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5103261362721983345, guid: 65153dfb15b6c4c99b04dbb8e6f3e79e, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.39
+      value: 0.5766667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277175157174539542, guid: 65153dfb15b6c4c99b04dbb8e6f3e79e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5322117991649218316, guid: 65153dfb15b6c4c99b04dbb8e6f3e79e, type: 3}
       propertyPath: m_Type
@@ -22074,6 +21958,10 @@ PrefabInstance:
     - target: {fileID: 6071811747559290279, guid: 65153dfb15b6c4c99b04dbb8e6f3e79e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 235.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071811747559290279, guid: 65153dfb15b6c4c99b04dbb8e6f3e79e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 144
       objectReference: {fileID: 0}
     - target: {fileID: 6071811747559290279, guid: 65153dfb15b6c4c99b04dbb8e6f3e79e, type: 3}
       propertyPath: m_LocalScale.x
@@ -22381,30 +22269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &678288331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23780,30 +23644,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &722144260
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36902,30 +36742,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1048682876
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45010,30 +44826,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1296373429
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45647,30 +45439,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1317564314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46930,30 +46698,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1342727547
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52686,30 +52430,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1526486499
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53072,30 +52792,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1537083921
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55338,19 +55034,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150db7df4ada5405c8a38f3db49b4eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textDisplay: {fileID: 0}
-  bubbleContainer: {fileID: 0}
-  positionMode: 0
-  customSpawnPoint: {fileID: 0}
-  offset: {x: 0, y: 2.5, z: 0}
-  forwardOffset: 5
-  alwaysFaceCamera: 1
-  showByDefault: 1
-  uiScale: 0.02
-  canvasSize: {x: 400, y: 200}
-  canvas: {fileID: 0}
-  mainCamera: {fileID: 0}
-  targetTransform: {fileID: 0}
 --- !u!223 &1602463467
 Canvas:
   m_ObjectHideFlags: 0
@@ -57093,14 +56776,14 @@ RectTransform:
   m_GameObject: {fileID: 1663228280}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5038, y: 6.261071, z: 1.5038}
+  m_LocalScale: {x: 1.3841727, y: 5.763003, z: 1.3841727}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 602591474}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -345, y: 75}
+  m_AnchoredPosition: {x: -345, y: 127}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1663228282
@@ -58299,30 +57982,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1690997482
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59117,30 +58776,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1707591036
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59534,30 +59169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1719269275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61107,30 +60718,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1746373711
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63005,30 +62592,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1793570208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66199,30 +65762,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1868659266
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66703,30 +66242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1888494833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67610,30 +67125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1 &1907447081 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 142486, guid: fa1f7e3bec326074c8e0ba873be41681, type: 3}
@@ -67651,30 +67142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1907689546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68855,30 +68322,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &1947741546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69084,30 +68527,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1 &1964403716 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 197962, guid: 6d7985f8534d19e4b8c5bc52a92a075a, type: 3}
@@ -73225,30 +72644,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &2098999004
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74408,30 +73803,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd94a9e1716a4b208f00f25ec7633a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasActiveOrder: 0
-  currentOrder:
-    pizzaAmount: 0
-    spaghettiAmount: 0
-    colaAmount: 0
-  minOrderInterval: 10
-  maxOrderInterval: 30
-  deliverKey: 101
-  deliveryRange: 3
-  autoDeliverOnEnter: 0
-  orderUI: {fileID: 0}
-  autoFindButtonUI: 1
-  deliveryButtonUI: {fileID: 0}
-  OnOrderGenerated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  OnOrderCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  playerStock: {fileID: 0}
-  playerInRange: 0
-  nextOrderTime: 0
 --- !u!1001 &2123916041
 PrefabInstance:
   m_ObjectHideFlags: 0
